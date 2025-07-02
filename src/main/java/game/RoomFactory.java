@@ -5,16 +5,17 @@ import rooms.*;
 public class RoomFactory {
     public static Room createRoom(String name) {
         return switch (name) {
-            case "Main Entrance Hall" -> new MainEntranceRoom();
-            case "Music Room" -> new MusicRoom();
-            case "Printer Room" -> new PrinterRoom();
-            case "Secretary" -> new Secretary();
-            case "Cafeteria" -> new Cafeteria();
-            case "Garage" -> new Garage();
-            case "ITRoom" -> new ITRoom();
-            case "Sportshall" -> new Sportshall();
-            case "Chemistry Room" -> new ChemistryRoom();
-            case "Electricity Room" -> new ElectricityRoom();
+            case "main entrance hall" -> new MainEntranceRoom();
+            case "music room" -> new MusicRoom();
+            case "printer room" -> new PrinterRoom();
+            case "secretary" -> new Secretary();
+            case "cafeteria" -> new Cafeteria();
+            case "garage" -> new Garage();
+            case "it room" -> new ITRoom();
+            case "sportshall" -> new Sportshall();
+            case "chemistry room" -> new ChemistryRoom();
+            case "electricity room" -> new ElectricityRoom();
+            case "teacher room" -> new TeacherRoom();
             default -> throw new IllegalArgumentException("Unknown room " + name);
         };
     }

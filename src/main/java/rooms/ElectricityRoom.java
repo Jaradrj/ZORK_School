@@ -9,7 +9,7 @@ public class ElectricityRoom implements Room {
 
     @Override
     public String getName() {
-        return "Electricity Room";
+        return "electricity room";
     }
 
     @Override
@@ -114,9 +114,9 @@ public class ElectricityRoom implements Room {
     public Map<String, Exit> getAvailableExits(Player player) {
         Map<String, Exit> exits = new HashMap<>();
         if (player.hasFlag("found_trash_id")) {
-            exits.put("secretary", new Exit("enter_secretary", null));
+            exits.put("secretary", new Exit("secretary", null));
         }
-        exits.put("it", new Exit("enter_it", null));
+        exits.put("it room", new Exit("it room", null));
         return exits;
     }
 
@@ -126,7 +126,7 @@ public class ElectricityRoom implements Room {
         if (exits.containsKey(roomName)) {
             Room targetRoom = RoomFactory.createRoom(roomName);
             player.setCurrentRoom(targetRoom);
-            return "You entered the " + roomName + ".";
+            return "";
         } else {
             return "There is no room called '" + roomName + "' here.";
         }

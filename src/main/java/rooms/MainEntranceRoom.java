@@ -8,7 +8,7 @@ public class MainEntranceRoom implements Room {
 
     @Override
     public String getName() {
-        return "Main Entrance Hall";
+        return "main entrance hall";
     }
 
     @Override
@@ -90,10 +90,11 @@ public class MainEntranceRoom implements Room {
             return "You don't know where to go yet. Find a map first.";
         }
         Map<String, Exit> exits = getAvailableExits(player);
-        if (exits.containsKey(roomName.toLowerCase())) {
+        String roomKey = roomName.toLowerCase();
+        if (exits.containsKey(roomKey)) {
             Room targetRoom = RoomFactory.createRoom(roomName);
             player.setCurrentRoom(targetRoom);
-            return "You enter the " + roomName + ".";
+            return "";
         } else {
             return "There's no room called '" + roomName + "'.";
         }
@@ -103,9 +104,9 @@ public class MainEntranceRoom implements Room {
     public Map<String, Exit> getAvailableExits(Player player) {
         Map<String, Exit> exits = new HashMap<>();
         if (player.hasFlag("half_map_taken")) {
-            exits.put("music room", new Exit("Music Room", null));
-            exits.put("teacher room", new Exit("Teacher Room", null));
-            exits.put("it room", new Exit("IT Room", null));
+            exits.put("music room", new Exit("music room", null));
+            exits.put("teacher room", new Exit("teacher room", null));
+            exits.put("it room", new Exit("it Room", null));
         }
         return exits;
     }

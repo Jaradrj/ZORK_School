@@ -8,7 +8,7 @@ public class Secretary implements Room {
 
     @Override
     public String getName() {
-        return "Secretary";
+        return "secretary";
     }
 
     @Override
@@ -56,7 +56,7 @@ public class Secretary implements Room {
         if (exits.containsKey(roomName.toLowerCase())) {
             Room targetRoom = RoomFactory.createRoom(roomName);
             player.setCurrentRoom(targetRoom);
-            return "You enter the " + roomName + ".";
+            return "";
         } else {
             return "There is no room called '" + roomName + "' here.";
         }
@@ -65,10 +65,10 @@ public class Secretary implements Room {
     @Override
     public Map<String, Exit> getAvailableExits(Player player) {
         Map<String, Exit> exits = new HashMap<>();
-        exits.put("teacher room", new Exit("Teacher Room", null));
+        exits.put("teacher room", new Exit("teacher room", null));
         if (player.hasFlag("full_map_taken")) {
-            exits.put("chemistry room", new Exit("Chemistry Room", null));
-            exits.put("sportshall", new Exit("Sportshall", null));
+            exits.put("chemistry room", new Exit("chemistry room", null));
+            exits.put("sportshall", new Exit("sportshall", null));
         }
         return exits;
     }
