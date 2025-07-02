@@ -14,9 +14,21 @@ public class GameController {
     }
 
     public void run() {
+        Scanner scanner = new Scanner(System.in);
         printStart();
         player.setCurrentRoom(startRoom);
         startRoom.enter(player);
+
+        while (true) {
+            Room currentRoom = player.getCurrentRoom();
+            currentRoom.enter(player);
+
+            System.out.print("> ");
+            String input = scanner.nextLine();
+
+            String result = currentRoom.performAction(player, input);
+            System.out.println(result);
+        }
     }
 
     public void printStart() {
