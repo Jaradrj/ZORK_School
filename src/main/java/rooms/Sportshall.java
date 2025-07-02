@@ -2,7 +2,7 @@ package rooms;
 
 import game.Player;
 import game.Room;
-
+import game.Exit;
 import java.util.HashMap;
 import java.util.Map;
 

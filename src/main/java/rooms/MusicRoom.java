@@ -4,6 +4,7 @@ import game.Player;
 import game.Room;
 import java.util.HashMap;
 import java.util.Map;
+import game.Exit;
 
 public class MusicRoom implements Room {
 
