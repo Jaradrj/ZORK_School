@@ -13,9 +13,12 @@ public class MainEntranceRoom implements Room {
 
     @Override
     public void enter(Player player) {
-        System.out.println("You enter the Main Entrance Hall.");
-        System.out.println("Your story starts in the main building. There’s not much to find here. You take a look around and notice a few objects. Although it's pretty dark, you can still make out some tables, the school's dull pinboard, a light switch, and chairs—some of which have been knocked over.");
-        System.out.println("What do you want to do?");
+        if(!player.hasFlag("was_main")) {
+            player.setFlag("was_main");
+            System.out.println("You enter the Main Entrance Hall.");
+            System.out.println("Your story starts in the main building. There’s not much to find here. You take a look around and notice a few objects. Although it's pretty dark, you can still make out some tables, the school's dull pinboard, a light switch, and chairs—some of which have been knocked over.");
+            System.out.println("What do you want to do?");
+        }
         System.out.println("Actions:");
         System.out.println("- Turn on the Light");
         System.out.println("- Sit Down at a Table");

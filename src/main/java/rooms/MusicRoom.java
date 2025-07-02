@@ -14,9 +14,11 @@ public class MusicRoom implements Room {
 
     @Override
     public void enter(Player player) {
-        System.out.println("You enter the Music Room.");
-        System.out.println("There's only a tiny bit of light reflecting on the drums in the back of the rotten wooden stage. The music stands are all in one row, creepy.\nSome notes were left behind. Suddenly, you notice a cracked sound, almost impossible to notice. You try to identity the source and see a cassette next to the violin, which is part of the instrument collection.");
-
+        if(!player.hasFlag("was_music")) {
+            player.setFlag("was_music");
+            System.out.println("You enter the Music Room.");
+            System.out.println("There's only a tiny bit of light reflecting on the drums in the back of the rotten wooden stage. The music stands are all in one row, creepy.\nSome notes were left behind. Suddenly, you notice a cracked sound, almost impossible to notice. You try to identity the source and see a cassette next to the violin, which is part of the instrument collection.");
+        }
         System.out.println("Actions:");
 
         System.out.println("- Check out Instruments");

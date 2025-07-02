@@ -15,10 +15,13 @@ public class ChemistryRoom implements Room {
 
     @Override
     public void enter(Player player) {
-        System.out.println("You enter the Chemistry Room.");
+        if(player.hasFlag("was_chemistry")) {
+            player.setFlag("was_chemistry");
 
-        System.out.println("Science has never been your favorite subject. But it most definitely is Klara's. This whole room is just full of her awards. It seems like they cover up the yellow walls.\nThe brewing station in the back of the room still has some chemicals opened. What is Scopolamine? I heard of that before...\nWhile trying to remember, your flashlight's battery suddenly dies. Maybe you should try to find a way into the Electricity Room?");
+            System.out.println("You enter the Chemistry Room.");
 
+            System.out.println("Science has never been your favorite subject. But it most definitely is Klara's. This whole room is just full of her awards. It seems like they cover up the yellow walls.\nThe brewing station in the back of the room still has some chemicals opened. What is Scopolamine? I heard of that before...\nWhile trying to remember, your flashlight's battery suddenly dies. Maybe you should try to find a way into the Electricity Room?");
+        }
         System.out.println("Actions:");
         System.out.println("- Look at Periodic Table");
         System.out.println("- Look at Formula Papers");

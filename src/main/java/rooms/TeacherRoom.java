@@ -33,7 +33,10 @@ public class TeacherRoom implements Room {
             System.out.println("- Follow Her");
             System.out.println("- Leave");
         } else {
-            System.out.println("The room is empty. A hot cup sits on the table. A laptop screen glows faintly. Papers are scattered all over the Head Teacher’s desk. Some were also tossed in the trash bin. A science award diploma is proudly displayed. Next to it, you see a Flashlight.");
+            if(!player.hasFlag("was_teacher_room")) {
+                player.setFlag("was_teacher_room");
+                System.out.println("The room is empty. A hot cup sits on the table. A laptop screen glows faintly. Papers are scattered all over the Head Teacher’s desk. Some were also tossed in the trash bin. A science award diploma is proudly displayed. Next to it, you see a Flashlight.");
+            }
             System.out.println("Actions:");
             if (!player.hasFlag("coffee_taken")) System.out.println("- Drink Coffee");
             if (!player.hasFlag("coffee_taken") && !player.hasFlag("read_email")) System.out.println("- Use Laptop");

@@ -14,9 +14,12 @@ public class ITRoom implements Room {
 
     @Override
     public void enter(Player player) {
-        System.out.println("You enter the IT Room.");
+        if(!player.hasFlag("was_it")) {
+            player.setFlag("was_it");
+            System.out.println("You enter the IT Room.");
 
-        System.out.println("The ancient computers, which normally sound like airplane turbines, don't make a single sound. Only one seems to be running, strangely enough.\n It shows a weird message, but I can't decipher it, not from here. Somehow I have the feeling that I'm about to be attacked from behind when I inspect it...");
+            System.out.println("The ancient computers, which normally sound like airplane turbines, don't make a single sound. Only one seems to be running, strangely enough.\n It shows a weird message, but I can't decipher it, not from here. Somehow I have the feeling that I'm about to be attacked from behind when I inspect it...");
+        }
         System.out.println("Actions:");
 
         System.out.println("- Inspect message");
@@ -94,7 +97,6 @@ public class ITRoom implements Room {
             case "call":
             case "call the police":
                 if (player.hasFlag("police_number_taken") && player.hasFlag("turned_on_wlan")) {
-                    player.setFlag("happy_ending");
                     System.out.println("\"You don't hesitate and grab the note with the polices number out of your backpack.");
                     return Endings.happyEnding;
                 } else if (!player.hasFlag("turned_on_wlan")) {

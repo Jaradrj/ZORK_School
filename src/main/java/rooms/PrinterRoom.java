@@ -13,9 +13,11 @@ public class PrinterRoom implements Room {
 
     @Override
     public void enter(Player player) {
-        System.out.println("You enter the Printer Room.");
-        System.out.println("The printer seems to have been used very recently. The exams were already printed.");
-
+        if(!player.hasFlag("was_printer")) {
+            player.setFlag("was_printer");
+            System.out.println("You enter the Printer Room.");
+            System.out.println("The printer seems to have been used very recently. The exams were already printed.");
+        }
         System.out.println("Actions:");
 
         System.out.println("- Look at Chemistry Exam");

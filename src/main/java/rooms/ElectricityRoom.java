@@ -14,8 +14,10 @@ public class ElectricityRoom implements Room {
 
     @Override
     public void enter(Player player) {
-        System.out.println("You enter the Electricity Room");
-        player.setFlag("enter_electricity");
+        if (!player.hasFlag("was_electricity")) {
+            player.setFlag("was_electricity");
+            System.out.println("You enter the Electricity Room");
+        }
         System.out.println("Actions: ");
         System.out.println(" - Open the door\n - Inspect body\n - Enable radiator");
     }
@@ -70,8 +72,8 @@ public class ElectricityRoom implements Room {
     @Override
     public Map<String, Exit> getAvailableExits(Player player) {
         Map<String, Exit> exits = new HashMap<>();
-        if(player.hasFlag("found_trash_id")) {
-        exits.put("secretary", new Exit("enter_secretary", player));
+        if (player.hasFlag("found_trash_id")) {
+            exits.put("secretary", new Exit("enter_secretary", player));
         }
         exits.put("it", new Exit("enter_it", player));
         return exits;

@@ -14,8 +14,11 @@ public class Cafeteria implements Room {
 
     @Override
     public void enter(Player player) {
-        System.out.println("You enter the Cafeteria.");
-        System.out.println("Apart from dirty tables, chairs and leftovers on the food distribution counter, there's not much no find here. Behind the iron door is the kitchen.\nNo wonder we are constantly in the media for our hygiene regulations. About 50% of students have at least had one food poisoning.\nThe only thing shining is a safe. We need a key.");
+        if(!player.hasFlag("was_cafeteria")) {
+            player.setFlag("was_cafeteria");
+            System.out.println("You enter the Cafeteria.");
+            System.out.println("Apart from dirty tables, chairs and leftovers on the food distribution counter, there's not much no find here. Behind the iron door is the kitchen.\nNo wonder we are constantly in the media for our hygiene regulations. About 50% of students have at least had one food poisoning.\nThe only thing shining is a safe. We need a key.");
+        }
         System.out.println("Actions:");
 
         if (player.hasFlag("key_taken")) {

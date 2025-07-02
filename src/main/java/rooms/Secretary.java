@@ -14,9 +14,12 @@ public class Secretary implements Room {
 
     @Override
     public void enter(Player player) {
-        System.out.println("You enter the Secretary.");
-        System.out.println("This is probably the most boring room. There's just one big desk that belongs to the Head Teacher. The desk is unusually clean. Just some sticky notes. Wait!\nThere's a big pinboard. We could use some light here to check it out.");
-            if (player.hasFlag("flashlight_taken")) System.out.println("- Examine the Pinboard");
+        if(!player.hasFlag("was_secretary")) {
+            player.setFlag("was_secretary");
+            System.out.println("You enter the Secretary.");
+            System.out.println("This is probably the most boring room. There's just one big desk that belongs to the Head Teacher. The desk is unusually clean. Just some sticky notes. Wait!\nThere's a big pinboard. We could use some light here to check it out.");
+        }
+        if (player.hasFlag("flashlight_taken") || player.hasFlag("turned_on_power")) System.out.println("- Examine the Pinboard");
             System.out.println("- Leave");
     }
 

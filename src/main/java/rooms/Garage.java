@@ -1,6 +1,7 @@
 package rooms;
 
 import game.*;
+
 import java.util.*;
 
 public class Garage implements Room {
@@ -12,15 +13,18 @@ public class Garage implements Room {
 
     @Override
     public void enter(Player player) {
-        System.out.println("You enter the Garage.");
+        if (!player.hasFlag("was_garage")) {
+            player.setFlag("was_garage");
+            System.out.println("You enter the Garage.");
 
             if (!player.hasFlag("key_taken")) {
                 System.out.println("While watching Mrs. Hamps go to her car, you're hiding behind a big pillar. Suddenly, she stops, tries to grad something from her pocket,\nturns around and is now moving towards you. You manage to keep hidden. It seems that she forgot something. What does she have in that car?");
             }
-            System.out.println("Actions:");
+        }
+        System.out.println("Actions:");
 
-            if (!player.hasFlag("key_taken")) System.out.println("- Break into her car");
-            System.out.println("- Leave");
+        if (!player.hasFlag("key_taken")) System.out.println("- Break into her car");
+        System.out.println("- Leave");
     }
 
     @Override
