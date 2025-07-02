@@ -5,7 +5,7 @@ import rooms.*;
 public class RoomFactory {
     public static Room createRoom(String name) {
         return switch (name) {
-            case "Main Entrance" -> new MainEntranceRoom();
+            case "Main Entrance Hall" -> new MainEntranceRoom();
             case "Music Room" -> new MusicRoom();
             case "Printer Room" -> new PrinterRoom();
             case "Secretary" -> new Secretary();
