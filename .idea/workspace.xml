@@ -4,6 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< Updated upstream
     <list default="true" id="c286cac8-34d1-4cd2-b996-9fb79893a83f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/src/main/java/game/Endings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Endings.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Player.java" afterDir="false" />
@@ -15,6 +16,9 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/rooms/Secretary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/Secretary.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/rooms/Sportshall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/Sportshall.java" afterDir="false" />
     </list>
+=======
+    <list default="true" id="c286cac8-34d1-4cd2-b996-9fb79893a83f" name="Changes" comment="" />
+>>>>>>> Stashed changes
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -70,6 +74,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Gradle.ZORK_School [:Main.main()].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "dev",
     "kotlin-language-version-configured": "true",
