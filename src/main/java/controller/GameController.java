@@ -10,14 +10,13 @@ public class GameController {
 
     public GameController() {
         this.player = new Player();
-        this.startRoom = RoomFactory.createRoom("Main Entrance Hall");
+        this.startRoom = RoomFactory.createRoom("main entrance hall");
     }
 
     public void run() {
         Scanner scanner = new Scanner(System.in);
         printStart();
         player.setCurrentRoom(startRoom);
-        startRoom.enter(player);
 
         while (true) {
             Room currentRoom = player.getCurrentRoom();
@@ -28,6 +27,8 @@ public class GameController {
 
             String result = currentRoom.performAction(player, input);
             System.out.println(result);
+
+            
         }
     }
 
