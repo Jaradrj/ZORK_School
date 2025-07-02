@@ -95,39 +95,8 @@ public class ITRoom implements Room {
             case "call the police":
                 if (player.hasFlag("police_number_taken") && player.hasFlag("turned_on_wlan")) {
                     player.setFlag("happy_ending");
-                    return "You don't hesitate and grab the note with the polices number out of your backpack. You wait for a few seconds, the longest seconds you've ever felt.\nThen, you hear a raspy voice." +
-                            "Police Dispatcher:\n" +
-                            "Emergency services. What’s your location?\n" +
-                            "\n" +
-                            "You (nervously):\n" +
-                            "I’m at the old high school... I’m inside. Please, you have to help me.\n" +
-                            "\n" +
-                            "Police Dispatcher:\n" +
-                            "Calm down. Are you hurt?\n" +
-                            "\n" +
-                            "You:\n" +
-                            "No, but... people are missing. They were. Students. They are gone. I found things - evidence. And I think I know who’s behind it. You need to send someone right now!\n" +
-                            "\n" +
-                            "Police Dispatcher:\n" +
-                            "Slow down. What exactly did you find?\n" +
-                            "\n" +
-                            "Player:\n" +
-                            "Notes. Security footage. A locked room full of... I don’t even know how to describe it. It’s bad. I think a teacher is involved. I barely got out myself.\n" +
-                            "\n" +
-                            "Police Dispatcher:\n" +
-                            "How did you get in there?\n" +
-                            "\n" +
-                            "Player:\n" +
-                            "I was looking for answers. Everyone ignored the missing students, so I went in myself. I got stuck inside. The power was out. I just managed to turn it back on.\n" +
-                            "\n" +
-                            "Police Dispatcher:\n" +
-                            "Alright, listen carefully. Stay where you are. A unit is already being dispatched to your location. Are you in a safe place?\n" +
-                            "\n" +
-                            "Player:\n" +
-                            "I think so. But please, Just... hurry.\n" +
-                            "\n" +
-                            "Police Dispatcher:\n" +
-                            "We’re on our way. Stay on the line if you can. Help is coming.\n\n";
+                    System.out.println("\"You don't hesitate and grab the note with the polices number out of your backpack.");
+                    return Endings.happyEnding;
                 } else if (!player.hasFlag("turned_on_wlan")) {
                     return "You need to turn on the Wlan before making a call";
                 } else if (!player.hasFlag("police_number_taken")) {
