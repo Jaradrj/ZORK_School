@@ -8,7 +8,7 @@ public class Garage implements Room {
 
     @Override
     public String getName() {
-        return "Garage";
+        return "garage";
     }
 
     @Override
@@ -54,7 +54,7 @@ public class Garage implements Room {
         if (exits.containsKey(roomName.toLowerCase())) {
             Room targetRoom = RoomFactory.createRoom(roomName);
             player.setCurrentRoom(targetRoom);
-            return "You enter the " + roomName + ".";
+            return "";
         } else {
             return "There is no room called '" + roomName + "' here.";
         }
@@ -63,7 +63,7 @@ public class Garage implements Room {
     @Override
     public Map<String, Exit> getAvailableExits(Player player) {
         Map<String, Exit> exits = new HashMap<>();
-        exits.put("teacher room", new Exit("Teacher Room", null));
+        exits.put("teacher room", new Exit("teacher room", null));
         return exits;
     }
 }

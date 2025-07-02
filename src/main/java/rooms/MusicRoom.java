@@ -9,7 +9,7 @@ public class MusicRoom implements Room {
 
     @Override
     public String getName() {
-        return "Music Room";
+        return "music room";
     }
 
     @Override
@@ -84,7 +84,7 @@ public class MusicRoom implements Room {
             if (exits.containsKey(roomName.toLowerCase())) {
                 Room targetRoom = RoomFactory.createRoom(roomName);
                 player.setCurrentRoom(targetRoom);
-                return "You enter the " + roomName + ".";
+                return "";
             } else {
                 return "There is no room called '" + roomName + "' here.";
             }
@@ -93,9 +93,9 @@ public class MusicRoom implements Room {
         @Override
         public Map<String, Exit> getAvailableExits (Player player){
             Map<String, Exit> exits = new HashMap<>();
-            exits.put("main entrance hall", new Exit("Main Entrance Hall", null));
+            exits.put("main entrance hall", new Exit("main entrance hall", null));
             if (player.hasFlag("watched_song_notes")) {
-                exits.put("cafeteria", new Exit("Cafeteria", null));
+                exits.put("cafeteria", new Exit("cafeteria", null));
             }
             return exits;
         }

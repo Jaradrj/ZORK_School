@@ -9,7 +9,7 @@ public class ElectricityRoom implements Room {
 
     @Override
     public String getName() {
-        return "Electricity Room";
+        return "electricity room";
     }
 
     @Override
@@ -66,7 +66,7 @@ public class ElectricityRoom implements Room {
                     return "You already turned on the power";
                 } else {
                     player.setFlag("turned_on_power");
-                    return "You walk over to the radiator.\n" +
+                    System.out.println("You walk over to the radiator.\n" +
                             "It’s not your first time in this room, so you’re not completely lost. Still, in this darkness, fixing the lights will be a challenge. \n" +
                             "You manage to open the switchboard but quickly find yourself disoriented. \n" +
                             "You can’t see a thing, so you have to rely on your memory and senses instead. \n" +
@@ -75,8 +75,9 @@ public class ElectricityRoom implements Room {
                             "You try to remember how it used to look, comparing it to what you feel now.\n" +
                             "Wait a minute, you think to yourself. Suddenly you remember the main switch, and where it should be located. You hope and pray that you're correct and decide to pull it. Nothing happens, at least for the first couple of seconds, as you suddenly get blinded by the light. \n" +
                             "You made it, you turned the lights and the electricity back on. \n" +
-                            "At first you're excited, until you see the object you fell over earlier, now laying in front of you, clear as day.";
+                            "At first you're excited, until you see the object you fell over earlier, now laying in front of you, clear as day.");
                     player.setFlag("body_checked");
+                    return "";
                 }
             case "3":
             case "inspect body":
@@ -107,17 +108,15 @@ public class ElectricityRoom implements Room {
                 }
                 return "invalid action";
         }
-
-        return action;
     }
 
     @Override
     public Map<String, Exit> getAvailableExits(Player player) {
         Map<String, Exit> exits = new HashMap<>();
         if (player.hasFlag("found_trash_id")) {
-            exits.put("secretary", new Exit("enter_secretary", player));
+            exits.put("secretary", new Exit("secretary", null));
         }
-        exits.put("it", new Exit("enter_it", player));
+        exits.put("it room", new Exit("it room", null));
         return exits;
     }
 
@@ -127,7 +126,7 @@ public class ElectricityRoom implements Room {
         if (exits.containsKey(roomName)) {
             Room targetRoom = RoomFactory.createRoom(roomName);
             player.setCurrentRoom(targetRoom);
-            return "You entered the " + roomName + ".";
+            return "";
         } else {
             return "There is no room called '" + roomName + "' here.";
         }

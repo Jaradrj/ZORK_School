@@ -9,7 +9,7 @@ public class Cafeteria implements Room {
 
     @Override
     public String getName() {
-        return "Cafeteria";
+        return "cafeteria";
     }
 
     @Override
@@ -51,7 +51,7 @@ public class Cafeteria implements Room {
         if (exits.containsKey(roomName.toLowerCase())) {
             Room targetRoom = RoomFactory.createRoom(roomName);
             player.setCurrentRoom(targetRoom);
-            return "You enter the " + roomName + ".";
+            return "";
         } else {
             return "There is no room called '" + roomName + "' here.";
         }
@@ -60,8 +60,8 @@ public class Cafeteria implements Room {
     @Override
     public Map<String, Exit> getAvailableExits (Player player){
         Map<String, Exit> exits = new HashMap<>();
-        exits.put("music room", new Exit("Music Room", null));
-        exits.put("it room", new Exit("IT Room", null));
+        exits.put("music room", new Exit("music room", null));
+        exits.put("it room", new Exit("it room", null));
         return exits;
     }
 }

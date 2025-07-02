@@ -10,7 +10,7 @@ public class ChemistryRoom implements Room {
 
     @Override
     public String getName() {
-        return "Chemistry Room";
+        return "chemistry room";
     }
 
     @Override
@@ -96,7 +96,7 @@ public class ChemistryRoom implements Room {
         if (exits.containsKey(roomName.toLowerCase())) {
             Room targetRoom = RoomFactory.createRoom(roomName);
             player.setCurrentRoom(targetRoom);
-            return "You enter the " + roomName + ".";
+            return "";
         } else {
             return "There is no room called '" + roomName + "' here.";
         }
@@ -105,9 +105,9 @@ public class ChemistryRoom implements Room {
     @Override
     public Map<String, Exit> getAvailableExits(Player player) {
         Map<String, Exit> exits = new HashMap<>();
-        exits.put("secretary", new Exit("Secretary", null));
+        exits.put("secretary", new Exit("secretary", null));
         if (player.hasFlag("acid_taken")) {
-            exits.put("electricity room", new Exit("Electricity Room", null));
+            exits.put("electricity room", new Exit("electricity room", null));
         }
         return exits;
     }

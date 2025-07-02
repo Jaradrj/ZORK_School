@@ -9,7 +9,7 @@ public class ITRoom implements Room {
 
     @Override
     public String getName() {
-        return "IT Room";
+        return "it room";
     }
 
     @Override
@@ -118,7 +118,7 @@ public class ITRoom implements Room {
         if (exits.containsKey(roomName.toLowerCase())) {
             Room targetRoom = RoomFactory.createRoom(roomName);
             player.setCurrentRoom(targetRoom);
-            return "You enter the " + roomName + ".";
+            return "";
         } else {
             return "There is no room called '" + roomName + "' here.";
         }
@@ -127,10 +127,10 @@ public class ITRoom implements Room {
     @Override
     public Map<String, Exit> getAvailableExits(Player player) {
         Map<String, Exit> exits = new HashMap<>();
-        exits.put("main entrance hall", new Exit("Main Entrance Hall", null));
-        exits.put("cafeteria", new Exit("Cafeteria", null));
+        exits.put("main entrance hall", new Exit("main entrance hall", null));
+        exits.put("cafeteria", new Exit("cafeteria", null));
         if (player.hasFlag("ran_memory_leak")) {
-            exits.put("teacher room", new Exit("Teacher Room", null));
+            exits.put("teacher room", new Exit("teacher room", null));
         }
         return exits;
     }

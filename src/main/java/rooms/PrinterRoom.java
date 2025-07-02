@@ -8,7 +8,7 @@ public class PrinterRoom implements Room {
 
     @Override
     public String getName() {
-        return "Printer Room";
+        return "printer room";
     }
 
     @Override
@@ -106,7 +106,7 @@ public class PrinterRoom implements Room {
         if (exits.containsKey(roomName.toLowerCase())) {
             Room targetRoom = RoomFactory.createRoom(roomName);
             player.setCurrentRoom(targetRoom);
-            return "You enter the " + roomName + ".";
+            return "";
         } else {
             return "There is no room called '" + roomName + "' here.";
         }
@@ -115,9 +115,9 @@ public class PrinterRoom implements Room {
     @Override
     public Map<String, Exit> getAvailableExits(Player player) {
         Map<String, Exit> exits = new HashMap<>();
-        exits.put("Teacher Room", new Exit("Teacher Room", null));
+        exits.put("teacher room", new Exit("teacher room", null));
         if (player.hasFlag("has_full_map")) {
-            exits.put("chemistry room", new Exit("Chemistry Room", null));
+            exits.put("chemistry room", new Exit("chemistry room", null));
         }
         return exits;
     }

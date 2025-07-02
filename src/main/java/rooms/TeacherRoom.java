@@ -7,7 +7,7 @@ public class TeacherRoom implements Room {
 
     @Override
     public String getName() {
-        return "Teacher Room";
+        return "teacher room";
     }
 
     @Override
@@ -136,7 +136,7 @@ public class TeacherRoom implements Room {
         if (exits.containsKey(roomName.toLowerCase())) {
             Room targetRoom = RoomFactory.createRoom(roomName);
             player.setCurrentRoom(targetRoom);
-            return "You enter the " + roomName + ".";
+            return "";
         } else {
             return "There is no room called '" + roomName + "' here.";
         }
@@ -145,18 +145,18 @@ public class TeacherRoom implements Room {
     @Override
     public Map<String, Exit> getAvailableExits(Player player) {
         Map<String, Exit> exits = new HashMap<>();
-        exits.put("main entrance hall", new Exit("Main Entrance Hall", null));
-        exits.put("music room", new Exit("Music Room", null));
-        exits.put("it room", new Exit("IT Room", null));
+        exits.put("main entrance hall", new Exit("main entrance hall", null));
+        exits.put("music room", new Exit("music room", null));
+        exits.put("it room", new Exit("it room", null));
 
         if (player.hasFlag("has_followed_teacher")) {
-            exits.put("garage", new Exit("Garage", null));
+            exits.put("garage", new Exit("garage", null));
         }
         if (player.hasFlag("read_email")) {
-            exits.put("printer room", new Exit("Printer Room", null));
+            exits.put("printer room", new Exit("printer room", null));
         }
         if (player.hasFlag("found_trash_id")) {
-            exits.put("secretary", new Exit("Secretary", null));
+            exits.put("secretary", new Exit("secretary", null));
         }
         return exits;
     }

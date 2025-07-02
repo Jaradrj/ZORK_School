@@ -5,18 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c286cac8-34d1-4cd2-b996-9fb79893a83f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/Endings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Endings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/rooms/Cafeteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/Cafeteria.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/rooms/ChemistryRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/ChemistryRoom.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/rooms/ElectricityRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/ElectricityRoom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/rooms/Garage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/Garage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/rooms/ITRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/ITRoom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/rooms/MainEntranceRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/MainEntranceRoom.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/rooms/MusicRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/MusicRoom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/rooms/PrinterRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/PrinterRoom.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/rooms/Secretary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/Secretary.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/rooms/Sportshall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/Sportshall.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/rooms/TeacherRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/TeacherRoom.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,12 +45,12 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "jevshyl"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;jevshyl&quot;
   }
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/Jaradrj/ZORK_School.git&quot;,
@@ -63,9 +60,9 @@
   <component name="JpbToolWindowState">
     <option name="isToolWindowVisible" value="false" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 8
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
   <component name="ProjectId" id="2zJ9bSh7MgVCkDwNYHNaPhzf2J6" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -73,8 +70,11 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.Main.executor": "Run",
+    "Application.Unnamed.executor": "Debug",
+    "Gradle.ZORK_School [:Main.main()].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feat/rooms",
+    "git-widget-placeholder": "dev",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -85,6 +85,30 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="semeru-21" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="ZORK_School.main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="ZORK_School.main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="ZORK_School.main" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -107,5 +131,26 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/controller/GameController.java</url>
+          <line>22</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/controller/GameController.java</url>
+          <line>27</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/controller/GameController.java</url>
+          <line>30</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
