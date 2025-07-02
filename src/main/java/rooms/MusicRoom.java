@@ -82,7 +82,8 @@ public class MusicRoom implements Room {
     public String handleRoomChange(Player player, String roomName) {
             Map<String, Exit> exits = getAvailableExits(player);
             if (exits.containsKey(roomName.toLowerCase())) {
-                player.setCurrentRoom(roomName);
+                Room targetRoom = RoomFactory.createRoom(roomName);
+                player.setCurrentRoom(targetRoom);
                 return "You enter the " + roomName + ".";
             } else {
                 return "There is no room called '" + roomName + "' here.";

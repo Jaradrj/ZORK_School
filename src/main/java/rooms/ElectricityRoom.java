@@ -125,7 +125,8 @@ public class ElectricityRoom implements Room {
     public String handleRoomChange(Player player, String roomName) {
         Map<String, Exit> exits = getAvailableExits(player);
         if (exits.containsKey(roomName)) {
-            player.setCurrentRoom(roomName);
+            Room targetRoom = RoomFactory.createRoom(roomName);
+            player.setCurrentRoom(targetRoom);
             return "You entered the " + roomName + ".";
         } else {
             return "There is no room called '" + roomName + "' here.";
