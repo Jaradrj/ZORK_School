@@ -13,7 +13,7 @@ public class Player {
 
     @Getter
     @Setter
-    private Room currentRoom;
+    private String currentRoom;
 
     public void setFlag(String flag) {
         flags.add(flag);
