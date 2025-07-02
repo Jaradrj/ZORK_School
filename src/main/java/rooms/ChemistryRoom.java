@@ -5,6 +5,7 @@ import game.Room;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import game.Exit;
 
 public class ChemistryRoom implements Room {
 
