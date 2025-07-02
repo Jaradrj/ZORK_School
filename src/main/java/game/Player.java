@@ -8,6 +8,8 @@ import java.util.*;
 public class Player {
     private Set<String> flags = new HashSet<>();
     private Set<String> inventory = new HashSet<>();
+    public String name;
+    public String oldName;
 
     @Getter
     @Setter
@@ -19,6 +21,10 @@ public class Player {
 
     public boolean hasFlag(String flag) {
         return flags.contains(flag);
+    }
+
+    public void clearFlags() {
+        flags.clear();
     }
 
     public void addItem(String item) {
