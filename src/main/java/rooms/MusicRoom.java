@@ -1,10 +1,8 @@
 package rooms;
 
-import game.Player;
-import game.Room;
+import game.*;
 import java.util.HashMap;
 import java.util.Map;
-import game.Exit;
 
 public class MusicRoom implements Room {
 
@@ -63,10 +61,10 @@ public class MusicRoom implements Room {
             case "listen to the cassette":
                 if (!player.hasFlag("listened_to_cassette")) {
                     player.setFlag("listened_to_cassette");
-                    return "You get closer to the cassette, step by step. The message you're hearing becomes more and more clear. But then, suddenly the cassette shuts down. No battery.";
+                    System.out.println("You get closer to the cassette, step by step. The message you're hearing becomes more and more clear. But then, suddenly the cassette shuts down. No battery.");
                     if (player.hasFlag("flashlight_taken")) {
-                        return "Luckily, you have your flashlight. The batteries fit the same. After inserting your flashlight's batteries into the cassette, the message continues:\n\n 'I'm sorry. For the last three years I've tried everything to become the best, to help my family and myself.\nI had to keep my reputation up and now... They are gone. I killed them. And I'll be next... If they ever offer you a drink, don't drink it.\nIt's called Scopolamine, makes you hallucinate, lose your memory. I'm so sorry.'\n\nThis voice reminds me of somebody, but I can't figure out who. Someone from the band? I have to stop this!";
                         player.setFlag("listened_to_cassette");
+                        return "Luckily, you have your flashlight. The batteries fit the same. After inserting your flashlight's batteries into the cassette, the message continues:\n\n 'I'm sorry. For the last three years I've tried everything to become the best, to help my family and myself.\nI had to keep my reputation up and now... They are gone. I killed them. And I'll be next... If they ever offer you a drink, don't drink it.\nIt's called Scopolamine, makes you hallucinate, lose your memory. I'm so sorry.'\n\nThis voice reminds me of somebody, but I can't figure out who. Someone from the band? I have to stop this!";
                     }else if (!player.hasFlag("flashlight_taken")) {
                         return "You don't have any batteries. Whatever this cassette wanted to tell you, the truth will remain hidden.";
                     }

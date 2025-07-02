@@ -1,10 +1,8 @@
 package rooms;
 
-import game.Player;
-import game.Room;
+import game.*;
 import java.util.HashMap;
 import java.util.Map;
-import game.Exit;
 
 public class ITRoom implements Room {
 
@@ -99,7 +97,8 @@ public class ITRoom implements Room {
             case "call the police":
                 if (player.hasFlag("police_number_taken") && player.hasFlag("turned_on_wlan")) {
                     System.out.println("\"You don't hesitate and grab the note with the polices number out of your backpack.");
-                    return Endings.happyEnding;
+                    Endings.happyEnding(player);
+                    return "";
                 } else if (!player.hasFlag("turned_on_wlan")) {
                     return "You need to turn on the Wlan before making a call";
                 } else if (!player.hasFlag("police_number_taken")) {
@@ -111,7 +110,6 @@ public class ITRoom implements Room {
                 }
                 return "Invalid action.";
         }
-        return "Unknown action.";
     }
 
     public String handleRoomChange(Player player, String roomName) {

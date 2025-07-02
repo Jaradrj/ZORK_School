@@ -13,12 +13,12 @@ public class TeacherRoom implements Room {
     @Override
     public void enter(Player player) {
         System.out.println("You enter the Teacher Room.");
-        String lastRoom = player.getLastRoom();
+        Room lastRoom = player.getLastRoom();
 
         boolean sawTeacherLeave = player.hasFlag("saw_teacher_leave");
         boolean followedTeacher = player.hasFlag("has_followed_teacher");
         boolean teacherPresent = !sawTeacherLeave && !followedTeacher;
-        boolean lightsOn = lastRoom.equals("Main Entrance Hall");
+        boolean lightsOn = Objects.equals(lastRoom.getName(), "Main Entrance Hall");
 
         System.out.println(lightsOn ? "The lights are on, illuminating the room." : "The room is dark.");
 
@@ -75,7 +75,7 @@ public class TeacherRoom implements Room {
             case "follow her":
                 if (player.hasFlag("saw_teacher_leave") && !player.hasFlag("has_followed_teacher")) {
                     player.setFlag("has_followed_teacher");
-                    player.setCurrentRoom("Garage");
+                    handleRoomChange(player, "Garage");
                     return "You quietly follow her through the dim hallway, into the Garage.";
                 }
                 return "There's no one to follow.";

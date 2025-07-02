@@ -11,7 +11,7 @@ public class Endings {
         this.controller = controller;
     }
 
-    public void happyEnding(Player player) {
+    public static void happyEnding(Player player) {
         System.out.println("Congratulations. You made it out. Alive.\n" +
                 "You called the police. You exposed the hidden doors. You told them everything.\n" +
                 "And for a while, it felt like justice would follow.\n" +

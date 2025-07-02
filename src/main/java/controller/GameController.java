@@ -51,6 +51,6 @@ public class GameController {
         player.oldName = player.name;
         System.out.println("Before you start, what's your name?");
         player.name = scanner.nextLine();
-        System.out.printf("Welcome, %s!", player.name);
+        System.out.printf("Welcome, %s!\n\n", player.name);
     }
 }

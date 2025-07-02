@@ -1,8 +1,6 @@
 package rooms;
 
-import game.Player;
-import game.Room;
-import game.Exit;
+import game.*;
 import java.util.HashMap;
 import java.util.Map;
 
