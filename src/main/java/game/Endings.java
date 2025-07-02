@@ -1,11 +1,15 @@
 package game;
 
-import game.Player;
-import game.Room;
-import game.Controller;
+import controller.GameController;
 import java.util.Scanner;
 
 public class Endings {
+
+    private GameController controller;
+
+    public Endings(GameController controller) {
+        this.controller = controller;
+    }
 
     public void happyEnding(Player player) {
         System.out.println("Congratulations. You made it out. Alive.\n" +
@@ -45,7 +49,7 @@ public class Endings {
                 "But resistance wasn’t enough. His name was erased. His body hidden.\n" +
                 "He died trying to find the truth.\n");
 
-                if (Player.hasFlag("second_try")) {
+                if (player.hasFlag("second_try")) {
                     System.out.printf("%s, a tragedy. I don't know what exactly lead them here in this", player.oldName);
                 }
 
@@ -129,7 +133,7 @@ public class Endings {
                 "Just the sound of your breath hitching between sobs, and the quiet drip of blood on tile.\n" +
                 "\n");
 
-        if (!Player.hasFlag("body_inspected")) {
+        if (!player.hasFlag("body_inspected")) {
             System.out.println("You sink to the floor, shaking, and finally notice what you’d been avoiding in the dark.\n" +
                     "            Shapes.\n" +
                     "            Bodies.\n" +
@@ -162,11 +166,11 @@ public class Endings {
                 "\n" +
                 "You already know your answer.\n" +
                 "They already recorded it.\n");
-        checkTryAgain(player, room);
+        checkTryAgain(player);
     }
 
 
-    public void checkTryAgain(Player player, Room room) {
+    public void checkTryAgain(Player player) {
         Scanner scanner = new Scanner(System.in);
         String action = scanner.nextLine();
 
@@ -190,12 +194,10 @@ public class Endings {
             case "yes":
             case "y":
             default:
-                flags.clear();
+                player.clearFlags();
                 player.setFlag("second_try");
-                Controller.run();
-                player.setCurrentRoom("Main Entrance Hall");
+                controller.run();
                 break;
         }
-
     }
 }
