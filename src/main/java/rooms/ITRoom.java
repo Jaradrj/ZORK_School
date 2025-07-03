@@ -105,6 +105,16 @@ public class ITRoom implements Room {
                 } else if (!player.hasFlag("police_number_taken")) {
                     return "What's the Police's number again? I think I saw a note in the Secretary.";
                 }
+
+            case "leave":
+                System.out.println("You decide to leave. (Use: go to x)");
+                System.out.println("You can now go to: ");
+                System.out.println("- Main Entrance Hall");
+                System.out.println("- Cafeteria");
+                if (player.hasFlag("ran_memory_leak")) {
+                    System.out.println("- Teacher Room");
+                }
+                return "";
             default:
                 if (action.toLowerCase().startsWith("go to ")) {
                     return handleRoomChange(player, action.substring(6).trim());

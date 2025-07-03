@@ -24,7 +24,7 @@ public class Garage implements Room {
         System.out.println("Actions:");
 
         if (!player.hasFlag("key_taken")) System.out.println("- Break into her car");
-        System.out.println("- Leave");
+        System.out.println("- Return to teacher room");
     }
 
     @Override
@@ -38,13 +38,11 @@ public class Garage implements Room {
                 player.setFlag("keys_taken");
                 System.out.println("You need to know what she's hiding. Thank god she didn't suspect anyone to sneak around and left her car unlocked.\nEasy game for you to get inside and start searching quick. You don't find much, just some mints, money, a coke and.. keys!\nBut what are they for?");
 
-            case "leave":
-                return "You decide to leave. Where do you want to go? (Use: go to X)";
+            case "return":
+            case "return to teacher room":
+                return handleRoomChange(player, "teacher room");
 
             default:
-                if (action.startsWith("go to ")) {
-                    return handleRoomChange(player, action.substring(6).trim());
-                }
                 return "Invalid action.";
         }
     }

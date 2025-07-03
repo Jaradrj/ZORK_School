@@ -21,6 +21,7 @@ public class TeacherRoom implements Room {
         boolean followedTeacher = player.hasFlag("has_followed_teacher");
         boolean teacherPresent = !sawTeacherLeave && !followedTeacher && lastRoom.getName().equals("main entrance hall");
         boolean lightsOn = Objects.equals(lastRoom.getName(), "main entrance hall");
+        boolean decideToLeave = player.hasFlag("leaving");
 
         if (!wasHere) {
             System.out.println("You enter the Teacher Room.");
@@ -44,7 +45,7 @@ public class TeacherRoom implements Room {
             System.out.println("The room is empty. A hot cup sits on the table. A laptop screen glows faintly. Papers are scattered all over the Head Teacher’s desk. Some were also tossed in the trash bin. A science award diploma is proudly displayed. Next to it, you see a Flashlight.");
         }
 
-        if (!followedTeacher && !player.hasFlag("teacher_room_loot_ready")) {
+        if (!followedTeacher && !player.hasFlag("teacher_room_loot_ready") && !decideToLeave) {
             player.setFlag("saw_teacher_leave");
             System.out.println("Actions:");
             System.out.println("- Follow Her");
@@ -145,7 +146,16 @@ public class TeacherRoom implements Room {
                 return "You already took the flashlight.";
 
             case "leave":
-                return "You decide to leave. Where do you want to go? (Use: go to X)";
+                player.setFlag("leaving");
+                System.out.println("You decide to leave. Where do you want to go? (Use: go to X)");
+                System.out.println("You can now go to: ");
+                if (player.hasFlag("found_trash_id")) {
+                    System.out.println("- Secretary");
+                }
+                if (player.hasFlag("read_email")) {
+                    System.out.println("- Printer Room");
+                }
+                return "";
 
             default:
                 if (action.startsWith("go to ")) {

@@ -56,7 +56,15 @@ public class ElectricityRoom implements Room {
                         player.setFlag("door_opened");
                         System.out.println("You successfully open the door.");
                     }
-                    return "Where do you want to go? (Use: go to X)";
+                    if (player.hasFlag("door_opened")){
+                        System.out.println("Where do you want to go? (Use: go to X)");
+                        System.out.println("You can now go to: ");
+                        System.out.println("- IT Room");
+                        if (player.hasFlag("found_trash_id")) {
+                            System.out.println("-Secretary");
+                        }
+                    }
+                    return "";
                 } else {
                     return "You try to open the door but rapidly notice that you are missing the one key that might give you your freedom.";
                 }

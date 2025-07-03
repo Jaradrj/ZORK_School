@@ -31,6 +31,7 @@ public class Cafeteria implements Room {
             System.out.println("- Try opening Safe");
         }
         System.out.println("- Leave");
+
     }
 
     @Override
@@ -44,6 +45,15 @@ public class Cafeteria implements Room {
                     return "I'm going to be rich! That's what's going through your head while your twisting around the key. Not a single buckle. Wrong key.";
                 }
                 return "The safe still won't work... :(";
+
+            case "leave":
+                player.setFlag("leave_cafeteria");
+                System.out.println("You decided to leave, where would you like to go to (Use: go to x)");
+                System.out.println("You can go to: ");
+                System.out.println("-IT Room");
+                System.out.println("- Music Room");
+                return "";
+
             default:
                 if (action.toLowerCase().startsWith("go to ")) {
                     return handleRoomChange(player, action.substring(6).trim());
