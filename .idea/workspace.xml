@@ -4,20 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c286cac8-34d1-4cd2-b996-9fb79893a83f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/8.8/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.8/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/rooms/Cafeteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/Cafeteria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/rooms/ChemistryRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/ChemistryRoom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/rooms/ElectricityRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/ElectricityRoom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/rooms/Garage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/Garage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/rooms/ITRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/ITRoom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/rooms/MusicRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/MusicRoom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/rooms/PrinterRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/PrinterRoom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/rooms/Secretary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/Secretary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/rooms/Sportshall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/Sportshall.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/rooms/TeacherRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/TeacherRoom.java" afterDir="false" />
-    </list>
+    <list default="true" id="9b51ee1d-cb50-4244-afc3-bb6b7d7c70e6" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
