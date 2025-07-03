@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ZORK_School.iml" filepath="$PROJECT_DIR$/.idea/modules/ZORK_School.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ZORK_School.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ZORK_School.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ZORK_School.test.iml" filepath="$PROJECT_DIR$/.idea/modules/ZORK_School.test.iml" />
     </modules>
   </component>
 </project>
