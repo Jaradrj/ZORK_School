@@ -145,7 +145,9 @@ public class ITRoom implements Room {
     public Map<String, Exit> getAvailableExits(Player player) {
         Map<String, Exit> exits = new HashMap<>();
         exits.put("main entrance hall", new Exit("main entrance hall", null));
-        exits.put("cafeteria", new Exit("cafeteria", null));
+        if (player.hasFlag("watched_song_notes")) {
+            exits.put("cafeteria", new Exit("cafeteria", null));
+        }
         if (player.hasFlag("ran_memory_leak")) {
             exits.put("teacher room", new Exit("teacher room", null));
         }
