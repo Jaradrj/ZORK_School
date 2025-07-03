@@ -1,6 +1,7 @@
 package rooms;
 
 import game.*;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,7 +14,7 @@ public class MusicRoom implements Room {
 
     @Override
     public void enter(Player player) {
-        if(!player.hasFlag("was_music")) {
+        if (!player.hasFlag("was_music")) {
             player.setFlag("was_music");
             System.out.println("You enter the Music Room.");
             System.out.println("There's only a tiny bit of light reflecting on the drums in the back of the rotten wooden stage. The music stands are all in one row, creepy.\nSome notes were left behind. Suddenly, you notice a cracked sound, almost impossible to notice. You try to identity the source and see a cassette next to the violin, which is part of the instrument collection.");
@@ -65,7 +66,7 @@ public class MusicRoom implements Room {
                     if (player.hasFlag("flashlight_taken")) {
                         player.setFlag("listened_to_cassette");
                         return "Luckily, you have your flashlight. The batteries fit the same. After inserting your flashlight's batteries into the cassette, the message continues:\n\n 'I'm sorry. For the last three years I've tried everything to become the best, to help my family and myself.\nI had to keep my reputation up and now... They are gone. I killed them. And I'll be next... If they ever offer you a drink, don't drink it.\nIt's called Scopolamine, makes you hallucinate, lose your memory. I'm so sorry.'\n\nThis voice reminds me of somebody, but I can't figure out who. Someone from the band? I have to stop this!";
-                    }else if (!player.hasFlag("flashlight_taken")) {
+                    } else if (!player.hasFlag("flashlight_taken")) {
                         return "You don't have any batteries. Whatever this cassette wanted to tell you, the truth will remain hidden.";
                     }
                 }
@@ -79,23 +80,23 @@ public class MusicRoom implements Room {
     }
 
     public String handleRoomChange(Player player, String roomName) {
-            Map<String, Exit> exits = getAvailableExits(player);
-            if (exits.containsKey(roomName.toLowerCase())) {
-                Room targetRoom = RoomFactory.createRoom(roomName);
-                player.setCurrentRoom(targetRoom);
-                return "";
-            } else {
-                return "There is no room called '" + roomName + "' here.";
-            }
-        }
-
-        @Override
-        public Map<String, Exit> getAvailableExits (Player player){
-            Map<String, Exit> exits = new HashMap<>();
-            exits.put("main entrance hall", new Exit("main entrance hall", null));
-            if (player.hasFlag("watched_song_notes")) {
-                exits.put("cafeteria", new Exit("cafeteria", null));
-            }
-            return exits;
+        Map<String, Exit> exits = getAvailableExits(player);
+        if (exits.containsKey(roomName.toLowerCase())) {
+            Room targetRoom = RoomFactory.createRoom(roomName);
+            player.setCurrentRoom(targetRoom);
+            return "";
+        } else {
+            return "There is no room called '" + roomName + "' here.";
         }
     }
+
+    @Override
+    public Map<String, Exit> getAvailableExits(Player player) {
+        Map<String, Exit> exits = new HashMap<>();
+        exits.put("main entrance hall", new Exit("main entrance hall", null));
+        if (player.hasFlag("watched_song_notes")) {
+            exits.put("cafeteria", new Exit("cafeteria", null));
+        }
+        return exits;
+    }
+}

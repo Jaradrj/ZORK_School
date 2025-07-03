@@ -1,6 +1,7 @@
 package rooms;
 
 import game.*;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,7 +14,7 @@ public class PrinterRoom implements Room {
 
     @Override
     public void enter(Player player) {
-        if(!player.hasFlag("was_printer")) {
+        if (!player.hasFlag("was_printer")) {
             player.setFlag("was_printer");
             System.out.println("You enter the Printer Room.");
             System.out.println("The printer seems to have been used very recently. The exams were already printed.");
