@@ -169,6 +169,35 @@ public class Endings {
         checkTryAgain(player);
     }
 
+    public void teacherEnding(Player player) {
+        System.out.println("""
+            She turns slowly, her eyes glinting in the dim light.
+            'You found me... I didn’t think anyone would get this far.'
+            A pause. The room feels colder now.
+            'This place — it was never meant for you. Or anyone. We tried to bury it, erase it.'
+            She looks past you, as if seeing something distant. Or remembering.
+            'I stayed to make sure no one would open the door again. But now it's too late.'
+            Her voice drops to a whisper. 'They’re already after us.'
+            The ground trembles. Lights flicker. 
+            'I’m sorry.'
+            Everything fades.
+        """);
+        System.out.println("\n" +
+                "\n" +
+                "  ██████╗  █████╗ ███╗   ███╗███████╗     ██████╗ ██╗   ██╗███████╗██████╗ \n" +
+                " ██╔════╝ ██╔══██╗████╗ ████║██╔════╝    ██╔═══██╗██║   ██║██╔════╝██╔══██╗\n" +
+                " ██║  ███╗███████║██╔████╔██║█████╗      ██║   ██║██║   ██║█████╗  ██████╔╝\n" +
+                " ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝      ██║   ██║██║   ██║██╔══╝  ██╔══██╗\n" +
+                " ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗    ╚██████╔╝╚██████╔╝███████╗██║  ██║\n" +
+                "  ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝     ╚═════╝  ╚═════╝ ╚══════╝╚═╝  ╚═╝\n" +
+                "\n" +
+                "\n" +
+                "Do you want to give up, or try again?\n" +
+                "\n" +
+                "You already know your answer.\n" +
+                "They already recorded it.\n");
+        checkTryAgain(player);
+    }
 
     public void checkTryAgain(Player player) {
         Scanner scanner = new Scanner(System.in);
