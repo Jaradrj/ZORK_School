@@ -104,7 +104,8 @@ public class ChemistryRoom implements Room {
 
     public String handleRoomChange(Player player, String roomName) {
         Map<String, Exit> exits = getAvailableExits(player);
-        if (exits.containsKey(roomName.toLowerCase())) {
+        String roomKey = roomName.toLowerCase();
+        if (exits.containsKey(roomKey)) {
             Room targetRoom = RoomFactory.createRoom(roomName);
             player.setCurrentRoom(targetRoom);
             return "";
