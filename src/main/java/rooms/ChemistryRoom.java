@@ -19,10 +19,11 @@ public class ChemistryRoom implements Room {
 
     @Override
     public void enter(Player player) {
-        if (player.hasFlag("was_chemistry")) {
-            player.setFlag("was_chemistry");
 
-            System.out.println("You enter the Chemistry Room.");
+        System.out.println("You enter the Chemistry Room.");
+
+        if (!player.hasFlag("was_chemistry")) {
+            player.setFlag("was_chemistry");
 
             System.out.println("Science has never been your favorite subject. But it most definitely is Klara's. This whole room is just full of her awards. It seems like they cover up the yellow walls.\nThe brewing station in the back of the room still has some chemicals opened. What is Scopolamine? I heard of that before...\nWhile trying to remember, your flashlight's battery suddenly dies. Maybe you should try to find a way into the Electricity Room?");
         }
@@ -79,8 +80,8 @@ public class ChemistryRoom implements Room {
                 }
                 Scanner scanner = new Scanner(System.in);
                 System.out.println("Input chemical formula to brew sulfuric acid:");
-                String formula = scanner.nextLine().trim().toLowerCase();
-                if (formula.equals("h2so4")) {
+                String formula = scanner.nextLine().trim();
+                if (formula.equalsIgnoreCase("h2so4")) {
                     player.setFlag("acid_taken");
                     return "You mix the chemicals carefully. The solution bubbles violently. You now carry Sulfuric Acid. Maybe it can help melt the lock on the Electricity Room door.";
                 } else {
@@ -96,6 +97,11 @@ public class ChemistryRoom implements Room {
                 return "";
             default:
                 if (action.toLowerCase().startsWith("go to ")) {
+                    if (action.toLowerCase().equals("go to electricity room")) {
+
+                        return "You try to corrose the door. You can hear the sizzling sound of the sulfuric acid oxidating with the door." +
+                                "\nNever the less, you still don't manage to open it. Sad and defeated you return to the chemistry room to try and cry.";
+                    }
                     return handleRoomChange(player, action.substring(6).trim());
                 }
                 return "Invalid action.";
@@ -118,9 +124,7 @@ public class ChemistryRoom implements Room {
     public Map<String, Exit> getAvailableExits(Player player) {
         Map<String, Exit> exits = new HashMap<>();
         exits.put("secretary", new Exit("secretary", null));
-        if (player.hasFlag("acid_taken")) {
-            exits.put("electricity room", new Exit("electricity room", null));
-        }
+
         return exits;
     }
 }

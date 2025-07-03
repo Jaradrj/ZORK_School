@@ -61,7 +61,6 @@ public class MusicRoom implements Room {
             case "listen":
             case "listen to the cassette":
                 if (!player.hasFlag("listened_to_cassette")) {
-                    player.setFlag("listened_to_cassette");
                     System.out.println("You get closer to the cassette, step by step. The message you're hearing becomes more and more clear. But then, suddenly the cassette shuts down. No battery.");
                     if (player.hasFlag("flashlight_taken")) {
                         player.setFlag("listened_to_cassette");
@@ -75,9 +74,9 @@ public class MusicRoom implements Room {
             case "leave":
                 System.out.println("You decide to leave. Where do you want to go? (Use: go to x");
                 System.out.println("You can now go to: ");
-                System.out.println("Main Entrance Hall");
+                System.out.println("- Main Entrance Hall");
                 if (player.hasFlag("watched_song_notes")) {
-                    System.out.println("Cafeteria");
+                    System.out.println("- Cafeteria");
                 }
                 return "";
 
