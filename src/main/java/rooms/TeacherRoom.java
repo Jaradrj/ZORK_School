@@ -42,11 +42,13 @@ public class TeacherRoom implements Room {
             System.out.println("You see a faint silhouette disappearing into the Garage. Someone just left. Perhaps you should follow? Or stay safe?");
         }
 
-         else if (wasHere && !teacherPresent) {
+         else if (wasHere && !decideToLeave && ( player.hasFlag("coffee_taken") || player.hasFlag("found_trash_id") || player.hasFlag("read_email") || player.hasFlag("flashlight_taken")) {
             System.out.println("The room is empty. A hot cup sits on the table. A laptop screen glows faintly. Papers are scattered all over the Head Teacher’s desk. Some were also tossed in the trash bin. A science award diploma is proudly displayed. Next to it, you see a Flashlight.");
         }
 
-        System.out.println("Actions:");
+        if(!decideToLeave) {
+            System.out.println("Actions:");
+        }
 
         if (!followedTeacher && !player.hasFlag("teacher_room_loot_ready") && !decideToLeave) {
             player.setFlag("saw_teacher_leave");
@@ -55,7 +57,7 @@ public class TeacherRoom implements Room {
             System.out.println("- Leave");
         }
 
-        if (player.hasFlag("teacher_room_loot_ready")) {
+        if (player.hasFlag("teacher_room_loot_ready") && !decideToLeave) {
             if (!player.hasFlag("coffee_taken")) System.out.println("- Drink Coffee");
             if (!player.hasFlag("coffee_taken") && !player.hasFlag("read_email")) System.out.println("- Use Laptop");
             if (!player.hasFlag("found_trash_id")) System.out.println("- Search Trash Bin");

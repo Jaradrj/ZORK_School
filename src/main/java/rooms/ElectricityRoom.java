@@ -7,6 +7,8 @@ import java.util.Map;
 
 public class ElectricityRoom implements Room {
 
+    private Endings ending;
+
     @Override
     public String getName() {
         return "electricity room";
@@ -39,7 +41,7 @@ public class ElectricityRoom implements Room {
         if (!player.hasFlag("body_checked")) {
             System.out.println(" - Inspect unknown object");
         } else {
-            System.out.println(" - Inspect bodies");
+            System.out.println(" - Inspect body");
         }
         if (!player.hasFlag("turned_on_power")) {
             System.out.println(" - Enable radiator");
@@ -50,7 +52,7 @@ public class ElectricityRoom implements Room {
     public String performAction(Player player, String action) {
         switch (action.toLowerCase()) {
             case "1":
-            case "open door":
+            case "open the door":
                 if (player.hasFlag("key_taken")) {
                     if (!player.hasFlag("door_opened")) {
                         player.setFlag("door_opened");
@@ -65,7 +67,11 @@ public class ElectricityRoom implements Room {
                         }
                     }
                     return "";
-                } else {
+                } else if(player.hasFlag("door_failed")){
+                    ending.badEnding(player);
+                }
+                else {
+                    player.setFlag("door_failed");
                     return "You try to open the door but rapidly notice that you are missing the one key that might give you your freedom.";
                 }
             case "2":
@@ -88,6 +94,7 @@ public class ElectricityRoom implements Room {
                     return "";
                 }
             case "3":
+            case "inspect unknown object":
             case "inspect body":
                 if (!player.hasFlag("body_checked")) {
                     System.out.println("You try and inspect the unknown object, but sadly fail. Due to the darkness you can't recognize it. Maybe try turning the power back on first");
