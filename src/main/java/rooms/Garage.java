@@ -37,7 +37,7 @@ public class Garage implements Room {
             case "break into her car":
                 player.setFlag("keys_taken");
                 System.out.println("You need to know what she's hiding. Thank god she didn't suspect anyone to sneak around and left her car unlocked.\nEasy game for you to get inside and start searching quick. You don't find much, just some mints, money, a coke and.. keys!\nBut what are they for?");
-
+                return "";
             case "return":
             case "return to teacher room":
                 return handleRoomChange(player, "teacher room");
