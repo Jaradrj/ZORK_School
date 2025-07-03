@@ -1,7 +1,6 @@
 package rooms;
 
 import game.*;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,6 +21,8 @@ public class Secretary implements Room {
         if (player.hasFlag("flashlight_taken") || player.hasFlag("turned_on_power")) {
             System.out.println("- Examine the Pinboard");
         }
+            System.out.println("- Leave");
+
         System.out.println("- Leave");
     }
 
