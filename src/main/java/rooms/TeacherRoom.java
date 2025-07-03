@@ -6,7 +6,7 @@ import java.util.*;
 
 public class TeacherRoom implements Room {
 
-    private Ending ending;
+    private Endings ending;
 
     @Override
     public String getName() {
