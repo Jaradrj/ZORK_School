@@ -5,15 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c286cac8-34d1-4cd2-b996-9fb79893a83f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/Endings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Endings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/rooms/Cafeteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/Cafeteria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/rooms/ChemistryRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/ChemistryRoom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/rooms/ElectricityRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/ElectricityRoom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/rooms/ITRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/ITRoom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/rooms/MusicRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/MusicRoom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/rooms/Secretary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/Secretary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/rooms/Sportshall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/Sportshall.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.8/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.8/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.8/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.8/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/ZORK_School.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/ZORK_School.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,12 +49,12 @@
     &quot;assignee&quot;: &quot;jevshyl&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Jaradrj/ZORK_School.git&quot;,
-    &quot;accountId&quot;: &quot;df2b2161-bf0e-4bde-bdb3-ac20cbe09c49&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Jaradrj/ZORK_School.git",
+    "accountId": "871f840e-5fe1-4593-98d1-372069973e83"
   }
-}</component>
+}]]></component>
   <component name="JpbToolWindowState">
     <option name="isToolWindowVisible" value="false" />
   </component>
@@ -80,8 +78,11 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
     "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -109,14 +110,6 @@
       </method>
     </configuration>
   </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23726.103" />
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23726.103" />
-      </set>
-    </attachedChunks>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -137,17 +130,17 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/controller/GameController.java</url>
-          <line>22</line>
+          <line>21</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/controller/GameController.java</url>
-          <line>27</line>
+          <line>26</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/controller/GameController.java</url>
-          <line>30</line>
+          <line>31</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
