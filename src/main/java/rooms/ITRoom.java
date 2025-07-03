@@ -1,6 +1,7 @@
 package rooms;
 
 import game.*;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,7 +14,7 @@ public class ITRoom implements Room {
 
     @Override
     public void enter(Player player) {
-        if(!player.hasFlag("was_it")) {
+        if (!player.hasFlag("was_it")) {
             player.setFlag("was_it");
             System.out.println("You enter the IT Room.");
 

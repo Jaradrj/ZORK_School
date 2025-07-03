@@ -2,8 +2,10 @@ package rooms;
 
 import game.Player;
 import game.Room;
+
 import java.util.HashMap;
 import java.util.Map;
+
 import game.Exit;
 import game.RoomFactory;
 
@@ -16,7 +18,7 @@ public class Cafeteria implements Room {
 
     @Override
     public void enter(Player player) {
-        if(!player.hasFlag("was_cafeteria")) {
+        if (!player.hasFlag("was_cafeteria")) {
             player.setFlag("was_cafeteria");
             System.out.println("You enter the Cafeteria.");
             System.out.println("Apart from dirty tables, chairs and leftovers on the food distribution counter, there's not much no find here. Behind the iron door is the kitchen.\nNo wonder we are constantly in the media for our hygiene regulations. About 50% of students have at least had one food poisoning.\nThe only thing shining is a safe. We need a key.");
@@ -60,7 +62,7 @@ public class Cafeteria implements Room {
     }
 
     @Override
-    public Map<String, Exit> getAvailableExits (Player player){
+    public Map<String, Exit> getAvailableExits(Player player) {
         Map<String, Exit> exits = new HashMap<>();
         exits.put("music room", new Exit("music room", null));
         exits.put("it room", new Exit("it room", null));

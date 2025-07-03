@@ -1,6 +1,7 @@
 package rooms;
 
 import game.*;
+
 import java.util.*;
 
 public class MainEntranceRoom implements Room {
@@ -13,7 +14,7 @@ public class MainEntranceRoom implements Room {
 
     @Override
     public void enter(Player player) {
-        if(!player.hasFlag("was_main")) {
+        if (!player.hasFlag("was_main")) {
             player.setFlag("was_main");
             System.out.println("You enter the Main Entrance Hall.");
             System.out.println("Your story starts in the main building. There’s not much to find here. You take a look around and notice a few objects. Although it's pretty dark, you can still make out some tables, the school's dull pinboard, a light switch, and chairs—some of which have been knocked over.");

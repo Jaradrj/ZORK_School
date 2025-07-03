@@ -2,9 +2,11 @@ package rooms;
 
 import game.Player;
 import game.Room;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+
 import game.Exit;
 import game.RoomFactory;
 
@@ -17,7 +19,7 @@ public class ChemistryRoom implements Room {
 
     @Override
     public void enter(Player player) {
-        if(player.hasFlag("was_chemistry")) {
+        if (player.hasFlag("was_chemistry")) {
             player.setFlag("was_chemistry");
 
             System.out.println("You enter the Chemistry Room.");
