@@ -42,7 +42,7 @@ public class TeacherRoom implements Room {
             System.out.println("You see a faint silhouette disappearing into the Garage. Someone just left. Perhaps you should follow? Or stay safe?");
         }
 
-         else if (wasHere && !decideToLeave && ( player.hasFlag("coffee_taken") || player.hasFlag("found_trash_id") || player.hasFlag("read_email") || player.hasFlag("flashlight_taken")) {
+         else if (wasHere && !decideToLeave && ( player.hasFlag("coffee_taken") || player.hasFlag("found_trash_id") || player.hasFlag("read_email") || player.hasFlag("flashlight_taken"))) {
             System.out.println("The room is empty. A hot cup sits on the table. A laptop screen glows faintly. Papers are scattered all over the Head Teacher’s desk. Some were also tossed in the trash bin. A science award diploma is proudly displayed. Next to it, you see a Flashlight.");
         }
 
