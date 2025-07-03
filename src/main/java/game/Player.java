@@ -12,11 +12,17 @@ public class Player {
     public String oldName;
 
     @Getter
-    @Setter
     private Room currentRoom;
     @Getter
     @Setter
     private Room lastRoom;
+
+    public void setCurrentRoom(Room newRoom) {
+        if (this.currentRoom != null) {
+            this.lastRoom = this.currentRoom;
+        }
+        this.currentRoom = newRoom;
+    }
 
     public void setFlag(String flag) {
         flags.add(flag);

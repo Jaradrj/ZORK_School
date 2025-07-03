@@ -12,27 +12,31 @@ public class TeacherRoom implements Room {
 
     @Override
     public void enter(Player player) {
-        System.out.println("You enter the Teacher Room.");
+
         Room lastRoom = player.getLastRoom();
+        if(!player.hasFlag("was_teacher_room")){
+        player.setFlag("was_teacher_room");
+        System.out.println("You enter the Teacher Room."); }
 
         boolean sawTeacherLeave = player.hasFlag("saw_teacher_leave");
         boolean followedTeacher = player.hasFlag("has_followed_teacher");
-        boolean teacherPresent = !sawTeacherLeave && !followedTeacher;
-        boolean lightsOn = Objects.equals(lastRoom.getName(), "Main Entrance Hall");
+        boolean teacherPresent = !sawTeacherLeave && !followedTeacher && lastRoom.getName().equals("main entrance hall");
+        boolean lightsOn = Objects.equals(lastRoom.getName(), "main entrance hall");
 
-        System.out.println(lightsOn ? "The lights are on, illuminating the room." : "The room is dark.");
+        System.out.println(lightsOn ? "Some candles are lit, illuminating the room." : "The room is dark.");
 
         if (teacherPresent) {
             System.out.println("A woman sits at the desk, sipping something from a steaming mug. She looks a lot like Mrs. Hamps, your school psychologist.\nPoor woman, must have been working really hard helping all the missing students' friends and family.");
-            System.out.println("Actions:");
-            System.out.println("- Talk to Her");
+            System.out.println("Do you want to talk to her? (Y/N)");
             System.out.println("- Leave");
-        } else if (sawTeacherLeave && !followedTeacher) {
+        } else if (!followedTeacher ) {
+            if(!lastRoom.getName().equals("teacher room") && !player.hasFlag("was_teacher_room")) {
             System.out.println("You see a faint silhouette disappearing into the Garage. Someone just left. Perhaps you should follow? Or stay safe?");
+            player.setFlag("was_teacher_room");}
             System.out.println("Actions:");
             System.out.println("- Follow Her");
             System.out.println("- Leave");
-        } else {
+        }
             if(!player.hasFlag("was_teacher_room")) {
                 player.setFlag("was_teacher_room");
                 System.out.println("The room is empty. A hot cup sits on the table. A laptop screen glows faintly. Papers are scattered all over the Head Teacher’s desk. Some were also tossed in the trash bin. A science award diploma is proudly displayed. Next to it, you see a Flashlight.");
@@ -43,7 +47,7 @@ public class TeacherRoom implements Room {
             if (!player.hasFlag("found_trash_id")) System.out.println("- Search Trash Bin");
             if (!player.hasFlag("flashlight_taken")) System.out.println("- Take Flashlight");
             System.out.println("- Leave");
-        }
+
     }
 
     @Override
@@ -51,7 +55,7 @@ public class TeacherRoom implements Room {
         action = action.toLowerCase().trim();
 
         switch (action) {
-            case "talk":
+            case "y":
             case "talk to her":
                 if (!player.hasFlag("saw_teacher_leave") && !player.hasFlag("has_followed_teacher")) {
                     player.setFlag("game_ended");
@@ -71,11 +75,16 @@ public class TeacherRoom implements Room {
                 }
                 return "There’s no one here to talk to.";
 
+            case "n":
+                player.setLastRoom(this);
+                player.setFlag("saw_teacher_leave");
+                return "You choose to take a look around the room, as you slowly notice that the teacher stands up and starts to slowly walk away. " +
+                        "Should you follow her?";
             case "follow":
             case "follow her":
                 if (player.hasFlag("saw_teacher_leave") && !player.hasFlag("has_followed_teacher")) {
                     player.setFlag("has_followed_teacher");
-                    handleRoomChange(player, "Garage");
+                    handleRoomChange(player, "garage");
                     return "You quietly follow her through the dim hallway, into the Garage.";
                 }
                 return "There's no one to follow.";

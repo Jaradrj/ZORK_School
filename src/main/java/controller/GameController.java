@@ -28,7 +28,7 @@ public class GameController {
             String result = currentRoom.performAction(player, input);
             System.out.println(result);
 
-            
+
         }
     }
 
