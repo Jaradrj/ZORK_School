@@ -79,6 +79,7 @@ public class MusicRoom implements Room {
                 if (player.hasFlag("watched_song_notes")) {
                     System.out.println("Cafeteria");
                 }
+                return "";
 
             default:
                 if (action.toLowerCase().startsWith("go to ")) {
