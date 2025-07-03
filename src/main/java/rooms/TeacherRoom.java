@@ -1,6 +1,7 @@
 package rooms;
 
 import game.*;
+
 import java.util.*;
 
 public class TeacherRoom implements Room {
@@ -12,32 +13,46 @@ public class TeacherRoom implements Room {
 
     @Override
     public void enter(Player player) {
-        System.out.println("You enter the Teacher Room.");
-        String lastRoom = player.getLastRoom();
+
+        Room lastRoom = player.getLastRoom();
+        boolean wasHere = player.hasFlag("was_teacher_room");
 
         boolean sawTeacherLeave = player.hasFlag("saw_teacher_leave");
         boolean followedTeacher = player.hasFlag("has_followed_teacher");
-        boolean teacherPresent = !sawTeacherLeave && !followedTeacher;
-        boolean lightsOn = lastRoom.equals("Main Entrance Hall");
+        boolean teacherPresent = !sawTeacherLeave && !followedTeacher && lastRoom.getName().equals("main entrance hall");
+        boolean lightsOn = Objects.equals(lastRoom.getName(), "main entrance hall");
 
-        System.out.println(lightsOn ? "The lights are on, illuminating the room." : "The room is dark.");
+        if (!wasHere) {
+            System.out.println("You enter the Teacher Room.");
+            System.out.println(lightsOn ? "Some candles are lit, illuminating the room." : "The room is dark.");
+            player.setFlag("was_teacher_room");
+        }
+
 
         if (teacherPresent) {
             System.out.println("A woman sits at the desk, sipping something from a steaming mug. She looks a lot like Mrs. Hamps, your school psychologist.\nPoor woman, must have been working really hard helping all the missing students' friends and family.");
-            System.out.println("Actions:");
-            System.out.println("- Talk to Her");
+            System.out.println("Do you want to talk to her? (Y/N)");
             System.out.println("- Leave");
-        } else if (sawTeacherLeave && !followedTeacher) {
+            return;
+        }
+
+        if (!followedTeacher && !wasHere && !lastRoom.getName().equals("teacher room")) {
             System.out.println("You see a faint silhouette disappearing into the Garage. Someone just left. Perhaps you should follow? Or stay safe?");
+        }
+
+        if (!wasHere) {
+            System.out.println("The room is empty. A hot cup sits on the table. A laptop screen glows faintly. Papers are scattered all over the Head Teacher’s desk. Some were also tossed in the trash bin. A science award diploma is proudly displayed. Next to it, you see a Flashlight.");
+        }
+
+        if (!followedTeacher && !player.hasFlag("teacher_room_loot_ready")) {
+            player.setFlag("saw_teacher_leave");
             System.out.println("Actions:");
             System.out.println("- Follow Her");
+            System.out.println("- Stay hidden");
             System.out.println("- Leave");
-        } else {
-            if(!player.hasFlag("was_teacher_room")) {
-                player.setFlag("was_teacher_room");
-                System.out.println("The room is empty. A hot cup sits on the table. A laptop screen glows faintly. Papers are scattered all over the Head Teacher’s desk. Some were also tossed in the trash bin. A science award diploma is proudly displayed. Next to it, you see a Flashlight.");
-            }
-            System.out.println("Actions:");
+        }
+
+        if (player.hasFlag("teacher_room_loot_ready")) {
             if (!player.hasFlag("coffee_taken")) System.out.println("- Drink Coffee");
             if (!player.hasFlag("coffee_taken") && !player.hasFlag("read_email")) System.out.println("- Use Laptop");
             if (!player.hasFlag("found_trash_id")) System.out.println("- Search Trash Bin");
@@ -51,34 +66,43 @@ public class TeacherRoom implements Room {
         action = action.toLowerCase().trim();
 
         switch (action) {
-            case "talk":
+            case "y":
             case "talk to her":
                 if (!player.hasFlag("saw_teacher_leave") && !player.hasFlag("has_followed_teacher")) {
                     player.setFlag("game_ended");
                     return """
-                        She turns slowly, her eyes glinting in the dim light.
-                        'You found me... I didn’t think anyone would get this far.'
-                        A pause. The room feels colder now.
-                        'This place — it was never meant for you. Or anyone. We tried to bury it, erase it.'
-                        She looks past you, as if seeing something distant. Or remembering.
-                        'I stayed to make sure no one would open the door again. But now it's too late.'
-                        Her voice drops to a whisper. 'They’re already after us.'
-                        The ground trembles. Lights flicker. 
-                        'I’m sorry.'
-                        Everything fades.
-                        GAME OVER.
-                    """;
+                                She turns slowly, her eyes glinting in the dim light.
+                                'You found me... I didn’t think anyone would get this far.'
+                                A pause. The room feels colder now.
+                                'This place — it was never meant for you. Or anyone. We tried to bury it, erase it.'
+                                She looks past you, as if seeing something distant. Or remembering.
+                                'I stayed to make sure no one would open the door again. But now it's too late.'
+                                Her voice drops to a whisper. 'They’re already after us.'
+                                The ground trembles. Lights flicker. 
+                                'I’m sorry.'
+                                Everything fades.
+                                GAME OVER.
+                            """;
                 }
                 return "There’s no one here to talk to.";
 
+            case "n":
+                player.setLastRoom(this);
+                return "You choose to take a look around the room, as you slowly notice that the teacher stands up and starts to slowly walk away. " +
+                        "Should you follow her?";
             case "follow":
             case "follow her":
                 if (player.hasFlag("saw_teacher_leave") && !player.hasFlag("has_followed_teacher")) {
                     player.setFlag("has_followed_teacher");
-                    player.setCurrentRoom("Garage");
+                    handleRoomChange(player, "garage");
                     return "You quietly follow her through the dim hallway, into the Garage.";
                 }
                 return "There's no one to follow.";
+
+            case "stay hidden":
+                player.setFlag("teacher_room_loot_ready");
+                return "You decide to stay hidden in hope to find something in the teacher room. You wait a couple of minutes and slowly start to look around the room. " +
+                        "What would you like to do?";
 
             case "drink coffee":
             case "coffee":
