@@ -38,7 +38,7 @@ public class ITRoom implements Room {
             case "inspect":
             case "inspect message":
                 if (!player.hasFlag("inspected_message")) {
-                    return "[ACCESSING TERMINAL...]\n" +
+                    System.out.println("[ACCESSING TERMINAL...]\n" +
                             "\n" +
                             "   ███████╗██╗███╗   ██╗██████╗ ███████╗███╗   ███╗\n" +
                             "   ██╔════╝██║████╗  ██║██╔══██╗██╔════╝████╗ ████║\n" +
@@ -58,38 +58,38 @@ public class ITRoom implements Room {
                             "   > She never left the music room.\n" +
                             "     Why did you?\n" +
                             "\n" +
-                            "   [SYSTEM ERROR: MEMORY LEAK - RUN? Y/N]\n";
+                            "   [SYSTEM ERROR: MEMORY LEAK - RUN? Y/N]\n");
+
+                    Scanner scanner = new Scanner(System.in);
+                    String response = scanner.nextLine();
+                    if (response.equalsIgnoreCase("y") || response.equalsIgnoreCase("run")) {
+                        player.setFlag("inspected_message");
+                        if (player.hasFlag("inspected_message") && !player.hasFlag("ran_memory_leak")) {
+                            player.setFlag("ran_memory_leak");
+                            return "[PROCESSING...]\n\n" +
+                                    "Accessing archived camera feeds...\n" +
+                                    "\n" +
+                                    "[CAM_01 - Music Room]\n" +
+                                    "* A still image. A shadow in the corner, not there before.\n" +
+                                    "* It moves when you're not watching. It leaves the room.\n" +
+                                    "\n" +
+                                    "[CAM_02 - Hallway]\n" +
+                                    "* Lights flicker. The hallway stretches too far.\n" +
+                                    "* You can hear footsteps through the camera, but no person was seen.\n" +
+                                    "\n" +
+                                    "[CAM_03 - Teacher Room]\n" +
+                                    "* Two people arguing. Then, they both walk out. After some minutes, only one returns.\n" +
+                                    "\n" +
+                                    ">> Feed lost. Signal corrupted.\n" +
+                                    "\n" +
+                                    "[RETURNING TO PROMPT...]\n\n\n" +
+                                    "I should check the Teacher's Room...";
+                        }
+                        return "Nothing happens. Maybe you missed something?";
+                    } else {
+                        return "[PROCESS TERMINATED. RETURNING TO PROMPT...]\n";
+                    }
                 }
-                System.out.println( "The terminal awaits a response: Y or N.");
-                Scanner scanner = new Scanner(System.in);
-                String response = scanner.nextLine();
-            if( response.equalsIgnoreCase("y") || response.equalsIgnoreCase("run")) {
-                player.setFlag("inspected_message");
-                if (player.hasFlag("inspected_message") && !player.hasFlag("ran_memory_leak")) {
-                    player.setFlag("ran_memory_leak");
-                    return "[PROCESSING...]\n\n" +
-                            "Accessing archived camera feeds...\n" +
-                            "\n" +
-                            "[CAM_01 - Music Room]\n" +
-                            "* A still image. A shadow in the corner, not there before.\n" +
-                            "* It moves when you're not watching. It leaves the room.\n" +
-                            "\n" +
-                            "[CAM_02 - Hallway]\n" +
-                            "* Lights flicker. The hallway stretches too far.\n" +
-                            "* You can hear footsteps through the camera, but no person was seen.\n" +
-                            "\n" +
-                            "[CAM_03 - Teacher Room]\n" +
-                            "* Two people arguing. Then, they both walk out. After some minutes, only one returns.\n" +
-                            "\n" +
-                            ">> Feed lost. Signal corrupted.\n" +
-                            "\n" +
-                            "[RETURNING TO PROMPT...]\n\n\n" +
-                            "I should check the Teacher's Room...";
-                }
-                return "Nothing happens. Maybe you missed something?";
-            } else {
-                return "[PROCESS TERMINATED. RETURNING TO PROMPT...]\n";
-            }
             case "2":
             case "turn":
             case "turn on wlan":
