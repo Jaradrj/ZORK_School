@@ -5,17 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c286cac8-34d1-4cd2-b996-9fb79893a83f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/8.8/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.8/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/rooms/Cafeteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/Cafeteria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/rooms/ChemistryRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/ChemistryRoom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/rooms/ElectricityRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/ElectricityRoom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/rooms/Garage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/Garage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/rooms/ITRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/ITRoom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/rooms/MusicRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/MusicRoom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/rooms/PrinterRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/PrinterRoom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/rooms/Secretary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/Secretary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/rooms/Sportshall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/Sportshall.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/game/Commands.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/game/Room.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/rooms/TeacherRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/TeacherRoom.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -61,12 +54,12 @@
     &quot;assignee&quot;: &quot;jevshyl&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Jaradrj/ZORK_School.git&quot;,
-    &quot;accountId&quot;: &quot;df2b2161-bf0e-4bde-bdb3-ac20cbe09c49&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Jaradrj/ZORK_School.git",
+    "accountId": "871f840e-5fe1-4593-98d1-372069973e83"
   }
-}</component>
+}]]></component>
   <component name="JpbToolWindowState">
     <option name="isToolWindowVisible" value="false" />
   </component>
