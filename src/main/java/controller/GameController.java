@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class GameController {
     private Player player;
     private Room startRoom;
+    private Commands command;
 
     public GameController() {
         this.player = new Player();
@@ -25,7 +26,7 @@ public class GameController {
 
             System.out.print("> ");
             String input = scanner.nextLine();
-
+            command.checkInputCommands(input, player);
             String result = currentRoom.performAction(player, input);
             System.out.println(result);
         }
