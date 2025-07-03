@@ -92,7 +92,13 @@ public class PrinterRoom implements Room {
                 }
                 break;
             case "leave":
-                return "You decide to leave. Where do you want to go? (Use: go to X)";
+                System.out.println("You decide to leave. Where do you want to go? (Use: go to X)");
+                System.out.println("You can now go to: ");
+                System.out.println("Teacher Room");
+                if (player.hasFlag("has_full_map")) {
+                    System.out.println("Chemistry Room");
+                }
+                return "";
             default:
                 if (action.startsWith("go to ")) {
                     return handleRoomChange(player, action.substring(6).trim());

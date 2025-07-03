@@ -147,7 +147,15 @@ public class TeacherRoom implements Room {
 
             case "leave":
                 player.setFlag("leaving");
-                return "You decide to leave. Where do you want to go? (Use: go to X)";
+                System.out.println("You decide to leave. Where do you want to go? (Use: go to X)");
+                System.out.println("You can now go to: ");
+                if (player.hasFlag("found_trash_id")) {
+                    System.out.println("- Secretary");
+                }
+                if (player.hasFlag("read_email")) {
+                    System.out.println("- Printer Room");
+                }
+                return "";
 
             default:
                 if (action.startsWith("go to ")) {

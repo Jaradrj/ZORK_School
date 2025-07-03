@@ -35,7 +35,8 @@ public class ChemistryRoom implements Room {
             System.out.println("- Brew Acid");
         }
         System.out.println("- Leave");
-    }
+        }
+
 
     @Override
     public String performAction(Player player, String action) {
@@ -86,7 +87,13 @@ public class ChemistryRoom implements Room {
                     return "You mix the chemicals, but nothing happens. Wrong combination?";
                 }
             case "leave":
-                return "You decide to leave. Where do you want to go? (Use: go to X)";
+                System.out.println("You decide to leave. Where do you want to go? (Use: go to X)");
+                System.out.println("You can now go to: ");
+                if (player.hasFlag("acid_taken")) {
+                    System.out.println("Electricity Room");
+                }
+                    System.out.println("Secretary");
+                return "";
             default:
                 if (action.toLowerCase().startsWith("go to ")) {
                     return handleRoomChange(player, action.substring(6).trim());

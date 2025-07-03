@@ -44,7 +44,13 @@ public class Sportshall implements Room {
                 return handleRoomChange(player, "Electricity Room");
             case "leave":
             case "2":
-                return "You decide to leave. Where do you want to go? (Use: go to X)";
+                System.out.println("You decide to leave. Where do you want to go? (Use: go to X)\n\n");
+                System.out.println("You can now go to: ");
+                System.out.println("- Secretary");
+                if (player.hasFlag("entered_electricity")) {
+                    System.out.println("- Electricity Room");
+                }
+                return "";
             default:
                 if (action.toLowerCase().startsWith("go to ")) {
                     return handleRoomChange(player, action.substring(6).trim());

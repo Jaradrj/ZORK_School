@@ -7,7 +7,16 @@
     <list default="true" id="c286cac8-34d1-4cd2-b996-9fb79893a83f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.gradle/8.8/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.8/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/rooms/Cafeteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/Cafeteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/rooms/ChemistryRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/ChemistryRoom.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/rooms/ElectricityRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/ElectricityRoom.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/rooms/Garage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/Garage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/rooms/ITRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/ITRoom.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/rooms/MusicRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/MusicRoom.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/rooms/PrinterRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/PrinterRoom.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/rooms/Secretary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/Secretary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/rooms/Sportshall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/Sportshall.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/rooms/TeacherRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rooms/TeacherRoom.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,12 +61,12 @@
     &quot;assignee&quot;: &quot;jevshyl&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Jaradrj/ZORK_School.git",
-    "accountId": "df2b2161-bf0e-4bde-bdb3-ac20cbe09c49"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Jaradrj/ZORK_School.git&quot;,
+    &quot;accountId&quot;: &quot;df2b2161-bf0e-4bde-bdb3-ac20cbe09c49&quot;
   }
-}]]></component>
+}</component>
   <component name="JpbToolWindowState">
     <option name="isToolWindowVisible" value="false" />
   </component>
@@ -69,26 +78,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "Application.Unnamed.executor": "Run",
-    "Gradle.ZORK_School [:Main.main()].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feat/rooms",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "SDKs",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Unnamed.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ZORK_School [:Main.main()].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feat/rooms&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="semeru-21" />

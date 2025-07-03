@@ -21,7 +21,6 @@ public class Secretary implements Room {
         if (player.hasFlag("flashlight_taken") || player.hasFlag("turned_on_power")) {
             System.out.println("- Examine the Pinboard");
         }
-            System.out.println("- Leave");
 
         System.out.println("- Leave");
     }
@@ -44,7 +43,14 @@ public class Secretary implements Room {
                 return "You examined the pinboard, time to leave.";
             case "leave":
             case "2":
-                return "You decide to leave. Where do you want to go? (Use: go to X)";
+                System.out.println("You decide to leave. Where do you want to go? (Use: go to X)\n\n");
+                System.out.println("You can now go to: ");
+                System.out.println("- Teacher Room");
+                if (player.hasFlag("full_map_taken")) {
+                    System.out.println("- Chemistry Room");
+                    System.out.println("- Sportshall");
+                }
+                return "";
             default:
                 if (action.toLowerCase().startsWith("go to ")) {
                     return handleRoomChange(player, action.substring(6).trim());

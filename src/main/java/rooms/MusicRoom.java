@@ -71,6 +71,15 @@ public class MusicRoom implements Room {
                     }
                 }
                 return "You already listened to the audio on the cassette";
+
+            case "leave":
+                System.out.println("You decide to leave. Where do you want to go? (Use: go to x");
+                System.out.println("You can now go to: ");
+                System.out.println("Main Entrance Hall");
+                if (player.hasFlag("watched_song_notes")) {
+                    System.out.println("Cafeteria");
+                }
+
             default:
                 if (action.toLowerCase().startsWith("go to ")) {
                     return handleRoomChange(player, action.substring(6).trim());
