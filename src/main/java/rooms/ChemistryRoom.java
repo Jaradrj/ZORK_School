@@ -5,6 +5,8 @@ import game.Room;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import game.Exit;
+import game.RoomFactory;
 
 public class ChemistryRoom implements Room {
 
@@ -39,31 +41,31 @@ public class ChemistryRoom implements Room {
             case "1":
             case "look":
             case "look at periodic table":
-                    player.setFlag("saw_periodic_table");
-                    return "+----+----+----+----+----+----+----+----+----+----+----+----+----+\n" +
-                            "| H  | He                                                         |\n" +
-                            "+----+----+                                                    +--+\n" +
-                            "| Li | Be |                      | B  | C  | N  | O  | F  | Ne |  |\n" +
-                            "+----+----+                      +----+----+----+----+----+----+--+\n" +
-                            "| Na | Mg |                      | Al | Si | P  | S  | Cl | Ar |\n" +
-                            "+----+----+                      +----+----+----+----+----+----+\n" +
-                            "| K  | Ca | Sc | Ti | V  | Cr | Mn | Fe | Co | Ni | Cu | Zn |\n" +
-                            "+----+----+----+----+----+----+----+----+----+----+----+----+\n" +
-                            "| Br | I  | Hg | Pb | Sn | As | Sb | Cd | Ba | Sr | Ra | U  |\n" +
-                            "+----+----+----+----+----+----+----+----+----+----+----+----+\n";
+                player.setFlag("saw_periodic_table");
+                return "+----+----+----+----+----+----+----+----+----+----+----+----+----+\n" +
+                        "| H  | He                                                         |\n" +
+                        "+----+----+                                                    +--+\n" +
+                        "| Li | Be |                      | B  | C  | N  | O  | F  | Ne |  |\n" +
+                        "+----+----+                      +----+----+----+----+----+----+--+\n" +
+                        "| Na | Mg |                      | Al | Si | P  | S  | Cl | Ar |\n" +
+                        "+----+----+                      +----+----+----+----+----+----+\n" +
+                        "| K  | Ca | Sc | Ti | V  | Cr | Mn | Fe | Co | Ni | Cu | Zn |\n" +
+                        "+----+----+----+----+----+----+----+----+----+----+----+----+\n" +
+                        "| Br | I  | Hg | Pb | Sn | As | Sb | Cd | Ba | Sr | Ra | U  |\n" +
+                        "+----+----+----+----+----+----+----+----+----+----+----+----+\n";
             case "2":
             case "look at formula papers":
-                    player.setFlag("saw_formula_papers");
-                    return "╔════════════════════════════════════╗\n" +
-                            "║     ADVANCED CHEMISTRY FORMULAS   ║\n" +
-                            "╠════════════════════════════════════╣\n" +
-                            "║ Water               -> H2O         ║\n" +
-                            "║ Sulfuric Acid       -> H2SO4       ║\n" +
-                            "║ Hydrochloric Acid   -> HCl         ║\n" +
-                            "║ Nitric Acid         -> HNO3        ║\n" +
-                            "║ Scopolamine (alk.)  -> C17H21NO4   ║\n" +
-                            "╚════════════════════════════════════╝\n" +
-                            "*Note: Handle with caution.\n";
+                player.setFlag("saw_formula_papers");
+                return "╔════════════════════════════════════╗\n" +
+                        "║     ADVANCED CHEMISTRY FORMULAS   ║\n" +
+                        "╠════════════════════════════════════╣\n" +
+                        "║ Water               -> H2O         ║\n" +
+                        "║ Sulfuric Acid       -> H2SO4       ║\n" +
+                        "║ Hydrochloric Acid   -> HCl         ║\n" +
+                        "║ Nitric Acid         -> HNO3        ║\n" +
+                        "║ Scopolamine (alk.)  -> C17H21NO4   ║\n" +
+                        "╚════════════════════════════════════╝\n" +
+                        "*Note: Handle with caution.\n";
             case "3":
             case "brew acid":
                 if (player.hasFlag("acid_taken")) {

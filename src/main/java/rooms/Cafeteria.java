@@ -4,6 +4,8 @@ import game.Player;
 import game.Room;
 import java.util.HashMap;
 import java.util.Map;
+import game.Exit;
+import game.RoomFactory;
 
 public class Cafeteria implements Room {
 

@@ -1,7 +1,6 @@
 package rooms;
 
-import game.Player;
-import game.Room;
+import game.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -62,10 +61,10 @@ public class MusicRoom implements Room {
             case "listen to the cassette":
                 if (!player.hasFlag("listened_to_cassette")) {
                     player.setFlag("listened_to_cassette");
-                    return "You get closer to the cassette, step by step. The message you're hearing becomes more and more clear. But then, suddenly the cassette shuts down. No battery.";
+                    System.out.println("You get closer to the cassette, step by step. The message you're hearing becomes more and more clear. But then, suddenly the cassette shuts down. No battery.");
                     if (player.hasFlag("flashlight_taken")) {
-                        return "Luckily, you have your flashlight. The batteries fit the same. After inserting your flashlight's batteries into the cassette, the message continues:\n\n 'I'm sorry. For the last three years I've tried everything to become the best, to help my family and myself.\nI had to keep my reputation up and now... They are gone. I killed them. And I'll be next... If they ever offer you a drink, don't drink it.\nIt's called Scopolamine, makes you hallucinate, lose your memory. I'm so sorry.'\n\nThis voice reminds me of somebody, but I can't figure out who. Someone from the band? I have to stop this!";
                         player.setFlag("listened_to_cassette");
+                        return "Luckily, you have your flashlight. The batteries fit the same. After inserting your flashlight's batteries into the cassette, the message continues:\n\n 'I'm sorry. For the last three years I've tried everything to become the best, to help my family and myself.\nI had to keep my reputation up and now... They are gone. I killed them. And I'll be next... If they ever offer you a drink, don't drink it.\nIt's called Scopolamine, makes you hallucinate, lose your memory. I'm so sorry.'\n\nThis voice reminds me of somebody, but I can't figure out who. Someone from the band? I have to stop this!";
                     }else if (!player.hasFlag("flashlight_taken")) {
                         return "You don't have any batteries. Whatever this cassette wanted to tell you, the truth will remain hidden.";
                     }
@@ -80,23 +79,23 @@ public class MusicRoom implements Room {
     }
 
     public String handleRoomChange(Player player, String roomName) {
-            Map<String, Exit> exits = getAvailableExits(player);
-            if (exits.containsKey(roomName.toLowerCase())) {
-                Room targetRoom = RoomFactory.createRoom(roomName);
-                player.setCurrentRoom(targetRoom);
-                return "";
-            } else {
-                return "There is no room called '" + roomName + "' here.";
-            }
-        }
-
-        @Override
-        public Map<String, Exit> getAvailableExits (Player player){
-            Map<String, Exit> exits = new HashMap<>();
-            exits.put("main entrance hall", new Exit("main entrance hall", null));
-            if (player.hasFlag("watched_song_notes")) {
-                exits.put("cafeteria", new Exit("cafeteria", null));
-            }
-            return exits;
+        Map<String, Exit> exits = getAvailableExits(player);
+        if (exits.containsKey(roomName.toLowerCase())) {
+            Room targetRoom = RoomFactory.createRoom(roomName);
+            player.setCurrentRoom(targetRoom);
+            return "";
+        } else {
+            return "There is no room called '" + roomName + "' here.";
         }
     }
+
+    @Override
+    public Map<String, Exit> getAvailableExits (Player player){
+        Map<String, Exit> exits = new HashMap<>();
+        exits.put("main entrance hall", new Exit("main entrance hall", null));
+        if (player.hasFlag("watched_song_notes")) {
+            exits.put("cafeteria", new Exit("cafeteria", null));
+        }
+        return exits;
+    }
+}
