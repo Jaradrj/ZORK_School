@@ -14,7 +14,6 @@ public class Commands {
     }
 
     public void checkInputCommands(String input, Player player) {
-        if (input == null) return;
 
         switch (input.toLowerCase().trim()) {
             case "-h":
@@ -57,7 +56,7 @@ public class Commands {
     }
 
     public void printAvailableRooms(Player player) {
-        String currentRoomName = player.getCurrentRoom();
+        String currentRoomName = player.getCurrentRoom().getName();
         Room currentRoom = rooms.get(currentRoomName);
         Map<String, Exit> exits = currentRoom.getAvailableExits(player);
 

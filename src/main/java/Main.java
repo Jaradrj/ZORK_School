@@ -1,8 +1,10 @@
 import controller.GameController;
+import game.Commands;
 
 public class Main {
 	public static void main(String[] args) {
-		GameController controller = new GameController();
+		Commands command = null;
+		GameController controller = new GameController(null);
 		controller.run();
 	}
 }

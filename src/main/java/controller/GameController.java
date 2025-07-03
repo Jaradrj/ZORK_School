@@ -9,7 +9,8 @@ public class GameController {
     private Room startRoom;
     private Commands command;
 
-    public GameController() {
+    public GameController(Commands command) {
+        this.command = command;
         this.player = new Player();
         this.startRoom = RoomFactory.createRoom("main entrance hall");
     }
@@ -24,11 +25,14 @@ public class GameController {
             currentRoom.enter(player);
 
             System.out.print("> ");
-            String input = scanner.nextLine();
-            command.checkInputCommands(input, player);
-            String result = currentRoom.performAction(player, input);
-            System.out.println(result);
+            String input = scanner.nextLine().trim();
 
+            if (input.startsWith("-") || input.equalsIgnoreCase("h") || input.equalsIgnoreCase("i") || input.equalsIgnoreCase("r")) {
+                command.checkInputCommands(input, player);
+            } else {
+                String result = currentRoom.performAction(player, input);
+                System.out.println(result);
+            }
 
         }
     }
