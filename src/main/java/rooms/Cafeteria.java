@@ -50,7 +50,7 @@ public class Cafeteria implements Room {
                 player.setFlag("leave_cafeteria");
                 System.out.println("You decided to leave, where would you like to go to (Use: go to x)");
                 System.out.println("You can go to: ");
-                System.out.println("-IT Room");
+                System.out.println("- IT Room");
                 System.out.println("- Music Room");
                 return "";
 

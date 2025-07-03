@@ -4,6 +4,7 @@ import game.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class ITRoom implements Room {
 
@@ -14,17 +15,20 @@ public class ITRoom implements Room {
 
     @Override
     public void enter(Player player) {
+        System.out.println("You enter the IT Room.");
         if (!player.hasFlag("was_it")) {
             player.setFlag("was_it");
-            System.out.println("You enter the IT Room.");
 
             System.out.println("The ancient computers, which normally sound like airplane turbines, don't make a single sound. Only one seems to be running, strangely enough.\n It shows a weird message, but I can't decipher it, not from here. Somehow I have the feeling that I'm about to be attacked from behind when I inspect it...");
         }
-        System.out.println("Actions:");
 
-        System.out.println("- Inspect message");
-        if (player.hasFlag("turned_on_power") && player.hasFlag("phone_taken")) System.out.println("- Turn on Wlan");
-        System.out.println("- Leave");
+            System.out.println("Actions:");
+            if(!player.hasFlag("inspected_message")){
+            System.out.println("- Inspect message");
+            }
+            if (player.hasFlag("turned_on_power") && player.hasFlag("phone_taken"))
+                System.out.println("- Turn on Wlan");
+            System.out.println("- Leave");
     }
 
     @Override
@@ -34,7 +38,6 @@ public class ITRoom implements Room {
             case "inspect":
             case "inspect message":
                 if (!player.hasFlag("inspected_message")) {
-                    player.setFlag("inspected_message");
                     return "[ACCESSING TERMINAL...]\n" +
                             "\n" +
                             "   ███████╗██╗███╗   ██╗██████╗ ███████╗███╗   ███╗\n" +
@@ -57,9 +60,11 @@ public class ITRoom implements Room {
                             "\n" +
                             "   [SYSTEM ERROR: MEMORY LEAK - RUN? Y/N]\n";
                 }
-                return "The terminal awaits a response: Y or N.";
-            case "y":
-            case "run":
+                System.out.println( "The terminal awaits a response: Y or N.");
+                Scanner scanner = new Scanner(System.in);
+                String response = scanner.nextLine();
+            if( response.equalsIgnoreCase("y") || response.equalsIgnoreCase("run")) {
+                player.setFlag("inspected_message");
                 if (player.hasFlag("inspected_message") && !player.hasFlag("ran_memory_leak")) {
                     player.setFlag("ran_memory_leak");
                     return "[PROCESSING...]\n\n" +
@@ -79,11 +84,12 @@ public class ITRoom implements Room {
                             ">> Feed lost. Signal corrupted.\n" +
                             "\n" +
                             "[RETURNING TO PROMPT...]\n\n\n" +
-                            "I should check the Teacher's Room again...";
+                            "I should check the Teacher's Room...";
                 }
                 return "Nothing happens. Maybe you missed something?";
-            case "n":
-                return "[PROCESS TERMINATED. RETURNING TO PROMPT...]\nYou decide to leave this room. Where are you going?";
+            } else {
+                return "[PROCESS TERMINATED. RETURNING TO PROMPT...]\n";
+            }
             case "2":
             case "turn":
             case "turn on wlan":

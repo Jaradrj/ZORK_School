@@ -42,7 +42,7 @@ public class TeacherRoom implements Room {
             System.out.println("You see a faint silhouette disappearing into the Garage. Someone just left. Perhaps you should follow? Or stay safe?");
         }
 
-        if (!wasHere) {
+         else if (wasHere && !teacherPresent) {
             System.out.println("The room is empty. A hot cup sits on the table. A laptop screen glows faintly. Papers are scattered all over the Head Teacher’s desk. Some were also tossed in the trash bin. A science award diploma is proudly displayed. Next to it, you see a Flashlight.");
         }
 
@@ -105,14 +105,14 @@ public class TeacherRoom implements Room {
             case "use laptop":
             case "laptop":
                 if (player.hasFlag("coffee_taken")) {
-                    return "The laptop is short-circuited. Nothing works anymore.";
+                    return "\nThe laptop is short-circuited. Nothing works anymore.";
                 } else if (!player.hasFlag("read_email")) {
                     player.setFlag("read_email");
-                    return "You open the laptop. A strange draft email catches your eye:\n\n" +
+                    return "\nYou open the laptop. A strange draft email catches your eye:\n\n" +
                             "\"To: ???@district.edu\nSubject: MindScale Test Distribution\nMessage: 'Make sure Room 302 is ventilated this time. The last trial was... messy. \nAlso, please print out the test attached.'\"\n\n" +
                             "Disturbing...\nYou unlocked a new Room: the Printer Room.";
                 } else {
-                    return "There’s nothing new on the laptop.";
+                    return "\nThere’s nothing new on the laptop.";
                 }
 
             case "search trash":
@@ -138,6 +138,9 @@ public class TeacherRoom implements Room {
                 player.setFlag("leaving");
                 System.out.println("You decide to leave. Where do you want to go? (Use: go to X)");
                 System.out.println("You can now go to: ");
+                System.out.println("- Main Entrance Hall");
+                System.out.println("- IT Room");
+                System.out.println("- Music Room");
                 if (player.hasFlag("found_trash_id")) {
                     System.out.println("- Secretary");
                 }

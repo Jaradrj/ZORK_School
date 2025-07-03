@@ -39,7 +39,7 @@ public class Sportshall implements Room {
                 if (!player.hasFlag("was_electricity")) {
                     System.out.println("You move the bench. Luckily, it's not that far away from the shaft. By using your skill, you manage to climb into the shaft.\nWhile crawling through, you notice the smell getting worse and worse, to the point you almost have to throw up.\nYou start to hear a buzzing sound. That's the moment you realize, you made it to the Electricity Room. ");
                 }
-                return handleRoomChange(player, "Electricity Room");
+                return handleRoomChange(player, "electricity room");
             case "leave":
             case "2":
                 System.out.println("You decide to leave. Where do you want to go? (Use: go to X)\n\n");
