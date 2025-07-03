@@ -6,6 +6,8 @@ import java.util.*;
 
 public class TeacherRoom implements Room {
 
+    private Ending ending;
+
     @Override
     public String getName() {
         return "teacher room";
@@ -13,7 +15,6 @@ public class TeacherRoom implements Room {
 
     @Override
     public void enter(Player player) {
-
         Room lastRoom = player.getLastRoom();
         boolean wasHere = player.hasFlag("was_teacher_room");
 
@@ -45,9 +46,10 @@ public class TeacherRoom implements Room {
             System.out.println("The room is empty. A hot cup sits on the table. A laptop screen glows faintly. Papers are scattered all over the Head Teacher’s desk. Some were also tossed in the trash bin. A science award diploma is proudly displayed. Next to it, you see a Flashlight.");
         }
 
+        System.out.println("Actions:");
+
         if (!followedTeacher && !player.hasFlag("teacher_room_loot_ready") && !decideToLeave) {
             player.setFlag("saw_teacher_leave");
-            System.out.println("Actions:");
             System.out.println("- Follow Her");
             System.out.println("- Stay hidden");
             System.out.println("- Leave");
@@ -70,20 +72,7 @@ public class TeacherRoom implements Room {
             case "y":
             case "talk to her":
                 if (!player.hasFlag("saw_teacher_leave") && !player.hasFlag("has_followed_teacher")) {
-                    player.setFlag("game_ended");
-                    return """
-                                She turns slowly, her eyes glinting in the dim light.
-                                'You found me... I didn’t think anyone would get this far.'
-                                A pause. The room feels colder now.
-                                'This place — it was never meant for you. Or anyone. We tried to bury it, erase it.'
-                                She looks past you, as if seeing something distant. Or remembering.
-                                'I stayed to make sure no one would open the door again. But now it's too late.'
-                                Her voice drops to a whisper. 'They’re already after us.'
-                                The ground trembles. Lights flicker. 
-                                'I’m sorry.'
-                                Everything fades.
-                                GAME OVER.
-                            """;
+                    ending.teacherEnding(player);
                 }
                 return "There’s no one here to talk to.";
 
@@ -167,7 +156,8 @@ public class TeacherRoom implements Room {
 
     public String handleRoomChange(Player player, String roomName) {
         Map<String, Exit> exits = getAvailableExits(player);
-        if (exits.containsKey(roomName.toLowerCase())) {
+        String roomKey = roomName.toLowerCase();
+        if (exits.containsKey(roomKey)) {
             Room targetRoom = RoomFactory.createRoom(roomName);
             player.setCurrentRoom(targetRoom);
             return "";

@@ -131,6 +131,7 @@ public class ElectricityRoom implements Room {
     @Override
     public String handleRoomChange(Player player, String roomName) {
         Map<String, Exit> exits = getAvailableExits(player);
+        String roomKey = roomName.toLowerCase();
         if (exits.containsKey(roomName)) {
             Room targetRoom = RoomFactory.createRoom(roomName);
             player.setCurrentRoom(targetRoom);
