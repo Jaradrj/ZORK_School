@@ -111,8 +111,7 @@ public class Endings {
                         "              ) (\n" +
                         "            _.' '._\n" +
                         "           `\"\"\"\"\"\"\"`");
-
-
+                System.exit(0);
     }
 
     public void badEnding(Player player) {

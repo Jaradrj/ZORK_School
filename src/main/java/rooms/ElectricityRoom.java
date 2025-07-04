@@ -5,6 +5,7 @@ import game.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class ElectricityRoom implements Room {
 
@@ -58,7 +59,7 @@ public class ElectricityRoom implements Room {
         switch (action.toLowerCase()) {
             case "1":
             case "open the door":
-                if (player.hasFlag("key_taken")) {
+                if (player.hasFlag("keys_taken")) {
                     if (!player.hasFlag("door_opened")) {
                         player.setFlag("door_opened");
                         System.out.println("You successfully open the door.");
@@ -102,31 +103,74 @@ public class ElectricityRoom implements Room {
             case "inspect unknown object":
             case "inspect body":
                 if (!player.hasFlag("body_checked")) {
-                    System.out.println("You try and inspect the unknown object, but sadly fail. Due to the darkness you can't recognize it. Maybe try turning the power back on first");
+                    return "You try and inspect the unknown object, but sadly fail. Due to the darkness you can't recognize it. " +
+                            "Maybe try turning the power back on first";
                 } else {
                     player.setFlag("body_inspected");
-                }
-            case "get phone":
-                if (player.hasFlag("body_inspected")) {
+                    System.out.println("Actions: ");
                     if (!player.hasFlag("phone_taken")) {
-                        player.setFlag("phone_taken");
-                    } else {
-                        return "You already picked up the phone";
+                        System.out.println("- Take phone");
                     }
-                } else {
-                    return "You need to find the phone first";
+                    if (!player.hasFlag("read_third_note")) {
+                        System.out.println("- Read note");
+                    }
+                    System.out.println("- Leave");
+
+                    Scanner scanner = new Scanner(System.in);
+                    while (true) {
+                        String input = scanner.nextLine().trim().toLowerCase();
+
+                        switch (input) {
+                            case "get phone":
+                            case "take phone":
+                                if (!player.hasFlag("phone_taken")) {
+                                    player.setFlag("phone_taken");
+                                    return "Phone taken";
+                                } else {
+                                    return "You already picked up the phone.";
+                                }
+                            case "read note":
+                                if (!player.hasFlag("read_third_note")) {
+                                    player.setFlag("read_third_note");
+                                    return "I was here before they introduced these... 'methods' were introduced. \n" +
+                                            "\n" +
+                                            "Back then it was about heaters. Today it's about children. \n" +
+                                            "\n" +
+                                            "I've seen the power box. The real one no one knows about. The one under the office, with the cables that aren't in the plan. I opened it. And then closed it again. I should have... I should have said something straight away. \" \n" +
+                                            "\n" +
+                                            "(crossed out several times: \"Power... cable... door... light...\") \n" +
+                                            "\n" +
+                                            "\"You've been watching me since I started asking questions. Suddenly my key no longer works. Suddenly orders come in the mail that I've never seen. \n" +
+                                            "\n" +
+                                            "And then... this flickering in the Teacher’s room. The camera that records even though the monitor is black.\" \n" +
+                                            "\n" +
+                                            "\"Someone was shouting. I think it was the boy with the curly hair. They said he was signed out. Who voluntarily signs out of a room without a door?\" \n" +
+                                            "\n" +
+                                            "(below, written in a shaky hand) \n" +
+                                            "\n" +
+                                            "\"If you find this: \n" +
+                                            "\n" +
+                                            "Don't trust anyone who knows what MindScale is and still smiles. \n" +
+                                            "\n" +
+                                            "The code is NOT in the safe! \n" +
+                                            "\n" +
+                                            "And if you can... Take this outside. Show them that we didn't just... disappear.";
+                                } else {
+                                    return "You already read the note";
+                                }
+                            case "leave":
+                                return "";
+                            default:
+                                System.out.println("Invalid action.");
+                        }
+                    }
                 }
-            case "read note":
-                if (player.hasFlag("body_inspected")) {
-                    return "note";
-                } else {
-                    return "You need to find the note first";
-                }
+
             default:
                 if (action.toLowerCase().startsWith("go to ")) {
                     return handleRoomChange(player, action.substring(6).trim());
                 }
-                return "invalid action";
+                return "Invalid action.";
         }
     }
 
@@ -143,11 +187,10 @@ public class ElectricityRoom implements Room {
     @Override
     public String handleRoomChange(Player player, String roomName) {
         Map<String, Exit> exits = getAvailableExits(player);
-        String roomKey = roomName.toLowerCase();
         if (exits.containsKey(roomName)) {
             Room targetRoom = RoomFactory.createRoom(roomName);
             player.setCurrentRoom(targetRoom);
-            return "";
+            return "You enter the " + roomName + ".";
         } else {
             return "There is no room called '" + roomName + "' here.";
         }
