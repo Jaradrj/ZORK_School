@@ -8,6 +8,8 @@ import java.util.Scanner;
 
 public class ITRoom implements Room {
 
+    private Endings ending;
+
     @Override
     public String getName() {
         return "it room";
@@ -15,20 +17,20 @@ public class ITRoom implements Room {
 
     @Override
     public void enter(Player player) {
-        System.out.println("You enter the IT Room.");
         if (!player.hasFlag("was_it")) {
             player.setFlag("was_it");
 
-            System.out.println("The ancient computers, which normally sound like airplane turbines, don't make a single sound. Only one seems to be running, strangely enough.\n It shows a weird message, but I can't decipher it, not from here. Somehow I have the feeling that I'm about to be attacked from behind when I inspect it...");
+            System.out.println("The ancient computers, which normally sound like airplane turbines, don't make a single sound. Only one seems to be running, strangely enough.\n" +
+                    "It shows a weird message, but I can't decipher it, not from here. Somehow I have the feeling that I'm about to be attacked from behind when I inspect it...");
         }
 
-            System.out.println("Actions:");
-            if(!player.hasFlag("inspected_message")){
+        System.out.println("\nActions:");
+        if (!player.hasFlag("inspected_message")) {
             System.out.println("- Inspect message");
-            }
-            if (player.hasFlag("turned_on_power") && player.hasFlag("phone_taken"))
-                System.out.println("- Turn on Wlan");
-            System.out.println("- Leave");
+        }
+        if (player.hasFlag("turned_on_power") && player.hasFlag("phone_taken"))
+            System.out.println("- Turn on Wlan");
+        System.out.println("- Leave");
     }
 
     @Override
@@ -38,7 +40,7 @@ public class ITRoom implements Room {
             case "inspect":
             case "inspect message":
                 if (!player.hasFlag("inspected_message")) {
-                    System.out.println("[ACCESSING TERMINAL...]\n" +
+                    System.out.println("\n[ACCESSING TERMINAL...]\n" +
                             "\n" +
                             "   ███████╗██╗███╗   ██╗██████╗ ███████╗███╗   ███╗\n" +
                             "   ██╔════╝██║████╗  ██║██╔══██╗██╔════╝████╗ ████║\n" +
@@ -62,11 +64,11 @@ public class ITRoom implements Room {
 
                     Scanner scanner = new Scanner(System.in);
                     String response = scanner.nextLine();
-                    if (response.equalsIgnoreCase("y") || response.equalsIgnoreCase("run")) {
+                    if (response.equalsIgnoreCase("y") || response.equalsIgnoreCase("run") || response.equalsIgnoreCase("yes")) {
                         player.setFlag("inspected_message");
                         if (player.hasFlag("inspected_message") && !player.hasFlag("ran_memory_leak")) {
                             player.setFlag("ran_memory_leak");
-                            return "[PROCESSING...]\n\n" +
+                            return "\n[PROCESSING...]\n\n" +
                                     "Accessing archived camera feeds...\n" +
                                     "\n" +
                                     "[CAM_01 - Music Room]\n" +
@@ -85,7 +87,7 @@ public class ITRoom implements Room {
                                     "[RETURNING TO PROMPT...]\n\n\n" +
                                     "I should check the Teacher's Room...";
                         }
-                        return "Nothing happens. Maybe you missed something?";
+                        return "\nNothing happens. Maybe you missed something?";
                     } else {
                         return "[PROCESS TERMINATED. RETURNING TO PROMPT...]\n";
                     }
@@ -95,7 +97,7 @@ public class ITRoom implements Room {
             case "turn on wlan":
                 if (!player.hasFlag("turned_on_wlan")) {
                     player.setFlag("turned_on_wlan");
-                    return "You successfully turn on the Wlan. Surprisingly, it still works. But for how long?";
+                    return "\nYou successfully turn on the Wlan. Surprisingly, it still works. But for how long?";
                 }
                 return "You already turned on the wlan\n\n" +
                         "Actions:\n" +
@@ -103,9 +105,9 @@ public class ITRoom implements Room {
             case "call":
             case "call the police":
                 if (player.hasFlag("police_number_taken") && player.hasFlag("turned_on_wlan")) {
-                    System.out.println("\"You don't hesitate and grab the note with the polices number out of your backpack.");
-                    Endings.happyEnding(player);
-                    return "";
+                    System.out.println("\nYou don't hesitate and grab the note with the polices number out of your backpack.");
+                    ending.happyEnding(player);
+                    break;
                 } else if (!player.hasFlag("turned_on_wlan")) {
                     return "You need to turn on the Wlan before making a call";
                 } else if (!player.hasFlag("police_number_taken")) {
@@ -113,7 +115,7 @@ public class ITRoom implements Room {
                 }
 
             case "leave":
-                System.out.println("You decide to leave. (Use: go to x)");
+                System.out.println("\nYou decide to leave. (Use: go to x)");
                 System.out.println("You can now go to: ");
                 System.out.println("- Main Entrance Hall");
                 System.out.println("- Cafeteria");
@@ -127,6 +129,7 @@ public class ITRoom implements Room {
                 }
                 return "Invalid action.";
         }
+        return action;
     }
 
     public String handleRoomChange(Player player, String roomName) {
@@ -135,7 +138,7 @@ public class ITRoom implements Room {
         if (exits.containsKey(roomKey)) {
             Room targetRoom = RoomFactory.createRoom(roomName);
             player.setCurrentRoom(targetRoom);
-            return "";
+            return "You enter the " + roomName + ".";
         } else {
             return "There is no room called '" + roomName + "' here.";
         }
