@@ -8,9 +8,6 @@ import java.util.Map;
 import game.Exit;
 import game.RoomFactory;
 
-import game.Exit;
-import game.RoomFactory;
-
 public class Cafeteria implements Room {
 
     @Override
@@ -22,12 +19,11 @@ public class Cafeteria implements Room {
     public void enter(Player player) {
         if (!player.hasFlag("was_cafeteria")) {
             player.setFlag("was_cafeteria");
-            System.out.println("You enter the Cafeteria.");
             System.out.println("Apart from dirty tables, chairs and leftovers on the food distribution counter, there's not much no find here. Behind the iron door is the kitchen.\nNo wonder we are constantly in the media for our hygiene regulations. About 50% of students have at least had one food poisoning.\nThe only thing shining is a safe. We need a key.");
         }
-        System.out.println("Actions:");
+        System.out.println("\nActions:");
 
-        if (player.hasFlag("key_taken")) {
+        if (player.hasFlag("keys_taken")) {
             System.out.println("- Try opening Safe");
         }
         System.out.println("- Leave");
@@ -44,11 +40,11 @@ public class Cafeteria implements Room {
                     player.setFlag("tried_opening_safe");
                     return "I'm going to be rich! That's what's going through your head while your twisting around the key. Not a single buckle. Wrong key.";
                 }
-                return "The safe still won't work... :(";
+                return "\nThe safe still won't work... :(";
 
             case "leave":
                 player.setFlag("leave_cafeteria");
-                System.out.println("You decided to leave, where would you like to go to (Use: go to x)");
+                System.out.println("\nYou decided to leave, where would you like to go to (Use: go to x)");
                 System.out.println("You can go to: ");
                 System.out.println("- IT Room");
                 System.out.println("- Music Room");
@@ -68,7 +64,7 @@ public class Cafeteria implements Room {
         if (exits.containsKey(roomKey)) {
             Room targetRoom = RoomFactory.createRoom(roomName);
             player.setCurrentRoom(targetRoom);
-            return "";
+            return "You enter the " + roomName + ".";
         } else {
             return "There is no room called '" + roomName + "' here.";
         }

@@ -16,10 +16,9 @@ public class MusicRoom implements Room {
     public void enter(Player player) {
         if (!player.hasFlag("was_music")) {
             player.setFlag("was_music");
-            System.out.println("You enter the Music Room.");
             System.out.println("There's only a tiny bit of light reflecting on the drums in the back of the rotten wooden stage. The music stands are all in one row, creepy.\nSome notes were left behind. Suddenly, you notice a cracked sound, almost impossible to notice. You try to identity the source and see a cassette next to the violin, which is part of the instrument collection.");
         }
-        System.out.println("Actions:");
+        System.out.println("\nActions:");
 
         System.out.println("- Check out Instruments");
         System.out.println("- Watch the notes");
@@ -35,17 +34,17 @@ public class MusicRoom implements Room {
             case "check out instruments":
                 if (!player.hasFlag("has_checked_instruments")) {
                     player.setFlag("has_checked_instruments");
-                    return "The collection of instruments on the stage looks as if it had been abandoned years ago. This has been the standard image of this school ever since the state cut our funding. Sad story...";
+                    return "\nThe collection of instruments on the stage looks as if it had been abandoned years ago. This has been the standard image of this school ever since the state cut our funding. Sad story...";
                 }
-                return "You already checked out the instruments.";
+                return "\nYou already checked out the instruments.";
             case "2":
             case "watch":
             case "watch the notes":
                 if (!player.hasFlag("watched_song_notes")) {
                     player.setFlag("watched_song_notes");
-                    return "    Among the faded compositions lies a single, timeworn sheet of paper.\n" +
-                            "    Its edges are torn, the ink faded almost to invisibility.\n" +
-                            "    It appears to be a song… surprisingly enthusiastic, and all about food.\n" +
+                    return "\nAmong the faded compositions lies a single, timeworn sheet of paper.\n" +
+                            "Its edges are torn, the ink faded almost to invisibility.\n" +
+                            "It appears to be a song… surprisingly enthusiastic, and all about food.\n" +
                             "\n" +
                             "[Song Lyrics – Title: “Symphony of the Feast”]\n" +
                             "\n" +
@@ -56,28 +55,29 @@ public class MusicRoom implements Room {
                             "    Every flavor a note, every spice something new.\n\n " +
                             "I didn't expect to find something happy today, this is it. You unlocked a new Room, the Cafeteria.";
                 }
-                return "You already took a look at the song notes. Besides, are you really sure you want to touch this old piece of paper again?";
+                return "\nYou already took a look at the song notes. Besides, are you really sure you want to touch this old piece of paper again?";
             case "3":
             case "listen":
             case "listen to the cassette":
                 if (!player.hasFlag("listened_to_cassette")) {
-                    System.out.println("You get closer to the cassette, step by step. The message you're hearing becomes more and more clear. But then, suddenly the cassette shuts down. No battery.");
+                    System.out.println("\nYou get closer to the cassette, step by step. The message you're hearing becomes more and more clear. But then, suddenly the cassette shuts down. No battery.");
                     if (player.hasFlag("flashlight_taken")) {
                         player.setFlag("listened_to_cassette");
-                        return "Luckily, you have your flashlight. The batteries fit the same. After inserting your flashlight's batteries into the cassette, the message continues:\n\n 'I'm sorry. For the last three years I've tried everything to become the best, to help my family and myself.\nI had to keep my reputation up and now... They are gone. I killed them. And I'll be next... If they ever offer you a drink, don't drink it.\nIt's called Scopolamine, makes you hallucinate, lose your memory. I'm so sorry.'\n\nThis voice reminds me of somebody, but I can't figure out who. Someone from the band? I have to stop this!";
+                        return "Luckily, you have your flashlight. The batteries fit the same. After inserting your flashlight's batteries into the cassette, the message continues:\n\n'I'm sorry. For the last three years I've tried everything to become the best, to help my family and myself.\nI had to keep my reputation up and now... They are gone. I killed them. And I'll be next... If they ever offer you a drink, don't drink it.\nIt's called Scopolamine, makes you hallucinate, lose your memory. I'm so sorry.'\n\nThis voice reminds me of somebody, but I can't figure out who. Someone from the band? I have to stop this!";
                     } else if (!player.hasFlag("flashlight_taken")) {
                         return "You don't have any batteries. Whatever this cassette wanted to tell you, the truth will remain hidden.";
                     }
                 }
-                return "You already listened to the audio on the cassette";
+                return "\nYou already listened to the audio on the cassette";
 
             case "leave":
                 System.out.println("You decide to leave. Where do you want to go? (Use: go to x");
-                System.out.println("You can now go to: ");
+                System.out.println("\nYou can now go to: ");
                 System.out.println("- Main Entrance Hall");
                 if (player.hasFlag("watched_song_notes")) {
                     System.out.println("- Cafeteria");
                 }
+                System.out.println("- Teacher Room");
                 return "";
 
             default:
@@ -94,7 +94,7 @@ public class MusicRoom implements Room {
         if (exits.containsKey(roomKey)) {
             Room targetRoom = RoomFactory.createRoom(roomName);
             player.setCurrentRoom(targetRoom);
-            return "";
+            return "You enter the " + roomName + ".";
         } else {
             return "There is no room called '" + roomName + "' here.";
         }
@@ -107,6 +107,7 @@ public class MusicRoom implements Room {
         if (player.hasFlag("watched_song_notes")) {
             exits.put("cafeteria", new Exit("cafeteria", null));
         }
+        exits.put("teacher room", new Exit("teacher room", null));
         return exits;
     }
 }
