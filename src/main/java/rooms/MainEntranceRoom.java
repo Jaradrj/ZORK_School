@@ -16,10 +16,11 @@ public class MainEntranceRoom implements Room {
     public void enter(Player player) {
         if (!player.hasFlag("was_main")) {
             player.setFlag("was_main");
+            System.out.println("You enter the Main Entrance Hall.");
             System.out.println("Your story starts in the main building. There’s not much to find here. You take a look around and notice a few objects. Although it's pretty dark, you can still make out some tables, the school's dull pinboard, a light switch, and chairs—some of which have been knocked over.");
             System.out.println("What do you want to do?");
         }
-        System.out.println("\nActions:");
+        System.out.println("Actions:");
         System.out.println("- Turn on the Light");
         System.out.println("- Sit Down at a Table");
         System.out.println("- Examine the Pinboard");
@@ -46,7 +47,7 @@ public class MainEntranceRoom implements Room {
             case "light":
                 if (!lightSwitchChecked) {
                     lightSwitchChecked = true;
-                    return "\nYou flip the switch. Nothing happens. The power must be out. Maybe you need to restore it elsewhere.";
+                    return "You flip the switch. Nothing happens. The power must be out. Maybe you need to restore it elsewhere.";
                 }
                 return "Still no power. The switch is unresponsive.";
 
@@ -54,7 +55,7 @@ public class MainEntranceRoom implements Room {
             case "sit":
                 if (!player.hasFlag("hasReadNote")) {
                     player.setFlag("hasReadNote");
-                    return "\nYou sit and notice a folded piece of paper under the table:\n\n" +
+                    return "You sit and notice a folded piece of paper under the table:\n\n" +
                             "\"It doesn't start with the light.\n" +
                             "It never starts with the light.\n\n" +
                             "They say it's just an exercise.\n" +
@@ -76,7 +77,7 @@ public class MainEntranceRoom implements Room {
             case "pinboard":
                 if (!player.hasFlag("half_map_taken")) {
                     player.setFlag("half_map_taken");
-                    return "\nAmong the generic school announcements, you find something useful: half of a torn school map. New rooms unlocked!\n(You can now go to: Music Room, Teacher Room, IT Room)";
+                    return "Among the generic school announcements, you find something useful: half of a torn school map. New rooms unlocked!\n(You can now go to: Music Room, Teacher Room, IT Room)";
                 }
                 return "You already took the half map from the pinboard.";
 
@@ -94,7 +95,7 @@ public class MainEntranceRoom implements Room {
         if (exits.containsKey(roomKey)) {
             Room targetRoom = RoomFactory.createRoom(roomName);
             player.setCurrentRoom(targetRoom);
-            return "You enter the " + roomName + ".";
+            return "";
         } else {
             return "There's no room called '" + roomName + "'.";
         }

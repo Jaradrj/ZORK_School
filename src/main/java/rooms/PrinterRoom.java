@@ -16,6 +16,7 @@ public class PrinterRoom implements Room {
     public void enter(Player player) {
         if (!player.hasFlag("was_printer")) {
             player.setFlag("was_printer");
+            System.out.println("You enter the Printer Room.");
             System.out.println("The printer seems to have been used very recently. The exams were already printed.");
         }
         System.out.println("Actions:");
@@ -113,7 +114,7 @@ public class PrinterRoom implements Room {
         if (exits.containsKey(roomKey)) {
             Room targetRoom = RoomFactory.createRoom(roomName);
             player.setCurrentRoom(targetRoom);
-            return "You enter the " + roomName + ".";
+            return "";
         } else {
             return "There is no room called '" + roomName + "' here.";
         }
