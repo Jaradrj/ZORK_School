@@ -20,8 +20,6 @@ public class ChemistryRoom implements Room {
     @Override
     public void enter(Player player) {
 
-        System.out.println("You enter the Chemistry Room.");
-
         if (!player.hasFlag("was_chemistry")) {
             player.setFlag("was_chemistry");
 
@@ -91,9 +89,9 @@ public class ChemistryRoom implements Room {
                 System.out.println("You decide to leave. Where do you want to go? (Use: go to X)");
                 System.out.println("You can now go to: ");
                 if (player.hasFlag("acid_taken")) {
-                    System.out.println("Electricity Room");
+                    System.out.println("- Electricity Room");
                 }
-                    System.out.println("Secretary");
+                    System.out.println("- Secretary");
                 return "";
             default:
                 if (action.toLowerCase().startsWith("go to ")) {
@@ -114,7 +112,7 @@ public class ChemistryRoom implements Room {
         if (exits.containsKey(roomKey)) {
             Room targetRoom = RoomFactory.createRoom(roomName);
             player.setCurrentRoom(targetRoom);
-            return "";
+            return "You enter the " + roomName + ".";
         } else {
             return "There is no room called '" + roomName + "' here.";
         }

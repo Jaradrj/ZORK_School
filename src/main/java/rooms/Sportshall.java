@@ -17,7 +17,6 @@ public class Sportshall implements Room {
     public void enter(Player player) {
         if (!player.hasFlag("was_sports")) {
             player.setFlag("was_sports");
-            System.out.println("You enter the Sportshall.");
             System.out.println("It smells weird in here. Not the type of weird you find in a boys wardrobe, but rather the type of weird you smell in basements. The smell seems like it's coming from the shaft.\nWhy is it open? There must be a way to get up there. ");
         }
         System.out.println("Actions: ");
@@ -65,7 +64,7 @@ public class Sportshall implements Room {
         if (exits.containsKey(roomKey)) {
             Room targetRoom = RoomFactory.createRoom(roomName);
             player.setCurrentRoom(targetRoom);
-            return "";
+            return "You enter the " + roomName + ".";
         } else {
             return "There is no room called '" + roomName + "' here.";
         }

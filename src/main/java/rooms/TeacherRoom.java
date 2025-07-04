@@ -1,12 +1,11 @@
 package rooms;
 
+import controller.GameController;
 import game.*;
 
 import java.util.*;
 
 public class TeacherRoom implements Room {
-
-    private Endings ending;
 
     @Override
     public String getName() {
@@ -25,11 +24,9 @@ public class TeacherRoom implements Room {
         boolean decideToLeave = player.hasFlag("leaving");
 
         if (!wasHere) {
-            System.out.println("You enter the Teacher Room.");
             System.out.println(lightsOn ? "Some candles are lit, illuminating the room." : "The room is dark.");
             player.setFlag("was_teacher_room");
         }
-
 
         if (teacherPresent) {
             System.out.println("A woman sits at the desk, sipping something from a steaming mug. She looks a lot like Mrs. Hamps, your school psychologist.\nPoor woman, must have been working really hard helping all the missing students' friends and family.");
@@ -38,31 +35,31 @@ public class TeacherRoom implements Room {
             return;
         }
 
-        if (!followedTeacher && !wasHere && !lastRoom.getName().equals("teacher room")) {
-            System.out.println("You see a faint silhouette disappearing into the Garage. Someone just left. Perhaps you should follow? Or stay safe?");
-        }
+        if (!followedTeacher && !player.hasFlag("teacher_room_loot_ready")) {
+            if (!lastRoom.getName().equalsIgnoreCase("teacher room")) {
+                System.out.println("You see a faint silhouette disappearing into the Garage. Someone just left. Perhaps you should follow? Or stay safe?");
+            }
 
-         else if (wasHere && !decideToLeave && ( player.hasFlag("coffee_taken") || player.hasFlag("found_trash_id") || player.hasFlag("read_email") || player.hasFlag("flashlight_taken"))) {
-            System.out.println("The room is empty. A hot cup sits on the table. A laptop screen glows faintly. Papers are scattered all over the Head Teacher’s desk. Some were also tossed in the trash bin. A science award diploma is proudly displayed. Next to it, you see a Flashlight.");
-        }
-
-        if(!decideToLeave) {
-            System.out.println("Actions:");
-        }
-
-        if (!followedTeacher && !player.hasFlag("teacher_room_loot_ready") && !decideToLeave) {
             player.setFlag("saw_teacher_leave");
-            System.out.println("- Follow Her");
-            System.out.println("- Stay hidden");
-            System.out.println("- Leave");
         }
 
-        if (player.hasFlag("teacher_room_loot_ready") && !decideToLeave) {
+        if (decideToLeave) return;
+
+        System.out.println("\nActions:");
+
+        if (!teacherPresent && player.hasFlag("had_follow_decision") && (player.hasFlag("teacher_room_loot_ready") || lastRoom.getName().equalsIgnoreCase("garage") || lastRoom.getName().equalsIgnoreCase("music room") || lastRoom.getName().equalsIgnoreCase("it room") || lastRoom.getName().equalsIgnoreCase("main entrance hall") || lastRoom.getName().equalsIgnoreCase("printer room") || lastRoom.getName().equalsIgnoreCase("secretary"))) {
             if (!player.hasFlag("coffee_taken")) System.out.println("- Drink Coffee");
             if (!player.hasFlag("coffee_taken") && !player.hasFlag("read_email")) System.out.println("- Use Laptop");
             if (!player.hasFlag("found_trash_id")) System.out.println("- Search Trash Bin");
             if (!player.hasFlag("flashlight_taken")) System.out.println("- Take Flashlight");
             System.out.println("- Leave");
+        }
+
+        if (!followedTeacher && !player.hasFlag("teacher_room_loot_ready")) {
+            System.out.println("- Follow Her");
+            System.out.println("- Stay hidden");
+            System.out.println("- Leave");
+            player.setFlag("had_follow_decision");
         }
     }
 
@@ -87,13 +84,14 @@ public class TeacherRoom implements Room {
                 if (player.hasFlag("saw_teacher_leave") && !player.hasFlag("has_followed_teacher")) {
                     player.setFlag("has_followed_teacher");
                     handleRoomChange(player, "garage");
-                    return "You quietly follow her through the dim hallway, into the Garage.";
+                    return "\nYou quietly follow her through the dim hallway, into the Garage.";
                 }
                 return "There's no one to follow.";
 
             case "stay hidden":
                 player.setFlag("teacher_room_loot_ready");
-                return "You decide to stay hidden in hope to find something in the teacher room. You wait a couple of minutes and slowly start to look around the room. " +
+                return "You decide to stay hidden in hope to find something in the teacher room. You wait a couple of minutes and slowly start to look around the room." +
+                        "It's empty. A hot cup sits on the table. A laptop screen glows faintly." +
                         "What would you like to do?";
 
             case "drink coffee":
@@ -165,7 +163,7 @@ public class TeacherRoom implements Room {
         if (exits.containsKey(roomKey)) {
             Room targetRoom = RoomFactory.createRoom(roomName);
             player.setCurrentRoom(targetRoom);
-            return "";
+            return "You enter the " + roomName + ".";
         } else {
             return "There is no room called '" + roomName + "' here.";
         }
