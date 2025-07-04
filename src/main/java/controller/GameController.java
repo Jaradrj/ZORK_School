@@ -12,6 +12,7 @@ public class GameController {
     public GameController(Commands command) {
         this.command = command;
         this.player = new Player();
+        RoomFactory.setController(this);
         this.startRoom = RoomFactory.createRoom("main entrance hall");
     }
 

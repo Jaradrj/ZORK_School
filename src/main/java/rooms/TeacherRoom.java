@@ -7,6 +7,12 @@ import java.util.*;
 
 public class TeacherRoom implements Room {
 
+    private Endings ending;
+
+    public TeacherRoom(GameController controller) {
+        this.ending = new Endings(controller);
+    }
+
     @Override
     public String getName() {
         return "teacher room";
@@ -28,6 +34,7 @@ public class TeacherRoom implements Room {
             player.setFlag("was_teacher_room");
         }
 
+
         if (teacherPresent) {
             System.out.println("A woman sits at the desk, sipping something from a steaming mug. She looks a lot like Mrs. Hamps, your school psychologist.\nPoor woman, must have been working really hard helping all the missing students' friends and family.");
             System.out.println("Do you want to talk to her? (Y/N)");
@@ -35,17 +42,16 @@ public class TeacherRoom implements Room {
             return;
         }
 
+
         if (!followedTeacher && !player.hasFlag("teacher_room_loot_ready")) {
             if (!lastRoom.getName().equalsIgnoreCase("teacher room")) {
                 System.out.println("You see a faint silhouette disappearing into the Garage. Someone just left. Perhaps you should follow? Or stay safe?");
             }
-
-            player.setFlag("saw_teacher_leave");
+            if (decideToLeave) return;
         }
 
-        if (decideToLeave) return;
-
         System.out.println("\nActions:");
+
 
         if (!teacherPresent && player.hasFlag("had_follow_decision") && (player.hasFlag("teacher_room_loot_ready") || lastRoom.getName().equalsIgnoreCase("garage") || lastRoom.getName().equalsIgnoreCase("music room") || lastRoom.getName().equalsIgnoreCase("it room") || lastRoom.getName().equalsIgnoreCase("main entrance hall") || lastRoom.getName().equalsIgnoreCase("printer room") || lastRoom.getName().equalsIgnoreCase("secretary"))) {
             if (!player.hasFlag("coffee_taken")) System.out.println("- Drink Coffee");
@@ -54,7 +60,6 @@ public class TeacherRoom implements Room {
             if (!player.hasFlag("flashlight_taken")) System.out.println("- Take Flashlight");
             System.out.println("- Leave");
         }
-
         if (!followedTeacher && !player.hasFlag("teacher_room_loot_ready")) {
             System.out.println("- Follow Her");
             System.out.println("- Stay hidden");
@@ -91,7 +96,7 @@ public class TeacherRoom implements Room {
             case "stay hidden":
                 player.setFlag("teacher_room_loot_ready");
                 return "You decide to stay hidden in hope to find something in the teacher room. You wait a couple of minutes and slowly start to look around the room." +
-                        "It's empty. A hot cup sits on the table. A laptop screen glows faintly." +
+                        "It's empty. A hot cup sits on the table. A laptop screen glows faintly." + "It's empty. A hot cup sits on the table. A laptop screen glows faintly." +
                         "What would you like to do?";
 
             case "drink coffee":

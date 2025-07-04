@@ -8,9 +8,6 @@ import java.util.Map;
 import game.Exit;
 import game.RoomFactory;
 
-import game.Exit;
-import game.RoomFactory;
-
 public class Cafeteria implements Room {
 
     @Override
@@ -41,7 +38,7 @@ public class Cafeteria implements Room {
             case "try opening safe":
                 if (!player.hasFlag("tried_opening_safe")) {
                     player.setFlag("tried_opening_safe");
-                    return "\nI'm going to be rich! That's what's going through your head while your twisting around the key. Not a single buckle. Wrong key.";
+                    return "I'm going to be rich! That's what's going through your head while your twisting around the key. Not a single buckle. Wrong key.";
                 }
                 return "\nThe safe still won't work... :(";
 

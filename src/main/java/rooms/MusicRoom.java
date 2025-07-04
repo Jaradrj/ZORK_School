@@ -52,7 +52,7 @@ public class MusicRoom implements Room {
                             "    In the pantry of my dreams, where the cheese wheels roll,\n" +
                             "    And the bread sings soft in a buttery soul,\n" +
                             "    I stir my hopes in a bubbling stew,\n" +
-                            "    Every flavor a note, every spice something new.\n\n" +
+                            "    Every flavor a note, every spice something new.\n\n " +
                             "I didn't expect to find something happy today, this is it. You unlocked a new Room, the Cafeteria.";
                 }
                 return "\nYou already took a look at the song notes. Besides, are you really sure you want to touch this old piece of paper again?";
@@ -71,8 +71,8 @@ public class MusicRoom implements Room {
                 return "\nYou already listened to the audio on the cassette";
 
             case "leave":
-                System.out.println("\nYou decide to leave. Where do you want to go? (Use: go to x)");
-                System.out.println("You can now go to: ");
+                System.out.println("You decide to leave. Where do you want to go? (Use: go to x");
+                System.out.println("\nYou can now go to: ");
                 System.out.println("- Main Entrance Hall");
                 if (player.hasFlag("watched_song_notes")) {
                     System.out.println("- Cafeteria");

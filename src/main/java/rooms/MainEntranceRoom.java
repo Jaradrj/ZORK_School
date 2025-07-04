@@ -54,7 +54,7 @@ public class MainEntranceRoom implements Room {
             case "sit":
                 if (!player.hasFlag("hasReadNote")) {
                     player.setFlag("hasReadNote");
-                    return "\nYou sit and notice a folded piece of paper under the table:\n\n" +
+                    return "You sit and notice a folded piece of paper under the table:\n\n" +
                             "\"It doesn't start with the light.\n" +
                             "It never starts with the light.\n\n" +
                             "They say it's just an exercise.\n" +
@@ -70,7 +70,7 @@ public class MainEntranceRoom implements Room {
                             "~ Leano\n\n" +
                             "Leano B. was known for rebelling against the system. He questioned the disappearances, especially after his friend vanished. One day, Klara—the class leader—told everyone he'd been expelled. No one's heard from him since.";
                 }
-                return "You’ve already read the note. There's nothing else under the table.";
+                return "\nYou’ve already read the note. There's nothing else under the table.";
 
             case "examine the pinboard":
             case "pinboard":

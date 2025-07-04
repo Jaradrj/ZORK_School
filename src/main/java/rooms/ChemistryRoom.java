@@ -36,7 +36,7 @@ public class ChemistryRoom implements Room {
             System.out.println("- Brew Acid");
         }
         System.out.println("- Leave");
-        }
+    }
 
 
     @Override
@@ -93,7 +93,7 @@ public class ChemistryRoom implements Room {
                 if (player.hasFlag("acid_taken")) {
                     System.out.println("- Electricity Room");
                 }
-                    System.out.println("- Secretary");
+                System.out.println("- Secretary");
                 return "";
             default:
                 if (action.toLowerCase().startsWith("go to ")) {
