@@ -40,6 +40,7 @@ public class Garage implements Room {
                 return "";
             case "return":
             case "return to teacher room":
+                player.setFlag("teacher_room_loot_ready");
                 return handleRoomChange(player, "teacher room");
 
             default:

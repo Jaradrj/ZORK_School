@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Endings {
 
-    private GameController controller;
+    private final GameController controller;
 
     public Endings(GameController controller) {
         this.controller = controller;
@@ -111,7 +111,8 @@ public class Endings {
                         "              ) (\n" +
                         "            _.' '._\n" +
                         "           `\"\"\"\"\"\"\"`");
-                System.exit(1);
+
+
     }
 
     public void badEnding(Player player) {
@@ -218,6 +219,7 @@ public class Endings {
                         "You will not be contacted again.\n" +
                         "\n" +
                         "[ MindScale // Phase IV Complete ]");
+
                 System.exit(0);
                 break;
             case "yes":
