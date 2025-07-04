@@ -22,13 +22,13 @@ public class ITRoom implements Room {
             System.out.println("The ancient computers, which normally sound like airplane turbines, don't make a single sound. Only one seems to be running, strangely enough.\n It shows a weird message, but I can't decipher it, not from here. Somehow I have the feeling that I'm about to be attacked from behind when I inspect it...");
         }
 
-            System.out.println("Actions:");
-            if(!player.hasFlag("inspected_message")){
+        System.out.println("Actions:");
+        if(!player.hasFlag("inspected_message")){
             System.out.println("- Inspect message");
-            }
-            if (player.hasFlag("turned_on_power") && player.hasFlag("phone_taken"))
-                System.out.println("- Turn on Wlan");
-            System.out.println("- Leave");
+        }
+        if (player.hasFlag("turned_on_power") && player.hasFlag("phone_taken"))
+            System.out.println("- Turn on Wlan");
+        System.out.println("- Leave");
     }
 
     @Override

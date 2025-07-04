@@ -1,5 +1,6 @@
 package rooms;
 
+import controller.GameController;
 import game.*;
 
 import java.util.HashMap;
@@ -8,6 +9,10 @@ import java.util.Map;
 public class ElectricityRoom implements Room {
 
     private Endings ending;
+
+    public ElectricityRoom(GameController controller) {
+        this.ending = new Endings(controller);
+    }
 
     @Override
     public String getName() {
