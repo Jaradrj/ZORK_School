@@ -9,26 +9,32 @@ public class GameController {
     private Room startRoom;
     private Commands command;
 
-    public GameController() {
+    public GameController(Commands command) {
+        this.command = command;
         this.player = new Player();
-        this.startRoom = RoomFactory.createRoom("Main Entrance Hall");
+        RoomFactory.setController(this);
+        this.startRoom = RoomFactory.createRoom("main entrance hall");
     }
 
     public void run() {
         Scanner scanner = new Scanner(System.in);
         printStart();
         player.setCurrentRoom(startRoom);
-        startRoom.enter(player);
 
         while (true) {
             Room currentRoom = player.getCurrentRoom();
             currentRoom.enter(player);
 
             System.out.print("> ");
-            String input = scanner.nextLine();
-            command.checkInputCommands(input, player);
-            String result = currentRoom.performAction(player, input);
-            System.out.println(result);
+            String input = scanner.nextLine().trim();
+
+            if (input.startsWith("-") || input.equalsIgnoreCase("h") || input.equalsIgnoreCase("i") || input.equalsIgnoreCase("r")) {
+                command.checkInputCommands(input, player);
+            } else {
+                String result = currentRoom.performAction(player, input);
+                System.out.println(result);
+            }
+
         }
     }
 
@@ -64,6 +70,6 @@ public class GameController {
         player.oldName = player.name;
         System.out.println("Before you start, what's your name?");
         player.name = scanner.nextLine();
-        System.out.printf("Welcome, %s!", player.name);
+        System.out.printf("Welcome, %s!\n\n", player.name);
     }
 }
