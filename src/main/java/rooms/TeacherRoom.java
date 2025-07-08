@@ -82,6 +82,7 @@ public class TeacherRoom implements Room {
 
             case "n":
                 player.setLastRoom(this);
+                player.setFlag("saw_teacher_leave");
                 return "You choose to take a look around the room, as you slowly notice that the teacher stands up and starts to slowly walk away. " +
                         "Should you follow her?";
             case "follow":
@@ -90,8 +91,9 @@ public class TeacherRoom implements Room {
                     player.setFlag("has_followed_teacher");
                     handleRoomChange(player, "garage");
                     return "\nYou quietly follow her through the dim hallway, into the Garage.";
+                } else {
+                    return "There's no one to follow.";
                 }
-                return "There's no one to follow.";
 
             case "stay hidden":
                 player.setFlag("teacher_room_loot_ready");
