@@ -143,7 +143,7 @@ public class TeacherRoom implements Room {
             case "search trash bin":
                 if (!player.hasFlag("found_trash_id")) {
                     player.setFlag("found_trash_id");
-                    player.addItem("Student ID");
+                    player.getInventory().addItem("Student ID");
                     return "You rummage through the bin and find a half-burned Student ID card. The name on it is barely readable: " +
                             "\nKlara Price. It's starting to get weird now.\nNew room unlocked! This ID will help you enter the Secretary.";
                 }
@@ -153,7 +153,7 @@ public class TeacherRoom implements Room {
             case "flashlight":
                 if (!player.hasFlag("flashlight_taken")) {
                     player.setFlag("flashlight_taken");
-                    player.addItem("Flashlight");
+                    player.getInventory().addItem("Flashlight");
                     return "You pick up a sturdy flashlight. Might come in handy.";
                 }
                 return "You already took the flashlight.";

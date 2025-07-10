@@ -36,10 +36,12 @@ public class Secretary implements Room {
                 System.out.println("Still not much to see, but the flashlight will do its job.");
                 if (!player.hasFlag("full_map_taken")) {
                     player.setFlag("full_map_taken");
+                    player.getInventory().addItem("Schools half map 2");
                     System.out.println("Wait what's that? The full card! You take it. New rooms unlocked!");
                 }
                 if (player.hasFlag("entered_electricity")) {
                     player.setFlag("police_number_taken");
+                    player.getInventory().addItem("Polices number");
                     System.out.println("Wait, there's more! You take the Note with the Police's Number on it from the pinboard.");
                 }
                 return "You examined the pinboard, time to leave.";

@@ -87,6 +87,8 @@ public class ChemistryRoom implements Room {
                 String formula = scanner.nextLine().trim();
                 if (formula.equalsIgnoreCase("h2so4")) {
                     player.setFlag("acid_taken");
+                    player.getInventory().addItem("Acid");
+
                     return "You mix the chemicals carefully. The solution bubbles violently.\n" +
                             "You now carry Sulfuric Acid. Maybe it can help melt the lock on the Electricity Room door.";
                 } else {
