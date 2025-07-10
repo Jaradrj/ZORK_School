@@ -26,18 +26,23 @@ public class ElectricityRoom implements Room {
             player.setFlag("was_electricity");
             System.out.println("You look inside, but all you see is darkness.\n" +
                     "And so it's clear, the only way forward is to jump.\n" +
-                    "You pause, thinking about everything that brought you here. The risks, the choices, the distance you've come. And all that just to turn around and leave?\n" +
+                    "You pause, thinking about everything that brought you here.\n" +
+                    "The risks, the choices, the distance you've come. And all that just to turn around and leave?\n" +
                     "No. Not after all of this. I mean it's just a jump right?\n" +
                     "You try and climb out of the shaft, barely getting into the right position to just let go and jump. \n" +
                     "\n" +
-                    "Just a few seconds later, you feel the hard ground beneath your feet. You tried to land upright, but your legs buckle and you drop to your knees with a sharp jolt of pain. They're sore. Nothing broken, but it hurts.\n" +
+                    "Just a few seconds later, you feel the hard ground beneath your feet. You tried to land upright, but your legs buckle and you drop to your knees with a sharp jolt of pain.\n" +
+                    "They're sore. Nothing broken, but it hurts.\n" +
                     "\n" +
                     "You stand up and try to figure out, what you can do. At the far end of the room, a green emergency exit light flickers. Hoping to see something useful, you decide to walk toward it.\n" +
                     "\n" +
-                    "You manage to take the first few steps, until suddenly, the hard ground meets your knees once more. Out of frustration and the need for light you manage to get up and continue walking, ignoring whatever it was that you stumbled over. \n" +
+                    "You manage to take the first few steps, until suddenly, the hard ground meets your knees once more.\n " +
+                    "Out of frustration and the need for light you manage to get up and continue walking, ignoring whatever it was that you stumbled over. \n" +
                     "\n" +
-                    "You keep walking, step after step, until you finally reach the light. You glance around, and through the dimness, you make out the shape of the reactor and next to it, the exit." +
-                    "While you keep observing your surroundings you notice that weird irony smell once again. You wonder and wonder what it is, but just can't figure it out. It smells like mold and blood or just like death. \n" +
+                    "You keep walking, step after step, until you finally reach the light.\n" +
+                    "You glance around, and through the dimness, you make out the shape of the reactor and next to it, the exit.\n" +
+                    "While you keep observing your surroundings you notice that weird irony smell once again.\n " +
+                    "You wonder and wonder what it is, but just can't figure it out. It smells like mold and blood or just like death. \n" +
                     "\n" +
                     "Then you remember the weird thing you stumbled over earlier.");
 
@@ -91,9 +96,11 @@ public class ElectricityRoom implements Room {
                             "You manage to open the switchboard but quickly find yourself disoriented. \n" +
                             "You can’t see a thing, so you have to rely on your memory and senses instead. \n" +
                             "You touch the switches while remembering the course you had in this room a couple of months ago. \n" +
-                            "You carefully touch the switches, recalling the IT course you took here a few months ago. The janitor, Toby, had explained the different switches and their functions on the radiator in front of you.\n" +
+                            "You carefully touch the switches, recalling the IT course you took here a few months ago.\n" +
+                            "The janitor, Toby, had explained the different switches and their functions on the radiator in front of you.\n" +
                             "You try to remember how it used to look, comparing it to what you feel now.\n" +
-                            "Wait a minute, you think to yourself. Suddenly you remember the main switch, and where it should be located. You hope and pray that you're correct and decide to pull it. Nothing happens, at least for the first couple of seconds, as you suddenly get blinded by the light. \n" +
+                            "Wait a minute, you think to yourself. Suddenly you remember the main switch, and where it should be located.\n" +
+                            "You hope and pray that you're correct and decide to pull it. Nothing happens, at least for the first couple of seconds, as you suddenly get blinded by the light. \n" +
                             "You made it, you turned the lights and the electricity back on. \n" +
                             "At first you're excited, until you see the object you fell over earlier, now laying in front of you, clear as day.");
                     player.setFlag("body_checked");
@@ -136,7 +143,8 @@ public class ElectricityRoom implements Room {
                                             "\n" +
                                             "Back then it was about heaters. Today it's about children. \n" +
                                             "\n" +
-                                            "I've seen the power box. The real one no one knows about. The one under the office, with the cables that aren't in the plan. I opened it. And then closed it again. I should have... I should have said something straight away. \" \n" +
+                                            "I've seen the power box. The real one no one knows about. The one under the office, with the cables that aren't in the plan.\n" +
+                                            "I opened it. And then closed it again. I should have... I should have said something straight away. \" \n" +
                                             "\n" +
                                             "(crossed out several times: \"Power... cable... door... light...\") \n" +
                                             "\n" +

@@ -25,7 +25,11 @@ public class ChemistryRoom implements Room {
         if (!player.hasFlag("was_chemistry")) {
             player.setFlag("was_chemistry");
 
-            System.out.println("Science has never been your favorite subject. But it most definitely is Klara's. This whole room is just full of her awards. It seems like they cover up the yellow walls.\nThe brewing station in the back of the room still has some chemicals opened. What is Scopolamine? I heard of that before...\nWhile trying to remember, your flashlight's battery suddenly dies. Maybe you should try to find a way into the Electricity Room?");
+            System.out.println("Science has never been your favorite subject. But it most definitely is Klara's.\n" +
+                    "This whole room is just full of her awards. It seems like they cover up the yellow walls.\n" +
+                    "The brewing station in the back of the room still has some chemicals opened. What is Scopolamine? I heard of that before...\n" +
+                    "While trying to remember, your flashlight's battery suddenly dies.\n " +
+                    "Maybe you should try to find a way into the Electricity Room?");
         }
         System.out.println("Actions:");
         System.out.println("- Look at Periodic Table");
@@ -83,7 +87,8 @@ public class ChemistryRoom implements Room {
                 String formula = scanner.nextLine().trim();
                 if (formula.equalsIgnoreCase("h2so4")) {
                     player.setFlag("acid_taken");
-                    return "You mix the chemicals carefully. The solution bubbles violently. You now carry Sulfuric Acid. Maybe it can help melt the lock on the Electricity Room door.";
+                    return "You mix the chemicals carefully. The solution bubbles violently.\n" +
+                            "You now carry Sulfuric Acid. Maybe it can help melt the lock on the Electricity Room door.";
                 } else {
                     return "You mix the chemicals, but nothing happens. Wrong combination?";
                 }

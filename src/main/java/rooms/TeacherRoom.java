@@ -36,16 +36,40 @@ public class TeacherRoom implements Room {
 
 
         if (teacherPresent) {
-            System.out.println("A woman sits at the desk, sipping something from a steaming mug. She looks a lot like Mrs. Hamps, your school psychologist.\nPoor woman, must have been working really hard helping all the missing students' friends and family.");
+            System.out.println("A woman sits at the desk, sipping something from a steaming mug. " +
+                    "She looks a lot like Mrs. Hamps, your school psychologist.\n" +
+                    "Poor woman, must have been working really hard helping all the missing students' friends and family.");
             System.out.println("Do you want to talk to her? (Y/N)");
-            System.out.println("- Leave");
-            return;
+            Scanner scanner = new Scanner(System.in);
+            String answer = scanner.nextLine();
+            switch (answer) {
+                case "y":
+                case "yes":
+                case "talk to her":
+                    if (!player.hasFlag("saw_teacher_leave") && !player.hasFlag("has_followed_teacher")) {
+                        ending.teacherEnding(player);
+                    } else {
+                    System.out.println("There’s no one here to talk to."); }
+                    break;
+
+                case "n":
+                case "no":
+                    player.setLastRoom(this);
+                    player.setFlag("saw_teacher_leave");
+                    System.out.println("You choose to take a look around the room, as you slowly notice that the teacher stands up and starts to slowly walk away. " +
+                            "\nShould you follow her?");
+                    break;
+                default:
+                    System.out.println("Invalid action, please try again.");
+            }
         }
 
 
         if (!followedTeacher && !player.hasFlag("teacher_room_loot_ready")) {
-            if (!lastRoom.getName().equalsIgnoreCase("teacher room")) {
-                System.out.println("You see a faint silhouette disappearing into the Garage. Someone just left. Perhaps you should follow? Or stay safe?");
+            if (!lastRoom.getName().equalsIgnoreCase("teacher room") && !player.hasFlag("saw_teacher_leave")) {
+                System.out.println("You see a faint silhouette disappearing into the Garage. Someone just left.\n" +
+                        "Perhaps you should follow? Or stay safe?");
+                player.setFlag("saw_teacher_leave");
             }
             if (decideToLeave) return;
         }
@@ -73,18 +97,6 @@ public class TeacherRoom implements Room {
         action = action.toLowerCase().trim();
 
         switch (action) {
-            case "y":
-            case "talk to her":
-                if (!player.hasFlag("saw_teacher_leave") && !player.hasFlag("has_followed_teacher")) {
-                    ending.teacherEnding(player);
-                }
-                return "There’s no one here to talk to.";
-
-            case "n":
-                player.setLastRoom(this);
-                player.setFlag("saw_teacher_leave");
-                return "You choose to take a look around the room, as you slowly notice that the teacher stands up and starts to slowly walk away. " +
-                        "Should you follow her?";
             case "follow":
             case "follow her":
                 if (player.hasFlag("saw_teacher_leave") && !player.hasFlag("has_followed_teacher")) {
@@ -97,8 +109,10 @@ public class TeacherRoom implements Room {
 
             case "stay hidden":
                 player.setFlag("teacher_room_loot_ready");
-                return "You decide to stay hidden in hope to find something in the teacher room. You wait a couple of minutes and slowly start to look around the room." +
-                        "It's empty. A hot cup sits on the table. A laptop screen glows faintly." + "It's empty. A hot cup sits on the table. A laptop screen glows faintly." +
+                return "You decide to stay hidden in hope to find something in the teacher room.\n" +
+                        "You wait a couple of minutes and slowly start to look around the room. " +
+                        "It's empty.\n" +
+                        "A hot cup sits on the table. A laptop screen glows faintly.\n" +
                         "What would you like to do?";
 
             case "drink coffee":
@@ -116,7 +130,9 @@ public class TeacherRoom implements Room {
                 } else if (!player.hasFlag("read_email")) {
                     player.setFlag("read_email");
                     return "\nYou open the laptop. A strange draft email catches your eye:\n\n" +
-                            "\"To: ???@district.edu\nSubject: MindScale Test Distribution\nMessage: 'Make sure Room 302 is ventilated this time. The last trial was... messy. \nAlso, please print out the test attached.'\"\n\n" +
+                            "\"To: ???@district.edu\nSubject: MindScale Test Distribution\n" +
+                            "Message: 'Make sure Room 302 is ventilated this time. The last trial was... messy. \n" +
+                            "Also, please print out the test attached.'\"\n\n" +
                             "Disturbing...\nYou unlocked a new Room: the Printer Room.";
                 } else {
                     return "\nThere’s nothing new on the laptop.";
@@ -128,7 +144,8 @@ public class TeacherRoom implements Room {
                 if (!player.hasFlag("found_trash_id")) {
                     player.setFlag("found_trash_id");
                     player.addItem("Student ID");
-                    return "You rummage through the bin and find a half-burned Student ID card. The name on it is barely readable: Klara Price. It's starting to get weird now.\nNew room unlocked! This ID will help you enter the Secretary.";
+                    return "You rummage through the bin and find a half-burned Student ID card. The name on it is barely readable: " +
+                            "\nKlara Price. It's starting to get weird now.\nNew room unlocked! This ID will help you enter the Secretary.";
                 }
                 return "You’ve already searched the trash.";
 

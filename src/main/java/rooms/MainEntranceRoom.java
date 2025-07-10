@@ -16,7 +16,9 @@ public class MainEntranceRoom implements Room {
     public void enter(Player player) {
         if (!player.hasFlag("was_main")) {
             player.setFlag("was_main");
-            System.out.println("Your story starts in the main building. There’s not much to find here. You take a look around and notice a few objects. Although it's pretty dark, you can still make out some tables, the school's dull pinboard, a light switch, and chairs—some of which have been knocked over.");
+            System.out.println("Your story starts in the main building. There’s not much to find here. You take a look around and notice a few objects.\n" +
+                    "Although it's pretty dark, you can still make out some tables, the school's dull pinboard, a light switch, " +
+                    "and chairs—some of which have been knocked over.");
             System.out.println("What do you want to do?");
         }
         System.out.println("\nActions:");
@@ -68,7 +70,8 @@ public class MainEntranceRoom implements Room {
                             "Go. Now.\n" +
                             "Or stay... and become like us\"\n\n" +
                             "~ Leano\n\n" +
-                            "Leano B. was known for rebelling against the system. He questioned the disappearances, especially after his friend vanished. One day, Klara—the class leader—told everyone he'd been expelled. No one's heard from him since.";
+                            "Leano B. was known for rebelling against the system. He questioned the disappearances, especially after his friend vanished.\n" +
+                            "One day, Klara—the class leader—told everyone he'd been expelled. No one's heard from him since.";
                 }
                 return "\nYou’ve already read the note. There's nothing else under the table.";
 
@@ -76,7 +79,8 @@ public class MainEntranceRoom implements Room {
             case "pinboard":
                 if (!player.hasFlag("half_map_taken")) {
                     player.setFlag("half_map_taken");
-                    return "\nAmong the generic school announcements, you find something useful: half of a torn school map. New rooms unlocked!\n(You can now go to: Music Room, Teacher Room, IT Room)";
+                    return "\nAmong the generic school announcements, you find something useful: half of a torn school map. New rooms unlocked!\n" +
+                            "(You can now go to: Music Room, Teacher Room, IT Room)";
                 }
                 return "You already took the half map from the pinboard.";
 
