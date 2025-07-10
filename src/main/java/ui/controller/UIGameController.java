@@ -14,6 +14,7 @@ public class UIGameController {
     private Player player;
     private Room startRoom;
     private Commands command;
+    private StartMenu start;
 
     private Screen screen;
     private MultiWindowTextGUI gui;
@@ -23,44 +24,30 @@ public class UIGameController {
     private Panel actionPanel;
 
     public UIGameController(Commands command) throws IOException {
+        this.start = new StartMenu();
+        this.screen = start.getScreen();
+        this.gui = start.getGui();
+
         this.command = command;
         this.player = new Player();
         UIRoomFactory.setController(this);
         this.startRoom = RoomFactory.createRoom("main entrance hall");
 
-        DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
-        this.screen = terminalFactory.createScreen();
-        screen.startScreen();
-        gui = new MultiWindowTextGUI(screen);
-        window = new BasicWindow("MindScale");
+        this.window = new BasicWindow("MindScale");
+        this.mainPanel = new Panel(new LinearLayout(Direction.VERTICAL));
+        this.outputArea = new TextBox(new TerminalSize(50, 20), TextBox.Style.MULTI_LINE).setReadOnly(true);
+        this.mainPanel.addComponent(outputArea);
 
-        mainPanel = new Panel(new LinearLayout(Direction.VERTICAL));
-        outputArea = new TextBox(new TerminalSize(50, 20), TextBox.Style.MULTI_LINE)
-                .setReadOnly(true);
-        mainPanel.addComponent(outputArea);
+        this.actionPanel = new Panel(new LinearLayout(Direction.VERTICAL));
+        this.mainPanel.addComponent(actionPanel);
 
-        actionPanel = new Panel(new LinearLayout(Direction.VERTICAL));
-        mainPanel.addComponent(actionPanel);
-
-        window.setComponent(mainPanel);
+        this.window.setComponent(mainPanel);
     }
 
     public void run() {
-        printStart();
+        start.showStartMenu();
         player.setCurrentRoom(startRoom);
-    }
-
-    private void appendOutput(String text) {
-        outputArea.addLine(text);
-    }
-
-    private void printStart() {
-        appendOutput("Welcome to MindScale!");
-        appendOutput("press ENTER to start the game!");
-    }
-
-    public void stop() throws Exception {
-        screen.stopScreen();
+        gui.addWindowAndWait(window);
     }
 
 }
