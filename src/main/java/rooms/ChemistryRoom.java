@@ -30,7 +30,7 @@ public class ChemistryRoom implements Room {
             System.out.println("Science has never been your favorite subject. But it most definitely is Klara's.\n" +
                     "This whole room is just full of her awards. It seems like they cover up the yellow walls.\n" +
                     "The brewing station in the back of the room still has some chemicals opened. What is Scopolamine? I heard of that before...\n" +
-                    "While trying to remember, your flashlight's battery suddenly dies.\n " +
+                    "While trying to remember, your flashlight suddenly starts flickering.\n " +
                     "Maybe you should try to find a way into the Electricity Room?");
         }
         System.out.println("Actions:");
