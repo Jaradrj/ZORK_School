@@ -38,6 +38,7 @@ public class TeacherRoom implements Room {
 
 
         if (teacherPresent) {
+            player.setFlag("knows_teacher_name");
             System.out.println("A woman sits at the desk, sipping something from a steaming mug. " +
                     "She looks a lot like Mrs. Hamps, your school psychologist.\n" +
                     "Poor woman, must have been working really hard helping all the missing students' friends and family.");
@@ -51,7 +52,7 @@ public class TeacherRoom implements Room {
                     if (!player.hasFlag("saw_teacher_leave") && !player.hasFlag("has_followed_teacher")) {
                         ending.teacherEnding(player);
                     } else {
-                        System.out.println("There’s no one here to talk to."); }
+                    System.out.println("There’s no one here to talk to."); }
                     break;
 
                 case "n":

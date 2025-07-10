@@ -17,7 +17,9 @@ public class Garage implements Room {
             player.setFlag("was_garage");
 
             if (!player.hasFlag("keys_taken")) {
-                System.out.println("While watching Mrs. Hamps go to her car, you're hiding behind a big pillar. " +
+                System.out.println("While watching ");
+                System.out.print(player.hasFlag("knows_teacher_name") ? "Mrs. Hamps " : "the person ");
+                System.out.println("go to her car, you're hiding behind a big pillar.\n " +
                         "Suddenly, she stops, tries to grad something from her pocket,\n" +
                         "turns around and is now moving towards you. You manage to keep hidden. It seems that she forgot something.\n" +
                         "What does she have in that car?");
@@ -39,6 +41,7 @@ public class Garage implements Room {
             case "break into her car":
                 if (!player.hasFlag("keys_taken")) {
                     player.setFlag("keys_taken");
+                    player.getInventory().addItem("keys (to what?)");
                     System.out.println("\nYou need to know what she's hiding. Thank god she didn't suspect anyone to sneak around and left her car unlocked.\n" +
                             "Easy game for you to get inside and start searching quick. You don't find much, just some mints, money, a coke and.. keys!\n" +
                             "But what are they for?");

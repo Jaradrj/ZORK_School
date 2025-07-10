@@ -110,6 +110,30 @@ public class ElectricityRoom implements Room {
                             "Maybe try turning the power back on first";
                 } else {
                     player.setFlag("body_inspected");
+
+                    System.out.println("You stare at the body, the identity of the person is impossible to make out from this distance. It's the same body you just tripped over.\n" +
+                            "\n" +
+                            "A chill runs through you. Your hands start to shake, and nausea rises in your throat. Suddenly, you understand where that awful smell from earlier was coming from. Blood. Rot. Death. It's all here, and it's real.\n" +
+                            "\n" +
+                            "Despite the sickness twisting in your gut, something stronger takes hold: curiosity. Or maybe it's dread. Either way, you have to know who it is.\n" +
+                            "\n" +
+                            "So you move. One hesitant step at a time.\n" +
+                            "\n" +
+                            "Closer.\n" +
+                            "\n" +
+                            "And closer.\n" +
+                            "\n" +
+                            "Until finally... a face.\n" +
+                            "\n" +
+                            "Familiar.\n" +
+                            "\n" +
+                            "Way Too familiar.\n" +
+                            "\n");
+                    if(player.hasFlag("second_try")){
+                        System.out.println("It's your friend " + player.oldName);
+                    } else {
+                        System.out.println("It's the janitor Toby");
+                    }
                     System.out.println("Actions: ");
                     if (!player.hasFlag("phone_taken")) {
                         System.out.println("- Take phone");
