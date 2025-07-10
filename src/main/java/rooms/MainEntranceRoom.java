@@ -79,6 +79,8 @@ public class MainEntranceRoom implements Room {
             case "pinboard":
                 if (!player.hasFlag("half_map_taken")) {
                     player.setFlag("half_map_taken");
+                    player.getInventory().addItem("Schools half map");
+
                     return "\nAmong the generic school announcements, you find something useful: half of a torn school map. New rooms unlocked!\n" +
                             "(You can now go to: Music Room, Teacher Room, IT Room)";
                 }

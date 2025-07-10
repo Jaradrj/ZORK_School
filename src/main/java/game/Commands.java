@@ -60,11 +60,11 @@ public class Commands {
         Room currentRoom = rooms.get(currentRoomName);
         Map<String, Exit> exits = currentRoom.getAvailableExits(player);
 
+        System.out.println("\nAvailable Rooms:");
         if (exits.isEmpty()) {
-            System.out.println("No available exits");
+            System.out.println("(empty))");
             return;
         }
-        System.out.println("\nAvailable Rooms:");
         for (String roomName : exits.keySet()) {
             System.out.println("- " + roomName);
         }
