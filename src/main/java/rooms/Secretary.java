@@ -6,9 +6,15 @@ import java.util.Map;
 
 public class Secretary implements Room {
 
+    private Commands commands;
+
     @Override
     public String getName() {
         return "secretary";
+    }
+
+    public Secretary(Commands commands) {
+        this.commands = commands;
     }
 
     @Override
@@ -36,22 +42,18 @@ public class Secretary implements Room {
                 System.out.println("Still not much to see, but the flashlight will do its job.");
                 if (!player.hasFlag("full_map_taken")) {
                     player.setFlag("full_map_taken");
+                    player.getInventory().addItem("Schools half map 2");
                     System.out.println("Wait what's that? The full card! You take it. New rooms unlocked!");
                 }
                 if (player.hasFlag("entered_electricity")) {
                     player.setFlag("police_number_taken");
+                    player.getInventory().addItem("Polices number");
                     System.out.println("Wait, there's more! You take the Note with the Police's Number on it from the pinboard.");
                 }
                 return "You examined the pinboard, time to leave.";
             case "leave":
             case "2":
-                System.out.println("You decide to leave. Where do you want to go? (Use: go to X)\n\n");
-                System.out.println("You can now go to: ");
-                System.out.println("- Teacher Room");
-                if (player.hasFlag("full_map_taken")) {
-                    System.out.println("- Chemistry Room");
-                    System.out.println("- Sportshall");
-                }
+                commands.checkInputCommands("-r", player);
                 return "";
             default:
                 if (action.toLowerCase().startsWith("go to ")) {

@@ -8,10 +8,17 @@ import java.util.Scanner;
 
 public class ITRoom implements Room {
 
+    private Commands commands;
+
     @Override
     public String getName() {
         return "it room";
     }
+
+    public ITRoom(Commands commands) {
+        this.commands = commands;
+    }
+
 
     @Override
     public void enter(Player player) {
@@ -114,13 +121,7 @@ public class ITRoom implements Room {
                 }
 
             case "leave":
-                System.out.println("\nYou decide to leave. (Use: go to x)");
-                System.out.println("You can now go to: ");
-                System.out.println("- Main Entrance Hall");
-                System.out.println("- Cafeteria");
-                if (player.hasFlag("ran_memory_leak")) {
-                    System.out.println("- Teacher Room");
-                }
+                commands.checkInputCommands("-r", player);
                 return "";
             default:
                 if (action.toLowerCase().startsWith("go to ")) {

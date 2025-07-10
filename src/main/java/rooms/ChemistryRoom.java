@@ -1,22 +1,24 @@
 package rooms;
 
-import game.Player;
-import game.Room;
+import game.*;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import game.Exit;
-import game.RoomFactory;
 
 import game.Exit;
 import game.RoomFactory;
 
 public class ChemistryRoom implements Room {
 
+    private Commands commands;
+
     @Override
     public String getName() {
         return "chemistry room";
+    }
+    public ChemistryRoom(Commands commands) {
+        this.commands = commands;
     }
 
     @Override
@@ -87,18 +89,15 @@ public class ChemistryRoom implements Room {
                 String formula = scanner.nextLine().trim();
                 if (formula.equalsIgnoreCase("h2so4")) {
                     player.setFlag("acid_taken");
+                    player.getInventory().addItem("Acid");
+
                     return "You mix the chemicals carefully. The solution bubbles violently.\n" +
                             "You now carry Sulfuric Acid. Maybe it can help melt the lock on the Electricity Room door.";
                 } else {
                     return "You mix the chemicals, but nothing happens. Wrong combination?";
                 }
             case "leave":
-                System.out.println("You decide to leave. Where do you want to go? (Use: go to X)");
-                System.out.println("You can now go to: ");
-                if (player.hasFlag("acid_taken")) {
-                    System.out.println("- Electricity Room");
-                }
-                System.out.println("- Secretary");
+                commands.checkInputCommands("-r", player);
                 return "";
             default:
                 if (action.toLowerCase().startsWith("go to ")) {

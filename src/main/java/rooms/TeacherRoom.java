@@ -8,9 +8,11 @@ import java.util.*;
 public class TeacherRoom implements Room {
 
     private Endings ending;
+    private Commands commands;
 
-    public TeacherRoom(GameController controller) {
+    public TeacherRoom(GameController controller, Commands commands) {
         this.ending = new Endings(controller);
+        this.commands = commands;
     }
 
     @Override
@@ -49,7 +51,7 @@ public class TeacherRoom implements Room {
                     if (!player.hasFlag("saw_teacher_leave") && !player.hasFlag("has_followed_teacher")) {
                         ending.teacherEnding(player);
                     } else {
-                    System.out.println("There’s no one here to talk to."); }
+                        System.out.println("There’s no one here to talk to."); }
                     break;
 
                 case "n":
@@ -143,7 +145,7 @@ public class TeacherRoom implements Room {
             case "search trash bin":
                 if (!player.hasFlag("found_trash_id")) {
                     player.setFlag("found_trash_id");
-                    player.addItem("Student ID");
+                    player.getInventory().addItem("Student ID");
                     return "You rummage through the bin and find a half-burned Student ID card. The name on it is barely readable: " +
                             "\nKlara Price. It's starting to get weird now.\nNew room unlocked! This ID will help you enter the Secretary.";
                 }
@@ -153,24 +155,14 @@ public class TeacherRoom implements Room {
             case "flashlight":
                 if (!player.hasFlag("flashlight_taken")) {
                     player.setFlag("flashlight_taken");
-                    player.addItem("Flashlight");
+                    player.getInventory().addItem("Flashlight");
                     return "You pick up a sturdy flashlight. Might come in handy.";
                 }
                 return "You already took the flashlight.";
 
             case "leave":
                 player.setFlag("leaving");
-                System.out.println("You decide to leave. Where do you want to go? (Use: go to X)");
-                System.out.println("You can now go to: ");
-                System.out.println("- Main Entrance Hall");
-                System.out.println("- IT Room");
-                System.out.println("- Music Room");
-                if (player.hasFlag("found_trash_id")) {
-                    System.out.println("- Secretary");
-                }
-                if (player.hasFlag("read_email")) {
-                    System.out.println("- Printer Room");
-                }
+                commands.checkInputCommands("-r", player);
                 return "";
 
             default:
