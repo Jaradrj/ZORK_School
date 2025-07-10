@@ -17,8 +17,8 @@ public class Garage implements Room {
             player.setFlag("was_garage");
 
             if (!player.hasFlag("keys_taken")) {
-                System.out.println("While watching ");
-                System.out.print(player.hasFlag("knows_teacher_name") ? "Mrs. Hamps " : "the person ");
+                System.out.print("While watching ");
+                System.out.print(player.hasFlag("knows_teacher_name") ? "Mrs. Hamps " : "the woman ");
                 System.out.println("go to her car, you're hiding behind a big pillar.\n " +
                         "Suddenly, she stops, tries to grad something from her pocket,\n" +
                         "turns around and is now moving towards you. You manage to keep hidden. It seems that she forgot something.\n" +
