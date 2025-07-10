@@ -98,6 +98,7 @@ public class ChemistryRoom implements Room {
                 }
             case "leave":
                 commands.checkInputCommands("-r", player);
+                System.out.println("- electricity room");
                 return "";
             default:
                 if (action.toLowerCase().startsWith("go to ")) {

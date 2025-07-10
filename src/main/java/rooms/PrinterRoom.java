@@ -124,7 +124,7 @@ public class PrinterRoom implements Room {
     public Map<String, Exit> getAvailableExits(Player player) {
         Map<String, Exit> exits = new HashMap<>();
         exits.put("teacher room", new Exit("teacher room", null));
-        if (player.hasFlag("has_full_map")) {
+        if (player.hasFlag("full_map_taken")) {
             exits.put("chemistry room", new Exit("chemistry room", null));
         }
         return exits;

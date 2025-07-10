@@ -30,33 +30,33 @@ public class ElectricityRoom implements Room {
                     "You pause, thinking about everything that brought you here.\n" +
                     "The risks, the choices, the distance you've come. And all that just to turn around and leave?\n" +
                     "No. Not after all of this. I mean it's just a jump right?\n" +
-                    "You try and climb out of the shaft, barely getting into the right position to just let go and jump. \n" +
+                    "You try and climb out of the shaft, barely getting into the right position to just let go and jump.\n" +
                     "\n" +
                     "Just a few seconds later, you feel the hard ground beneath your feet. You tried to land upright, but your legs buckle and you drop to your knees with a sharp jolt of pain.\n" +
                     "They're sore. Nothing broken, but it hurts.\n" +
                     "\n" +
                     "You stand up and try to figure out, what you can do. At the far end of the room, a green emergency exit light flickers. Hoping to see something useful, you decide to walk toward it.\n" +
                     "\n" +
-                    "You manage to take the first few steps, until suddenly, the hard ground meets your knees once more.\n " +
-                    "Out of frustration and the need for light you manage to get up and continue walking, ignoring whatever it was that you stumbled over. \n" +
+                    "You manage to take the first few steps, until suddenly, the hard ground meets your knees once more.\n" +
+                    "Out of frustration and the need for light you manage to get up and continue walking, ignoring whatever it was that you stumbled over.\n" +
                     "\n" +
                     "You keep walking, step after step, until you finally reach the light.\n" +
                     "You glance around, and through the dimness, you make out the shape of the reactor and next to it, the exit.\n" +
-                    "While you keep observing your surroundings you notice that weird irony smell once again.\n " +
-                    "You wonder and wonder what it is, but just can't figure it out. It smells like mold and blood or just like death. \n" +
+                    "While you keep observing your surroundings you notice that weird irony smell once again.\n" +
+                    "You wonder and wonder what it is, but just can't figure it out. It smells like mold and blood or just like death.\n" +
                     "\n" +
                     "Then you remember the weird thing you stumbled over earlier.");
 
         }
         System.out.println("Actions: ");
-        System.out.println(" - Open the door");
+        System.out.println("- Open the door");
         if (!player.hasFlag("body_checked")) {
-            System.out.println(" - Inspect unknown object");
+            System.out.println("- Inspect unknown object");
         } else {
-            System.out.println(" - Inspect body");
+            System.out.println("- Inspect body");
         }
         if (!player.hasFlag("turned_on_power")) {
-            System.out.println(" - Enable radiator");
+            System.out.println("- Enable radiator");
         }
     }
 
@@ -118,17 +118,11 @@ public class ElectricityRoom implements Room {
                             "Despite the sickness twisting in your gut, something stronger takes hold: curiosity. Or maybe it's dread. Either way, you have to know who it is.\n" +
                             "\n" +
                             "So you move. One hesitant step at a time.\n" +
-                            "\n" +
                             "Closer.\n" +
-                            "\n" +
                             "And closer.\n" +
-                            "\n" +
                             "Until finally... a face.\n" +
-                            "\n" +
                             "Familiar.\n" +
-                            "\n" +
-                            "Way Too familiar.\n" +
-                            "\n");
+                            "Way Too familiar.");
                     if(player.hasFlag("second_try")){
                         System.out.println("It's your friend " + player.oldName);
                     } else {

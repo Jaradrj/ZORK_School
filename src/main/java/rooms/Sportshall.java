@@ -26,7 +26,7 @@ public class Sportshall implements Room {
         }
         System.out.println("Actions: ");
         if (player.hasFlag("was_electricity")) {
-            System.out.println(" - Use Bench");
+            System.out.println("- Use Bench");
         } else {
             System.out.println("- Move bench");
         }

@@ -36,6 +36,9 @@ public class ITRoom implements Room {
         }
         if (player.hasFlag("turned_on_power") && player.hasFlag("phone_taken"))
             System.out.println("- Turn on Wlan");
+        if (player.hasFlag("turned_on_wlan")) {
+            System.out.println("- Call the police");
+        }
         System.out.println("- Leave");
     }
 
@@ -105,9 +108,7 @@ public class ITRoom implements Room {
                     player.setFlag("turned_on_wlan");
                     return "You successfully turn on the Wlan. Surprisingly, it still works. But for how long?";
                 }
-                return "You already turned on the wlan\n\n" +
-                        "Actions:\n" +
-                        "- Call the police";
+                return "";
             case "call":
             case "call the police":
                 if (player.hasFlag("police_number_taken") && player.hasFlag("turned_on_wlan")) {
