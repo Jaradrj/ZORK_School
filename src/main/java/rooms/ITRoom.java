@@ -34,11 +34,13 @@ public class ITRoom implements Room {
         if (!player.hasFlag("inspected_message")) {
             System.out.println("- Inspect message");
         }
-        if (player.hasFlag("turned_on_power") && player.hasFlag("phone_taken"))
-            System.out.println("- Turn on Wlan");
+        if (player.hasFlag("turned_on_power") && player.hasFlag("phone_taken") && !player.hasFlag("turned_on_wlan")) {
+            System.out.println("- Turn on Wlan"); }
         if (player.hasFlag("turned_on_wlan")) {
             System.out.println("- Call the police");
         }
+
+
         System.out.println("- Leave");
     }
 
