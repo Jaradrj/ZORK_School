@@ -38,6 +38,7 @@ public class TeacherRoom implements Room {
 
 
         if (teacherPresent) {
+            player.setFlag("knows_teacher_name");
             System.out.println("A woman sits at the desk, sipping something from a steaming mug. " +
                     "She looks a lot like Mrs. Hamps, your school psychologist.\n" +
                     "Poor woman, must have been working really hard helping all the missing students' friends and family.");
