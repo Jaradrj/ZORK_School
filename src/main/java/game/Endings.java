@@ -50,10 +50,17 @@ public class Endings {
                 "He died trying to find the truth.\n");
 
                 if (player.hasFlag("second_try")) {
-                    System.out.printf("%s, a tragedy. I don't know what exactly lead them here in this", player.oldName);
+                    System.out.printf(
+                            "%s, a tragedy. I don't know what exactly led them here in the first place, " +
+                                    "but something tells me... they've done this before. The shadows feel familiar, " +
+                                    "the silence more oppressive. This time, maybe they'll get it right. " +
+                                    "Maybe they'll uncover what the others could not.\n\n",
+                            player.oldName
+                    );
                 }
 
-                System.out.println("Toby McConnor worked at the school for 30 years.\n" +
+
+                 System.out.println("Toby McConnor worked at the school for 30 years.\n" +
                         "He wasn’t a genius. He wasn’t on any list. He was just… observant.\n" +
                         "When he heard strange noises in the electrical room, he followed them.\n" +
                         "He crawled through a maintenance shaft, left unlocked by accident.\n" +

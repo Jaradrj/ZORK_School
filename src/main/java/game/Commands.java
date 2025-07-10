@@ -36,9 +36,10 @@ public class Commands {
         }
     }
 
-    public static void printCommands() {
+    public void printCommands() {
         System.out.println(
-                "-h\t\tview all commands\n" +
+                        "Commands:\n" +
+                        "-h\t\tview all commands\n" +
                         "-i\t\topen inventory\n" +
                         "-r\t\tavailable rooms\n" +
                         "-go to …\tchange rooms\n"
