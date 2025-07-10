@@ -9,6 +9,8 @@ import java.util.Map;
 public class Main {
 	public static void main(String[] args) {
 		Map<String, Room> roomMap = new HashMap<>();
+		Commands commands = new Commands(roomMap);
+		RoomFactory.setCommands(commands);
 		String[] roomNames = {
 				"main entrance hall",
 				"music room",
@@ -27,7 +29,6 @@ public class Main {
 			roomMap.put(name, RoomFactory.createRoom(name));
 		}
 
-		Commands commands = new Commands(roomMap);
 		GameController controller = new GameController(commands);
 		RoomFactory.setController(controller);
 		controller.run();

@@ -7,9 +7,15 @@ import java.util.Map;
 
 public class MusicRoom implements Room {
 
+    private Commands commands;
+
     @Override
     public String getName() {
         return "music room";
+    }
+
+    public MusicRoom(Commands commands) {
+        this.commands = commands;
     }
 
     @Override
@@ -82,13 +88,7 @@ public class MusicRoom implements Room {
                 return "\nYou already listened to the audio on the cassette";
 
             case "leave":
-                System.out.println("You decide to leave. Where do you want to go? (Use: go to x");
-                System.out.println("\nYou can now go to: ");
-                System.out.println("- Main Entrance Hall");
-                if (player.hasFlag("watched_song_notes")) {
-                    System.out.println("- Cafeteria");
-                }
-                System.out.println("- Teacher Room");
+                commands.checkInputCommands("-r", player);
                 return "";
 
             default:

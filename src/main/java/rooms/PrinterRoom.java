@@ -7,9 +7,15 @@ import java.util.Map;
 
 public class PrinterRoom implements Room {
 
+    private Commands commands;
+
     @Override
     public String getName() {
         return "printer room";
+    }
+
+    public PrinterRoom(Commands commands) {
+        this.commands = commands;
     }
 
     @Override
@@ -91,12 +97,7 @@ public class PrinterRoom implements Room {
                 }
                 break;
             case "leave":
-                System.out.println("You decide to leave. Where do you want to go? (Use: go to X)");
-                System.out.println("You can now go to: ");
-                System.out.println("Teacher Room");
-                if (player.hasFlag("has_full_map")) {
-                    System.out.println("Chemistry Room");
-                }
+                commands.checkInputCommands("-r", player);
                 return "";
             default:
                 if (action.startsWith("go to ")) {

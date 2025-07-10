@@ -6,9 +6,15 @@ import java.util.Map;
 
 public class Secretary implements Room {
 
+    private Commands commands;
+
     @Override
     public String getName() {
         return "secretary";
+    }
+
+    public Secretary(Commands commands) {
+        this.commands = commands;
     }
 
     @Override
@@ -47,13 +53,7 @@ public class Secretary implements Room {
                 return "You examined the pinboard, time to leave.";
             case "leave":
             case "2":
-                System.out.println("You decide to leave. Where do you want to go? (Use: go to X)\n\n");
-                System.out.println("You can now go to: ");
-                System.out.println("- Teacher Room");
-                if (player.hasFlag("full_map_taken")) {
-                    System.out.println("- Chemistry Room");
-                    System.out.println("- Sportshall");
-                }
+                commands.checkInputCommands("-r", player);
                 return "";
             default:
                 if (action.toLowerCase().startsWith("go to ")) {

@@ -10,9 +10,10 @@ import java.util.Scanner;
 public class ElectricityRoom implements Room {
 
     private Endings ending;
-
-    public ElectricityRoom(GameController controller) {
+    private Commands commands;
+    public ElectricityRoom(GameController controller, Commands commands) {
         this.ending = new Endings(controller);
+        this.commands = commands;
     }
 
     @Override
@@ -70,12 +71,7 @@ public class ElectricityRoom implements Room {
                         System.out.println("You successfully open the door.");
                     }
                     if (player.hasFlag("door_opened")){
-                        System.out.println("Where do you want to go? (Use: go to X)");
-                        System.out.println("You can now go to: ");
-                        System.out.println("- IT Room");
-                        if (player.hasFlag("found_trash_id")) {
-                            System.out.println("-Secretary");
-                        }
+                        commands.checkInputCommands("-r", player);
                     }
                     return "";
                 } else if(player.hasFlag("door_failed")){

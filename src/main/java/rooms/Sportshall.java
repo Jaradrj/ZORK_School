@@ -6,9 +6,15 @@ import java.util.Map;
 
 public class Sportshall implements Room {
 
+    private Commands commands;
+
     @Override
     public String getName() {
         return "sportshall";
+    }
+
+    public Sportshall(Commands commands) {
+        this.commands = commands;
     }
 
     @Override
@@ -45,12 +51,7 @@ public class Sportshall implements Room {
                 return handleRoomChange(player, "electricity room");
             case "leave":
             case "2":
-                System.out.println("You decide to leave. Where do you want to go? (Use: go to X)\n\n");
-                System.out.println("You can now go to: ");
-                System.out.println("- Secretary");
-                if (player.hasFlag("entered_electricity")) {
-                    System.out.println("- Electricity Room");
-                }
+                commands.checkInputCommands("-r", player);
                 return "";
             default:
                 if (action.toLowerCase().startsWith("go to ")) {

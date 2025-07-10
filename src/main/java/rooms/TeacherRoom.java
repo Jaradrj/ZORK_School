@@ -8,9 +8,11 @@ import java.util.*;
 public class TeacherRoom implements Room {
 
     private Endings ending;
+    private Commands commands;
 
-    public TeacherRoom(GameController controller) {
+    public TeacherRoom(GameController controller, Commands commands) {
         this.ending = new Endings(controller);
+        this.commands = commands;
     }
 
     @Override
@@ -160,17 +162,7 @@ public class TeacherRoom implements Room {
 
             case "leave":
                 player.setFlag("leaving");
-                System.out.println("You decide to leave. Where do you want to go? (Use: go to X)");
-                System.out.println("You can now go to: ");
-                System.out.println("- Main Entrance Hall");
-                System.out.println("- IT Room");
-                System.out.println("- Music Room");
-                if (player.hasFlag("found_trash_id")) {
-                    System.out.println("- Secretary");
-                }
-                if (player.hasFlag("read_email")) {
-                    System.out.println("- Printer Room");
-                }
+                commands.checkInputCommands("-r", player);
                 return "";
 
             default:

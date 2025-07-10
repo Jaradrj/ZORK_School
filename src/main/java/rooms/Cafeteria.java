@@ -1,18 +1,21 @@
 package rooms;
 
-import game.Player;
-import game.Room;
+import game.*;
 
 import java.util.HashMap;
 import java.util.Map;
-import game.Exit;
-import game.RoomFactory;
 
 public class Cafeteria implements Room {
+
+    private Commands commands;
 
     @Override
     public String getName() {
         return "cafeteria";
+    }
+
+    public Cafeteria(Commands commands) {
+        this.commands = commands;
     }
 
     @Override
@@ -48,10 +51,7 @@ public class Cafeteria implements Room {
 
             case "leave":
                 player.setFlag("leave_cafeteria");
-                System.out.println("\nYou decided to leave, where would you like to go to (Use: go to x)");
-                System.out.println("You can go to: ");
-                System.out.println("- IT Room");
-                System.out.println("- Music Room");
+                commands.checkInputCommands("-r", player);
                 return "";
 
             default:

@@ -1,15 +1,21 @@
 package rooms;
 
+import controller.GameController;
 import game.*;
 
 import java.util.*;
 
 public class MainEntranceRoom implements Room {
-    private boolean lightSwitchChecked = false;
+
+    private final Commands commands;
 
     @Override
     public String getName() {
         return "main entrance hall";
+    }
+
+    public MainEntranceRoom(Commands commands) {
+        this.commands = commands;
     }
 
     @Override
@@ -27,11 +33,7 @@ public class MainEntranceRoom implements Room {
         System.out.println("- Examine the Pinboard");
 
         if (player.hasFlag("half_map_taken")) {
-            System.out.println("\nYou can now go to:");
-            System.out.println("- Music Room");
-            System.out.println("- Teacher Room");
-            System.out.println("- IT Room");
-            System.out.println("(Use: go to X)");
+            commands.checkInputCommands("-r", player);
         }
     }
 
@@ -46,8 +48,8 @@ public class MainEntranceRoom implements Room {
         switch (action) {
             case "turn on the light":
             case "light":
-                if (!lightSwitchChecked) {
-                    lightSwitchChecked = true;
+                if (!player.hasFlag("lights_tried")) {
+                    player.setFlag("lights_tried");
                     return "\nYou flip the switch. Nothing happens. The power must be out. Maybe you need to restore it elsewhere.";
                 }
                 return "Still no power. The switch is unresponsive.";
