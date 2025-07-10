@@ -16,7 +16,10 @@ public class MusicRoom implements Room {
     public void enter(Player player) {
         if (!player.hasFlag("was_music")) {
             player.setFlag("was_music");
-            System.out.println("There's only a tiny bit of light reflecting on the drums in the back of the rotten wooden stage. The music stands are all in one row, creepy.\nSome notes were left behind. Suddenly, you notice a cracked sound, almost impossible to notice. You try to identity the source and see a cassette next to the violin, which is part of the instrument collection.");
+            System.out.println("There's only a tiny bit of light reflecting on the drums in the back of the rotten wooden stage. " +
+                    "The music stands are all in one row, creepy.\n" +
+                    "Some notes were left behind. Suddenly, you notice a cracked sound, almost impossible to notice.\n" +
+                    "You try to identity the source and see a cassette next to the violin, which is part of the instrument collection.");
         }
         System.out.println("\nActions:");
 
@@ -34,7 +37,8 @@ public class MusicRoom implements Room {
             case "check out instruments":
                 if (!player.hasFlag("has_checked_instruments")) {
                     player.setFlag("has_checked_instruments");
-                    return "\nThe collection of instruments on the stage looks as if it had been abandoned years ago. This has been the standard image of this school ever since the state cut our funding. Sad story...";
+                    return "\nThe collection of instruments on the stage looks as if it had been abandoned years ago.\n" +
+                            "This has been the standard image of this school ever since the state cut our funding. Sad story...";
                 }
                 return "\nYou already checked out the instruments.";
             case "2":
@@ -60,10 +64,17 @@ public class MusicRoom implements Room {
             case "listen":
             case "listen to the cassette":
                 if (!player.hasFlag("listened_to_cassette")) {
-                    System.out.println("\nYou get closer to the cassette, step by step. The message you're hearing becomes more and more clear. But then, suddenly the cassette shuts down. No battery.");
+                    System.out.println("\nYou get closer to the cassette, step by step. The message you're hearing becomes more and more clear. " +
+                            "But then, suddenly the cassette shuts down. No battery.");
                     if (player.hasFlag("flashlight_taken")) {
                         player.setFlag("listened_to_cassette");
-                        return "Luckily, you have your flashlight. The batteries fit the same. After inserting your flashlight's batteries into the cassette, the message continues:\n\n'I'm sorry. For the last three years I've tried everything to become the best, to help my family and myself.\nI had to keep my reputation up and now... They are gone. I killed them. And I'll be next... If they ever offer you a drink, don't drink it.\nIt's called Scopolamine, makes you hallucinate, lose your memory. I'm so sorry.'\n\nThis voice reminds me of somebody, but I can't figure out who. Someone from the band? I have to stop this!";
+                        return "Luckily, you have your flashlight. " +
+                                "The batteries fit the same. After inserting your flashlight's batteries into the cassette, the message continues:\n\n" +
+                                "'I'm sorry. For the last three years I've tried everything to become the best, to help my family and myself.\n" +
+                                "I had to keep my reputation up and now... They are gone. I killed them. " +
+                                "And I'll be next... If they ever offer you a drink, don't drink it.\n" +
+                                "It's called Scopolamine, makes you hallucinate, lose your memory. I'm so sorry.'\n\n" +
+                                "This voice reminds me of somebody, but I can't figure out who. Someone from the band? I have to stop this!";
                     } else if (!player.hasFlag("flashlight_taken")) {
                         return "You don't have any batteries. Whatever this cassette wanted to tell you, the truth will remain hidden.";
                     }

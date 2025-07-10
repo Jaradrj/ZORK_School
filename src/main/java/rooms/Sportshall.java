@@ -15,7 +15,8 @@ public class Sportshall implements Room {
     public void enter(Player player) {
         if (!player.hasFlag("was_sports")) {
             player.setFlag("was_sports");
-            System.out.println("It smells weird in here. Not the type of weird you find in a boys wardrobe, but rather the type of weird you smell in basements. The smell seems like it's coming from the shaft.\nWhy is it open? There must be a way to get up there. ");
+            System.out.println("It smells weird in here. Not the type of weird you find in a boys wardrobe, but rather the type of weird you smell in basements. " +
+                    "\nThe smell seems like it's coming from the shaft.\nWhy is it open? There must be a way to get up there. ");
         }
         System.out.println("Actions: ");
         if (player.hasFlag("was_electricity")) {
@@ -36,7 +37,10 @@ public class Sportshall implements Room {
             case "use bench":
                 player.setFlag("entered_electricity");
                 if (!player.hasFlag("was_electricity")) {
-                    System.out.println("You move the bench. Luckily, it's not that far away from the shaft. By using your skill, you manage to climb into the shaft.\nWhile crawling through, you notice the smell getting worse and worse, to the point you almost have to throw up.\nYou start to hear a buzzing sound. That's the moment you realize, you made it to the Electricity Room. ");
+                    System.out.println("You move the bench. Luckily, it's not that far away from the shaft. " +
+                            "By using your skill, you manage to climb into the shaft.\n" +
+                            "While crawling through, you notice the smell getting worse and worse, to the point you almost have to throw up.\n" +
+                            "You start to hear a buzzing sound. That's the moment you realize, you made it to the Electricity Room. ");
                 }
                 return handleRoomChange(player, "electricity room");
             case "leave":

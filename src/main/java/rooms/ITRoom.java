@@ -18,7 +18,9 @@ public class ITRoom implements Room {
         if (!player.hasFlag("was_it")) {
             player.setFlag("was_it");
 
-            System.out.println("The ancient computers, which normally sound like airplane turbines, don't make a single sound. Only one seems to be running, strangely enough.\n It shows a weird message, but I can't decipher it, not from here. Somehow I have the feeling that I'm about to be attacked from behind when I inspect it...");
+            System.out.println("The ancient computers, which normally sound like airplane turbines, don't make a single sound." +
+                    "Only one seems to be running, strangely enough.\nIt shows a weird message, but I can't decipher it, not from here.\n" +
+                    "Somehow I have the feeling that I'm about to be attacked from behind when I inspect it...");
         }
 
         System.out.println("\nActions:");

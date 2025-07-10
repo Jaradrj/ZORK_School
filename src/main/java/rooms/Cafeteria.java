@@ -19,7 +19,9 @@ public class Cafeteria implements Room {
     public void enter(Player player) {
         if (!player.hasFlag("was_cafeteria")) {
             player.setFlag("was_cafeteria");
-            System.out.println("Apart from dirty tables, chairs and leftovers on the food distribution counter, there's not much no find here. Behind the iron door is the kitchen.\nNo wonder we are constantly in the media for our hygiene regulations. About 50% of students have at least had one food poisoning.\nThe only thing shining is a safe. We need a key.");
+            System.out.println("Apart from dirty tables, chairs and leftovers on the food distribution counter, there's not much no find here.\n" +
+                    "Behind the iron door is the kitchen.\nNo wonder we are constantly in the media for our hygiene regulations.\n" +
+                    "About 50% of students have at least had one food poisoning.\nThe only thing shining is a safe. We need a key.");
         }
         System.out.println("\nActions:");
 
@@ -38,7 +40,9 @@ public class Cafeteria implements Room {
             case "try opening safe":
                 if (!player.hasFlag("tried_opening_safe")) {
                     player.setFlag("tried_opening_safe");
-                    return "I'm going to be rich! That's what's going through your head while your twisting around the key. Not a single buckle. Wrong key.";
+                    return "I'm going to be rich!\n" +
+                            "That's what's going through your head while your twisting around the key.\n" +
+                            "Not a single buckle. Wrong key.";
                 }
                 return "\nThe safe still won't work... :(";
 
