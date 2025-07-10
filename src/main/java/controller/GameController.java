@@ -71,5 +71,7 @@ public class GameController {
         System.out.println("Before you start, what's your name?");
         player.name = scanner.nextLine();
         System.out.printf("Welcome, %s!\n\n", player.name);
+        System.out.println("Here's some commands you might need. You can always access them by entering their initial:\n");
+        command.printCommands();
     }
 }
