@@ -23,7 +23,7 @@ public class Commands {
                 break;
             case "-i":
             case "i":
-                printInventory(player.getInventory());
+                printInventory(player.getInventory().getItems());
                 break;
             case "-r":
             case "r":
