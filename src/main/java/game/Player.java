@@ -8,7 +8,7 @@ import java.util.*;
 public class Player {
     private Set<String> flags = new HashSet<>();
     @Getter
-    private Set<String> inventory = new HashSet<>();
+    public Inventory inventory;
     public String name;
     public String oldName;
 
