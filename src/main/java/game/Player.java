@@ -11,10 +11,22 @@ public class Player {
     public Inventory inventory;
     public String name;
     public String oldName;
-
+    @Getter
+    private Room currentRoom;
     @Getter
     @Setter
-    private String currentRoom;
+    private Room lastRoom;
+
+    public Player() {
+        this.inventory = new Inventory();
+    }
+
+    public void setCurrentRoom(Room newRoom) {
+        if (this.currentRoom != null) {
+            this.lastRoom = this.currentRoom;
+        }
+        this.currentRoom = newRoom;
+    }
 
     public void setFlag(String flag) {
         flags.add(flag);
@@ -27,13 +39,4 @@ public class Player {
     public void clearFlags() {
         flags.clear();
     }
-
-    public void addItem(String item) {
-        inventory.add(item);
-    }
-
-    public boolean hasItem(String item) {
-        return inventory.contains(item);
-    }
-
 }
