@@ -1,18 +1,22 @@
-package game;
+package ui.game;
 
-import controller.GameController;
-import rooms.*;
+import console.game.Commands;
+import console.rooms.*;
+import console.game.Room;
+import ui.controller.UIGameController;
+import ui.rooms.UIElectricityRoom;
+import ui.rooms.UITeacherRoom;
 
-public class RoomFactory {
+public class UIRoomFactory {
 
-    private static GameController controller;
+    private static UIGameController controller;
     private static Commands commands;
 
-    public static void setController(GameController controller) {
-        RoomFactory.controller = controller;
+    public static void setController(UIGameController controller) {
+        UIRoomFactory.controller = controller;
     }
     public static void setCommands(Commands commands) {
-        RoomFactory.commands = commands;
+        UIRoomFactory.commands = commands;
     }
 
     public static Room createRoom(String name) {
@@ -26,8 +30,8 @@ public class RoomFactory {
             case "it room" -> new ITRoom(commands);
             case "sportshall" -> new Sportshall(commands);
             case "chemistry room" -> new ChemistryRoom(commands);
-            case "electricity room" -> new ElectricityRoom(controller,commands);
-            case "teacher room" -> new TeacherRoom(controller, commands);
+            case "electricity room" -> new UIElectricityRoom(controller,commands);
+            case "teacher room" -> new UITeacherRoom(controller, commands);
             default -> throw new IllegalArgumentException("Unknown room " + name);
         };
     }

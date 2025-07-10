@@ -1,13 +1,16 @@
-package game;
+package ui.game;
 
-import controller.GameController;
+
+import console.game.Player;
+import ui.controller.UIGameController;
+
 import java.util.Scanner;
 
-public class Endings {
+public class UIEndings {
 
-    private final GameController controller;
+    private final UIGameController controller;
 
-    public Endings(GameController controller) {
+    public UIEndings(UIGameController controller) {
         this.controller = controller;
     }
 
@@ -49,76 +52,76 @@ public class Endings {
                 "But resistance wasn’t enough. His name was erased. His body hidden.\n" +
                 "He died trying to find the truth.\n");
 
-                if (player.hasFlag("second_try")) {
-                    System.out.printf(
-                            "%s, a tragedy. I don't know what exactly led them here in the first place, " +
-                                    "but something tells me... they've done this before. The shadows feel familiar, " +
-                                    "the silence more oppressive. This time, maybe they'll get it right. " +
-                                    "Maybe they'll uncover what the others could not.\n\n",
-                            player.oldName
-                    );
-                }
+        if (player.hasFlag("second_try")) {
+            System.out.printf(
+                    "%s, a tragedy. I don't know what exactly led them here in the first place, " +
+                            "but something tells me... they've done this before. The shadows feel familiar, " +
+                            "the silence more oppressive. This time, maybe they'll get it right. " +
+                            "Maybe they'll uncover what the others could not.\n\n",
+                    player.oldName
+            );
+        }
 
 
-                 System.out.println("Toby McConnor worked at the school for 30 years.\n" +
-                        "He wasn’t a genius. He wasn’t on any list. He was just… observant.\n" +
-                        "When he heard strange noises in the electrical room, he followed them.\n" +
-                        "He crawled through a maintenance shaft, left unlocked by accident.\n" +
-                        "They never meant for anyone to find the room.\n" +
-                        "Especially not Toby.\n" +
-                        "His name never made the papers. He was just “an unfortunate workplace accident.”\n" +
-                        "\n" +
-                        "Mrs. Hamps was supposed to protect students.\n" +
-                        "Instead, she led the project.\n" +
-                        "MindScale wasn’t her idea, but she executed it perfectly.\n" +
-                        "Students deemed “emotionally unstable” or “underperforming” were marked for trials.\n" +
-                        "They weren’t expected to survive.\n" +
-                        "They were expected to comply.\n" +
-                        "The experiment spiraled.\n" +
-                        "Overdoses. Hallucinations. Deaths.\n" +
-                        "But even then, she continued. \"For the greater good.\"\n" +
-                        "They say she broke down when arrested.\n" +
-                        "But some claim she simply smiled.\n" +
-                        "\n" +
-                        "After your escape, the police launched an investigation.\n" +
-                        "Hamps and three others were arrested. The school board denied knowledge.\n" +
-                        "New programs were introduced.\n" +
-                        "\"Wellness initiatives.\"\n" +
-                        "\"Trauma-informed learning environments.\"\n" +
-                        "But behind new posters and smiling counselors, the structure remained unchanged.\n" +
-                        "\n" +
-                        "Weeks later, a letter arrives at your home. No return address.\n" +
-                        "\n" +
-                        "Inside:\n" +
-                        "    “Participant #27: Conclusion successful. Resistance indicates independent cognition. Memory retention: 97%. Recommendation: Proceed to Phase II.”\n" +
-                        "\n" +
-                        "You realize the truth.\n" +
-                        "You weren’t the one who escaped the system.\n" +
-                        "You were the final subject.\n" +
-                        "\n" +
-                        "Everything, the missing students, the clues, even your escape, it was all orchestrated.\n" +
-                        "A test of your limits. Of your morality. Of your mind.\n" +
-                        "\n" +
-                        "The project never failed.\n" +
-                        "It evolved.\n" +
-                        "You believed you were fighting the system.\n" +
-                        "But you were inside it the whole time.\n" +
-                        "And if even you couldn’t tell what was real…\n" +
-                        "how many others still think they’re awake?\n" +
-                        "\n" +
-                        "THE END.\n" +
-                        "(or maybe just the next phase)\n\n\n" +
-                        "          ___________\n" +
-                        "         '._==_==_=_.'\n" +
-                        "         .-\\:      /-.\n" +
-                        "        | (|:.     |) |\n" +
-                        "         '-|:.     |-'\n" +
-                        "           \\::.    /\n" +
-                        "            '::. .'\n" +
-                        "              ) (\n" +
-                        "            _.' '._\n" +
-                        "           `\"\"\"\"\"\"\"`");
-                System.exit(0);
+        System.out.println("Toby McConnor worked at the school for 30 years.\n" +
+                "He wasn’t a genius. He wasn’t on any list. He was just… observant.\n" +
+                "When he heard strange noises in the electrical room, he followed them.\n" +
+                "He crawled through a maintenance shaft, left unlocked by accident.\n" +
+                "They never meant for anyone to find the room.\n" +
+                "Especially not Toby.\n" +
+                "His name never made the papers. He was just “an unfortunate workplace accident.”\n" +
+                "\n" +
+                "Mrs. Hamps was supposed to protect students.\n" +
+                "Instead, she led the project.\n" +
+                "MindScale wasn’t her idea, but she executed it perfectly.\n" +
+                "Students deemed “emotionally unstable” or “underperforming” were marked for trials.\n" +
+                "They weren’t expected to survive.\n" +
+                "They were expected to comply.\n" +
+                "The experiment spiraled.\n" +
+                "Overdoses. Hallucinations. Deaths.\n" +
+                "But even then, she continued. \"For the greater good.\"\n" +
+                "They say she broke down when arrested.\n" +
+                "But some claim she simply smiled.\n" +
+                "\n" +
+                "After your escape, the police launched an investigation.\n" +
+                "Hamps and three others were arrested. The school board denied knowledge.\n" +
+                "New programs were introduced.\n" +
+                "\"Wellness initiatives.\"\n" +
+                "\"Trauma-informed learning environments.\"\n" +
+                "But behind new posters and smiling counselors, the structure remained unchanged.\n" +
+                "\n" +
+                "Weeks later, a letter arrives at your home. No return address.\n" +
+                "\n" +
+                "Inside:\n" +
+                "    “Participant #27: Conclusion successful. Resistance indicates independent cognition. Memory retention: 97%. Recommendation: Proceed to Phase II.”\n" +
+                "\n" +
+                "You realize the truth.\n" +
+                "You weren’t the one who escaped the system.\n" +
+                "You were the final subject.\n" +
+                "\n" +
+                "Everything, the missing students, the clues, even your escape, it was all orchestrated.\n" +
+                "A test of your limits. Of your morality. Of your mind.\n" +
+                "\n" +
+                "The project never failed.\n" +
+                "It evolved.\n" +
+                "You believed you were fighting the system.\n" +
+                "But you were inside it the whole time.\n" +
+                "And if even you couldn’t tell what was real…\n" +
+                "how many others still think they’re awake?\n" +
+                "\n" +
+                "THE END.\n" +
+                "(or maybe just the next phase)\n\n\n" +
+                "          ___________\n" +
+                "         '._==_==_=_.'\n" +
+                "         .-\\:      /-.\n" +
+                "        | (|:.     |) |\n" +
+                "         '-|:.     |-'\n" +
+                "           \\::.    /\n" +
+                "            '::. .'\n" +
+                "              ) (\n" +
+                "            _.' '._\n" +
+                "           `\"\"\"\"\"\"\"`");
+        System.exit(0);
     }
 
     public void badEnding(Player player) {

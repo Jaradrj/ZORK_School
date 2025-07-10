@@ -38,6 +38,7 @@ dependencies {
 	implementation ("org.apache.logging.log4j:log4j-core:2.20.0")
 	implementation ("org.apache.logging.log4j:log4j-slf4j-impl:2.20.0")
 	implementation ("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
+	implementation("com.googlecode.lanterna:lanterna:3.1.1")
 }
 
 tasks.withType<Test> {

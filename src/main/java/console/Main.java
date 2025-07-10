@@ -1,7 +1,9 @@
-import controller.GameController;
-import game.Commands;
-import game.RoomFactory;
-import game.Room;
+package console;
+
+import console.controller.GameController;
+import console.game.Commands;
+import console.game.RoomFactory;
+import console.game.Room;
 
 import java.util.HashMap;
 import java.util.Map;

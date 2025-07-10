@@ -1,7 +1,7 @@
-package rooms;
+package console.rooms;
 
-import controller.GameController;
-import game.*;
+import console.controller.GameController;
+import console.game.*;
 
 import java.util.*;
 

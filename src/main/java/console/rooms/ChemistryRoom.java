@@ -1,13 +1,13 @@
-package rooms;
+package console.rooms;
 
-import game.*;
+import console.game.*;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import game.Exit;
-import game.RoomFactory;
+import console.game.Exit;
+import console.game.RoomFactory;
 
 public class ChemistryRoom implements Room {
 
