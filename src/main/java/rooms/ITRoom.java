@@ -70,6 +70,7 @@ public class ITRoom implements Room {
                             "     Why did you?\n" +
                             "\n" +
                             "   [SYSTEM ERROR: MEMORY LEAK - RUN? Y/N]\n");
+                    System.out.println("> ");
 
                     Scanner scanner = new Scanner(System.in);
                     String response = scanner.nextLine();
