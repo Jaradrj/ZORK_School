@@ -26,7 +26,7 @@ public class UIMainEntranceRoom implements UIRoom {
         if (!player.hasFlag("was_main")) {
             player.setFlag("was_main");
             text.append("Your story starts in the main building. \nThere’s not much to find here. \nYou take a look around and notice a few objects.\n")
-                    .append("Although it's pretty dark, you can still make out some tables, the school's dull pinboard, \na light switch, and chairs, some of which have been knocked over.\n")
+                    .append("Although it's pretty dark, you can still make out some tables, \nthe school's dull pinboard, a light switch,\nand chairs, some of which have been knocked over.\n")
                     .append("What do you want to do?\n");
         } else {
             text.append("You are in the main entrance hall.\n");

@@ -58,7 +58,7 @@ public class UIGameController {
     private void updateUI() throws IOException {
         outputArea.setText("");
         String enterText = currentRoom.enter(player);
-        TypingEffect.typeWithSound(outputArea, enterText, 20);
+        TypingEffect.typeWithSound(outputArea, enterText, gui);
         refreshActionButtons();
     }
 
