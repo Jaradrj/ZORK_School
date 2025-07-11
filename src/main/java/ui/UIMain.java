@@ -24,6 +24,8 @@ public class UIMain {
             Map<String, UIRoom> roomMap = new HashMap<>();
             String[] roomNames = {
                     "main entrance hall",
+                    "music room",
+                    "it room"
             };
 
             for (String name : roomNames) {

@@ -58,7 +58,7 @@ public class UIGameController {
         updateUI();
     }
 
-    private void updateUI() throws IOException {
+    private void updateUI() {
         outputArea.setText("");
         String enterText = currentRoom.enter(player);
         TypingEffect.typeWithSound(outputArea, enterText, gui);
@@ -70,8 +70,8 @@ public class UIGameController {
 
         for (String action : currentRoom.getAvailableActions(player)) {
             Button b = new Button(action, () -> {
-                String result = currentRoom.performAction(player, action.toLowerCase().trim());
-                outputArea.setText(outputArea.getText() + "\n\n" + result);
+                String result = currentRoom.performAction(player, action.toLowerCase().trim(), outputArea);
+
 
                 if (player.getCurrentUIRoom() != currentRoom) {
                     currentRoom = player.getCurrentUIRoom();
@@ -81,11 +81,8 @@ public class UIGameController {
             });
             actionPanel.addComponent(b);
         }
-
         window.invalidate();
-
     }
-
     public void run() {
         gui.addWindowAndWait(window);
     }

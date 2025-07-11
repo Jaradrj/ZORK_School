@@ -6,6 +6,7 @@ import console.game.Room;
 import ui.controller.UIGameController;
 import ui.rooms.UIElectricityRoom;
 import ui.rooms.UIMainEntranceRoom;
+import ui.rooms.UIMusicRoom;
 import ui.rooms.UITeacherRoom;
 
 public class UIRoomFactory {
@@ -23,6 +24,8 @@ public class UIRoomFactory {
     public static UIRoom createRoom(String name) {
         return switch (name) {
             case "main entrance hall" -> new UIMainEntranceRoom(commands);
+            case "music room" -> new UIMusicRoom(commands);
+            case "it room" -> new UIITRoom(commands);
             default -> throw new IllegalArgumentException("Unknown room " + name);
         };
     }
