@@ -42,6 +42,7 @@ public class UIMusicRoom implements UIRoom {
         actions.add("Check out Instruments");
         actions.add("Watch the notes");
         actions.add("Listen to the cassette");
+        actions.add("leave");
 
         return actions;
 }

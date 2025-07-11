@@ -11,6 +11,7 @@ import console.game.*;
 import ui.audio.TypingEffect;
 
 import java.io.IOException;
+import java.util.Map;
 
 public class UIGameController {
 
@@ -18,6 +19,7 @@ public class UIGameController {
     private Player player;
     private UIRoom currentRoom;
     private UICommands command;
+    private boolean isChoosingRoom = false;
 
     private Screen screen;
     private MultiWindowTextGUI gui;
@@ -68,18 +70,46 @@ public class UIGameController {
     private void refreshActionButtons() {
         actionPanel.removeAllComponents();
 
-        for (String action : currentRoom.getAvailableActions(player)) {
-            Button b = new Button(action, () -> {
-                String result = currentRoom.performAction(player, action.toLowerCase().trim(), outputArea);
+        if (isChoosingRoom) {
 
-                if (player.getCurrentUIRoom() != currentRoom) {
+            Map<String, Exit> exits = currentRoom.getAvailableExits(player);
+            for (String roomName : exits.keySet()) {
+                Button b = new Button(roomName, () -> {
+                    String result = currentRoom.handleRoomChange(player, roomName);
+                    outputArea.setText(outputArea.getText() + "\n\n" + result);
                     currentRoom = player.getCurrentUIRoom();
                     outputArea.setText(currentRoom.enter(player));
-                }
+                    isChoosingRoom = false;
+                    refreshActionButtons();
+                });
+                actionPanel.addComponent(b);
+            }
+            Button returnButton = new Button("Return", () -> {
+                isChoosingRoom = false;
+                outputArea.setText(outputArea.getText() + "\n\nCanceled room selection.");
                 refreshActionButtons();
             });
-            actionPanel.addComponent(b);
+            actionPanel.addComponent(returnButton);
+        } else {
+
+            for (String action : currentRoom.getAvailableActions(player)) {
+                Button b = new Button(action, () -> {
+                    String result = currentRoom.performAction(player, action.toLowerCase().trim(), outputArea);
+                    if (player.getCurrentUIRoom() != currentRoom) {
+                        currentRoom = player.getCurrentUIRoom();
+                        outputArea.setText(currentRoom.enter(player));
+                    }
+
+                    if ("leave".equalsIgnoreCase(action)) {
+                        isChoosingRoom = true;
+                    }
+
+                    refreshActionButtons();
+                });
+                actionPanel.addComponent(b);
+            }
         }
+
         window.invalidate();
     }
 

@@ -44,12 +44,8 @@ public class UIMainEntranceRoom implements UIRoom {
         }
         actions.add("Sit Down at a Table");
         actions.add("Examine the Pinboard");
+        actions.add("leave");
 
-        if (player.hasFlag("half_map_taken")) {
-            actions.add("Go to Music Room");
-            actions.add("Go to Teacher Room");
-            actions.add("Go to IT Room");
-        }
         return actions;
     }
 
@@ -106,6 +102,12 @@ public class UIMainEntranceRoom implements UIRoom {
                         result.append("You already took the half map from the pinboard.");
                     }
                     break;
+
+                case "leave":
+                    if(player.hasFlag("half_map_taken")){
+                    commands.checkInputCommands("-r", player, outputArea);}
+
+                    return "";
 
                 default:
                     result.append("Invalid action. Try one of the available buttons.");
