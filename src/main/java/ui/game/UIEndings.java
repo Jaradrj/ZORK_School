@@ -236,7 +236,7 @@ public class UIEndings {
             default:
                 player.clearFlags();
                 player.setFlag("second_try");
-                controller.run();
+
                 break;
         }
     }
