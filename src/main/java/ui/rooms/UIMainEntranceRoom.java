@@ -37,7 +37,7 @@ public class UIMainEntranceRoom implements UIRoom {
     @Override
     public List<String> getAvailableActions(Player player) {
         List<String> actions = new ArrayList<>();
-        if (!player.hasFlag("lights_tried")) {
+        if (!player.hasFlag("turned_on_power")) {
             actions.add("Turn on the Light");
         }
         actions.add("Sit Down at a Table");

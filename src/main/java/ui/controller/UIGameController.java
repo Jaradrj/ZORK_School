@@ -4,6 +4,7 @@ import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
+import com.googlecode.lanterna.terminal.MouseCaptureMode;
 import lombok.Getter;
 import ui.game.*;
 import console.game.*;
@@ -30,7 +31,9 @@ public class UIGameController {
         this.player = player;
         UIRoomFactory.setController(this);
 
-        this.screen = new DefaultTerminalFactory().createScreen();
+        DefaultTerminalFactory factory = new DefaultTerminalFactory()
+                .setMouseCaptureMode(MouseCaptureMode.CLICK_RELEASE_DRAG_MOVE);
+        screen = factory.createScreen();
         this.screen.startScreen();
         this.gui = new MultiWindowTextGUI(screen);
 
@@ -62,10 +65,11 @@ public class UIGameController {
         refreshActionButtons();
     }
 
-    private void refreshActionButtons() throws IOException {
+    private void refreshActionButtons() {
         actionPanel.removeAllComponents();
+
         for (String action : currentRoom.getAvailableActions(player)) {
-            Button actionButton = new Button(action, () -> {
+            Button b = new Button(action, () -> {
                 String result = currentRoom.performAction(player, action.toLowerCase().trim());
                 outputArea.setText(outputArea.getText() + "\n\n" + result);
 
@@ -73,15 +77,13 @@ public class UIGameController {
                     currentRoom = player.getCurrentUIRoom();
                     outputArea.setText(currentRoom.enter(player));
                 }
-                try {
-                    refreshActionButtons();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                refreshActionButtons();
             });
-            actionPanel.addComponent(actionButton);
+            actionPanel.addComponent(b);
         }
-        gui.updateScreen();
+
+        window.invalidate();
+
     }
 
     public void run() {
