@@ -7,6 +7,7 @@ import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import lombok.Getter;
 import ui.game.*;
 import console.game.*;
+import ui.audio.TypingEffect;
 
 import java.io.IOException;
 
@@ -55,7 +56,9 @@ public class UIGameController {
     }
 
     private void updateUI() throws IOException {
-        outputArea.setText(currentRoom.enter(player));
+        outputArea.setText("");
+        String enterText = currentRoom.enter(player);
+        TypingEffect.typeWithSound(outputArea, enterText, 20);
         refreshActionButtons();
     }
 
@@ -66,8 +69,8 @@ public class UIGameController {
                 String result = currentRoom.performAction(player, action.toLowerCase().trim());
                 outputArea.setText(outputArea.getText() + "\n\n" + result);
 
-                if (player.getCurrentRoom() != currentRoom) {
-                    currentRoom = (UIRoom) player.getCurrentRoom();
+                if (player.getCurrentUIRoom() != currentRoom) {
+                    currentRoom = player.getCurrentUIRoom();
                     outputArea.setText(currentRoom.enter(player));
                 }
                 try {

@@ -1,5 +1,6 @@
 package ui.rooms;
 
+import ui.audio.TypingEffect;
 import ui.game.UICommands;
 import ui.game.UIRoom;
 import console.game.*;
