@@ -28,7 +28,9 @@ public class MainEntranceRoom implements Room {
             System.out.println("What do you want to do?");
         }
         System.out.println("\nActions:");
-        System.out.println("- Turn on the Light");
+        if(!player.hasFlag("turned_on_power")) {
+            System.out.println("- Turn on the Light");
+        }
         System.out.println("- Sit Down at a Table");
         System.out.println("- Examine the Pinboard");
 
