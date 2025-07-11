@@ -51,9 +51,9 @@ public class StartMenu {
         buttonPanel.setLayoutManager(new LinearLayout(Direction.VERTICAL));
 
         Button startButton = new Button("Start Game", () -> {
+            window.close();
             String name = enterName();
             player.setName(name);
-            window.close();
         });
         startButton.setRenderer(new ButtonStyling());
 

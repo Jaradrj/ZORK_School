@@ -1,5 +1,7 @@
 package ui.audio;
 
+import com.googlecode.lanterna.gui2.TextBox;
+
 import javax.sound.sampled.*;
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,10 +10,9 @@ public class TypingEffect {
 
     private static Clip clickSound;
 
-    public static void typeWithSound(String text, int delayMillis) {
+    public static void typeWithSound(TextBox textBox, String text, int delayMillis) {
         for (char c : text.toCharArray()) {
-            System.out.print(c);
-            System.out.flush();
+            textBox.setText(textBox.getText() + c);
             if (Character.isLetterOrDigit(c) || Character.isWhitespace(c)) {
                 playSound();
             }
@@ -22,6 +23,7 @@ public class TypingEffect {
             }
         }
     }
+
 
     public static void loadSound(String resourcePath) {
         try (InputStream audioSrc = TypingEffect.class.getResourceAsStream(resourcePath);

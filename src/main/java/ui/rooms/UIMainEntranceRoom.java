@@ -1,5 +1,6 @@
 package ui.rooms;
 
+import ui.audio.TypingEffect;
 import ui.game.UICommands;
 import ui.game.UIRoom;
 import console.game.*;
@@ -24,8 +25,8 @@ public class UIMainEntranceRoom implements UIRoom {
         StringBuilder text = new StringBuilder();
         if (!player.hasFlag("was_main")) {
             player.setFlag("was_main");
-            text.append("Your story starts in the main building. There’s not much to find here. You take a look around and notice a few objects.\n")
-                    .append("Although it's pretty dark, you can still make out some tables, the school's dull pinboard, a light switch, and chairs, some of which have been knocked over.\n")
+            text.append("Your story starts in the main building. \nThere’s not much to find here. \nYou take a look around and notice a few objects.\n")
+                    .append("Although it's pretty dark, you can still make out some tables, the school's dull pinboard, \na light switch, and chairs, some of which have been knocked over.\n")
                     .append("What do you want to do?\n");
         } else {
             text.append("You are in the main entrance hall.\n");
@@ -43,7 +44,6 @@ public class UIMainEntranceRoom implements UIRoom {
         actions.add("Examine the Pinboard");
 
         if (player.hasFlag("half_map_taken")) {
-            // Allow navigation to unlocked rooms
             actions.add("Go to Music Room");
             actions.add("Go to Teacher Room");
             actions.add("Go to IT Room");
