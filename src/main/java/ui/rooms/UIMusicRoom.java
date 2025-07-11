@@ -4,6 +4,7 @@ import com.googlecode.lanterna.gui2.TextBox;
 import console.game.*;
 import ui.game.UICommands;
 import ui.game.UIRoom;
+import ui.game.UIRoomFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,9 +39,9 @@ public class UIMusicRoom implements UIRoom {
     @Override
     public List<String> getAvailableActions(Player player) {
         List<String> actions = new ArrayList<>();
-        actions.add("- Check out Instruments");
-        actions.add("- Watch the notes");
-        actions.add("- Listen to the cassette");
+        actions.add("Check out Instruments");
+        actions.add("Watch the notes");
+        actions.add("Listen to the cassette");
 
         return actions;
 }
@@ -126,8 +127,8 @@ public String handleRoomChange(Player player, String roomName) {
     Map<String, Exit> exits = getAvailableExits(player);
     String roomKey = roomName.toLowerCase();
     if (exits.containsKey(roomKey)) {
-        Room targetRoom = RoomFactory.createRoom(roomName);
-        player.setCurrentRoom(targetRoom);
+        UIRoom targetRoom = UIRoomFactory.createRoom(roomName);
+        player.setCurrentUIRoom(targetRoom);
         return "You enter the " + roomName + ".";
     } else {
         return "There is no room called '" + roomName + "' here.";

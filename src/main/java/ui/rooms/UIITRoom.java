@@ -7,6 +7,7 @@ import ui.audio.TypingEffect;
 import ui.game.UICommands;
 import ui.game.UIRoom;
 import ui.controller.UIGameController;
+import ui.game.UIRoomFactory;
 
 import java.util.*;
 
@@ -162,8 +163,8 @@ public class UIITRoom implements UIRoom {
         Map<String, Exit> exits = getAvailableExits(player);
         String roomKey = roomName.toLowerCase();
         if (exits.containsKey(roomKey)) {
-            Room targetRoom = RoomFactory.createRoom(roomName);
-            player.setCurrentRoom(targetRoom);
+            UIRoom targetRoom = UIRoomFactory.createRoom(roomName);
+            player.setCurrentUIRoom(targetRoom);
             return "You enter the " + roomName + ".";
         } else {
             return "There is no room called '" + roomName + "' here.";

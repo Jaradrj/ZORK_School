@@ -72,7 +72,6 @@ public class UIGameController {
             Button b = new Button(action, () -> {
                 String result = currentRoom.performAction(player, action.toLowerCase().trim(), outputArea);
 
-
                 if (player.getCurrentUIRoom() != currentRoom) {
                     currentRoom = player.getCurrentUIRoom();
                     outputArea.setText(currentRoom.enter(player));
@@ -83,6 +82,7 @@ public class UIGameController {
         }
         window.invalidate();
     }
+
     public void run() {
         gui.addWindowAndWait(window);
     }
