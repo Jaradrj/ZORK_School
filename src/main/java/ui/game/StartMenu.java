@@ -19,12 +19,13 @@ public class StartMenu {
 
     private Screen screen;
     private MultiWindowTextGUI gui;
-    private Player player;
+    private final Player player;
 
-    public StartMenu() throws IOException {
+    public StartMenu(Player player) throws IOException {
         this.screen = new DefaultTerminalFactory().createScreen();
         this.screen.startScreen();
         this.gui = new MultiWindowTextGUI(screen, new DefaultWindowManager(), new EmptySpace(TextColor.ANSI.BLACK_BRIGHT));
+        this.player = player;
     }
 
     public void showStartMenu() {
@@ -50,9 +51,9 @@ public class StartMenu {
         buttonPanel.setLayoutManager(new LinearLayout(Direction.VERTICAL));
 
         Button startButton = new Button("Start Game", () -> {
+            String name = enterName();
+            player.setName(name);
             window.close();
-            player.name = enterName();
-
         });
         startButton.setRenderer(new ButtonStyling());
 
