@@ -4,10 +4,7 @@ import console.game.Commands;
 import console.rooms.*;
 import console.game.Room;
 import ui.controller.UIGameController;
-import ui.rooms.UIElectricityRoom;
-import ui.rooms.UIMainEntranceRoom;
-import ui.rooms.UIMusicRoom;
-import ui.rooms.UITeacherRoom;
+import ui.rooms.*;
 
 public class UIRoomFactory {
 

@@ -67,3 +67,4 @@ public class UICommands {
         outputArea.setText(outputArea.getText() + sb.toString());
     }
 }
+
