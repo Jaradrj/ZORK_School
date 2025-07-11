@@ -20,7 +20,6 @@ public class UIMain {
             Player player = new Player();
             StartMenu startMenu = new StartMenu(player);
             startMenu.showStartMenu();
-            String playerName = startMenu.enterName();
 
             Map<String, UIRoom> roomMap = new HashMap<>();
             String[] roomNames = {
@@ -35,7 +34,6 @@ public class UIMain {
             UIRoomFactory.setCommands(commands);
 
             UIGameController controller = new UIGameController(commands, player);
-            controller.getPlayer().setName(playerName);
             UIRoomFactory.setController(controller);
 
             controller.run();
