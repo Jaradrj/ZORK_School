@@ -44,7 +44,7 @@ public class UIITRoom implements UIRoom {
     public List<String> getAvailableActions(Player player) {
         List<String> actions = new ArrayList<>();
         if (!player.hasFlag("inspected_message")) {
-            actions.add("Inspect Mmessage");
+            actions.add("Inspect message");
         }
         if (player.hasFlag("turned_on_power") && player.hasFlag("phone_taken") && !player.hasFlag("turned_on_wlan")) {
             actions.add("Turn on Wlan");
