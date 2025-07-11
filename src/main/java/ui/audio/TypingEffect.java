@@ -9,19 +9,17 @@ import java.io.InputStream;
 
 public class TypingEffect {
 
-    private static Clip clickSound;
-
     public static void typeWithSound(TextBox textBox, String text, WindowBasedTextGUI gui) {
         int delayMillis = 40;
+
         new Thread(() -> {
             StringBuilder currentText = new StringBuilder();
-            for (char c : text.toCharArray()) {
+            for (int i = 0; i < text.length(); i++) {
+                char c = text.charAt(i);
                 currentText.append(c);
-                char finalC = c;
                 gui.getGUIThread().invokeLater(() -> textBox.setText(currentText.toString()));
-
-                if (Character.isLetterOrDigit(finalC) || Character.isWhitespace(finalC)) {
-                    playSound();
+                if (i % 2 == 0 && (Character.isLetterOrDigit(c) || Character.isWhitespace(c))) {
+                    playSound("/sounds/Terminal.wav");
                 }
 
                 try {
@@ -33,26 +31,17 @@ public class TypingEffect {
         }).start();
     }
 
-    public static void loadSound(String resourcePath) {
+    private static void playSound(String resourcePath) {
         try (InputStream audioSrc = TypingEffect.class.getResourceAsStream(resourcePath);
              InputStream bufferedIn = new java.io.BufferedInputStream(audioSrc)) {
 
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(bufferedIn);
-            clickSound = AudioSystem.getClip();
-            clickSound.open(audioStream);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioStream);
+            clip.start();
 
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-            System.err.println("Error loading sound: " + e.getMessage());
-        }
-    }
-
-    public static void playSound() {
-        if (clickSound != null) {
-            if (clickSound.isRunning()) {
-                clickSound.stop();
-            }
-            clickSound.setFramePosition(0);
-            clickSound.start();
+            System.err.println("Error playing sound: " + e.getMessage());
         }
     }
 }
