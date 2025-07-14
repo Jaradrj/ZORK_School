@@ -1,4 +1,4 @@
-package game;
+package console.game;
 
 import java.util.Map;
 

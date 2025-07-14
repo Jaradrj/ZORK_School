@@ -1,6 +1,6 @@
-package rooms;
+package console.rooms;
 
-import game.*;
+import console.game.*;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,6 +1,6 @@
-package controller;
+package console.controller;
 
-import game.*;
+import console.game.*;
 
 import java.util.Scanner;
 

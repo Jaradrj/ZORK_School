@@ -1,7 +1,8 @@
-package game;
+package console.game;
 
 import lombok.Getter;
 import lombok.Setter;
+import ui.game.UIRoom;
 
 import java.util.*;
 
@@ -9,10 +10,17 @@ public class Player {
     private Set<String> flags = new HashSet<>();
     @Getter
     public Inventory inventory;
+    @Setter
     public String name;
     public String oldName;
     @Getter
     private Room currentRoom;
+    @Getter
+    private UIRoom currentUIRoom;
+    @Getter
+    @Setter
+    private UIRoom lastUIRoom;
+
     @Getter
     @Setter
     private Room lastRoom;
@@ -27,6 +35,12 @@ public class Player {
         }
         this.currentRoom = newRoom;
     }
+    public void setCurrentUIRoom(UIRoom newRoom) {
+        if (this.currentUIRoom != null) {
+            this.lastUIRoom = this.currentUIRoom;
+        }
+        this.currentUIRoom = newRoom;
+    }
 
     public void setFlag(String flag) {
         flags.add(flag);
@@ -38,5 +52,9 @@ public class Player {
 
     public void clearFlags() {
         flags.clear();
+    }
+
+    public void clearFlag(String flag) {
+        flags.remove(flag);
     }
 }

@@ -1,9 +1,9 @@
-package game;
+package console.game;
 
 import java.util.Map;
 import java.util.Set;
-import rooms.*;
-import game.*;
+import console.rooms.*;
+import console.game.*;
 
 public class Commands {
 

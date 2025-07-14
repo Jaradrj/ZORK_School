@@ -1,7 +1,7 @@
-package game;
+package console.game;
 
-import controller.GameController;
-import rooms.*;
+import console.controller.GameController;
+import console.rooms.*;
 
 public class RoomFactory {
 
