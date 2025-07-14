@@ -25,7 +25,8 @@ public class UIMain {
             String[] roomNames = {
                     "main entrance hall",
                     "music room",
-                    "it room"
+                    "it room",
+                    "cafeteria"
             };
 
             for (String name : roomNames) {

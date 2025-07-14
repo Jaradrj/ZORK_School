@@ -23,6 +23,7 @@ public class UIRoomFactory {
             case "main entrance hall" -> new UIMainEntranceRoom(commands);
             case "music room" -> new UIMusicRoom(commands);
             case "it room" -> new UIITRoom(commands);
+            case "cafeteria" -> new UICafeteria(commands);
             default -> throw new IllegalArgumentException("Unknown room " + name);
         };
     }
