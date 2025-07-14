@@ -28,10 +28,7 @@ public class UIGameController {
     private Panel mainPanel;
     private TextBox outputArea;
     private Panel actionPanel;
-    private Panel inventoryPanel;
     private boolean showingEndingPrompt = false;
-
-    private ShowInventory showInventory;
 
     public UIGameController(UICommands commands, Player player) throws IOException {
         this.command = commands;
