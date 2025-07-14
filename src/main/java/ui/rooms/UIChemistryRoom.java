@@ -11,7 +11,6 @@ import java.util.*;
 
 public class UIChemistryRoom implements UIRoom {
 
-    private final WindowBasedTextGUI gui;
     private UICommands commands;
 
     @Override
@@ -19,10 +18,8 @@ public class UIChemistryRoom implements UIRoom {
         return "chemistry room";
     }
 
-    public UIChemistryRoom(UICommands commands,
-                           WindowBasedTextGUI gui) {
+    public UIChemistryRoom(UICommands commands) {
         this.commands = commands;
-        this.gui = gui;
     }
 
     @Override
