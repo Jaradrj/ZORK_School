@@ -1,6 +1,8 @@
 package ui.controller;
 
 import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.graphics.SimpleTheme;
 import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
@@ -39,7 +41,21 @@ public class UIGameController {
                 .setMouseCaptureMode(MouseCaptureMode.CLICK_RELEASE_DRAG_MOVE);
         screen = factory.createScreen();
         this.screen.startScreen();
-        this.gui = new MultiWindowTextGUI(screen);
+        this.gui = new MultiWindowTextGUI(screen, new DefaultWindowManager(), new EmptySpace(TextColor.ANSI.BLACK_BRIGHT));
+
+
+        SimpleTheme customTheme = SimpleTheme.makeTheme(
+                true,
+                TextColor.ANSI.WHITE,
+                TextColor.ANSI.BLACK_BRIGHT,
+                TextColor.ANSI.WHITE,
+                TextColor.ANSI.BLACK,
+                TextColor.ANSI.BLACK,
+                TextColor.ANSI.WHITE,
+                TextColor.ANSI.BLACK_BRIGHT
+        );
+
+        this.gui.setTheme(customTheme);
 
         UIRoom room = UIRoomFactory.createRoom("main entrance hall");
         System.out.println("Created room: " + room + ", type: " + room.getClass());
@@ -50,7 +66,7 @@ public class UIGameController {
 
         this.window = new BasicWindow("MindScale");
         this.mainPanel = new Panel(new LinearLayout(Direction.VERTICAL));
-        this.outputArea = new TextBox(new TerminalSize(100, 15), TextBox.Style.MULTI_LINE)
+        this.outputArea = new TextBox(new TerminalSize(100, 18), TextBox.Style.MULTI_LINE)
                 .setReadOnly(true);
         this.mainPanel.addComponent(outputArea);
 
@@ -71,6 +87,17 @@ public class UIGameController {
 
     private void refreshActionButtons() {
 
+        SimpleTheme customButtonTheme = SimpleTheme.makeTheme(
+                false,
+                TextColor.ANSI.WHITE,
+                TextColor.ANSI.BLACK_BRIGHT,
+                TextColor.ANSI.WHITE,
+                TextColor.ANSI.BLACK,
+                TextColor.ANSI.BLACK,
+                TextColor.ANSI.WHITE,
+                TextColor.ANSI.BLACK_BRIGHT
+        );
+
         if (showingEndingPrompt) {
             window.invalidate();
             return;
@@ -90,6 +117,7 @@ public class UIGameController {
                     isChoosingRoom = false;
                     refreshActionButtons();
                 });
+                b.setTheme(customButtonTheme);
                 actionPanel.addComponent(b);
             }
             Button returnButton = new Button("Return", () -> {
@@ -97,6 +125,7 @@ public class UIGameController {
                 outputArea.setText(outputArea.getText() + "\n\nCanceled room selection.");
                 refreshActionButtons();
             });
+            returnButton.setTheme(customButtonTheme);
             actionPanel.addComponent(returnButton);
         } else {
 
@@ -114,6 +143,7 @@ public class UIGameController {
 
                     refreshActionButtons();
                 });
+                b.setTheme(customButtonTheme);
                 actionPanel.addComponent(b);
             }
         }
@@ -142,5 +172,4 @@ public class UIGameController {
     public void run() {
         gui.addWindowAndWait(window);
     }
-
 }
