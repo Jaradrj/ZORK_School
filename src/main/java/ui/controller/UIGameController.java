@@ -16,6 +16,8 @@ import java.util.Map;
 public class UIGameController {
 
     @Getter
+    private static MultiWindowTextGUI guiInstance;
+    @Getter
     private Player player;
     private UIRoom currentRoom;
     private UICommands command;
@@ -29,19 +31,20 @@ public class UIGameController {
     private Panel actionPanel;
 
     public UIGameController(UICommands commands, Player player) throws IOException {
+        DefaultTerminalFactory factory = new DefaultTerminalFactory()
+                .setMouseCaptureMode(MouseCaptureMode.CLICK_RELEASE_DRAG_MOVE);
+        screen = factory.createScreen();
+        screen.startScreen();
+
+        this.gui = new MultiWindowTextGUI(screen);
+        UIGameController.guiInstance = this.gui;
+
         this.command = commands;
         this.player = player;
         UIRoomFactory.setController(this);
 
-        DefaultTerminalFactory factory = new DefaultTerminalFactory()
-                .setMouseCaptureMode(MouseCaptureMode.CLICK_RELEASE_DRAG_MOVE);
-        screen = factory.createScreen();
-        this.screen.startScreen();
-        this.gui = new MultiWindowTextGUI(screen);
-
         UIRoom room = UIRoomFactory.createRoom("main entrance hall");
         System.out.println("Created room: " + room + ", type: " + room.getClass());
-
 
         this.currentRoom = room;
         player.setCurrentUIRoom(currentRoom);
@@ -60,10 +63,11 @@ public class UIGameController {
         updateUI();
     }
 
+
     private void updateUI() {
         outputArea.setText("");
         String enterText = currentRoom.enter(player);
-        TypingEffect.typeWithSound(outputArea, enterText, gui);
+        TypingEffect.typeWithSound(outputArea, enterText, gui, null);
         refreshActionButtons();
     }
 
@@ -78,7 +82,7 @@ public class UIGameController {
                     String result = currentRoom.handleRoomChange(player, roomName);
                     outputArea.setText(outputArea.getText() + "\n\n" + result);
                     currentRoom = player.getCurrentUIRoom();
-                    outputArea.setText(currentRoom.enter(player));
+                    TypingEffect.typeWithSound(outputArea, currentRoom.enter(player), gui, null);
                     isChoosingRoom = false;
                     refreshActionButtons();
                 });
@@ -95,9 +99,10 @@ public class UIGameController {
             for (String action : currentRoom.getAvailableActions(player)) {
                 Button b = new Button(action, () -> {
                     String result = currentRoom.performAction(player, action.toLowerCase().trim(), outputArea);
+                    TypingEffect.typeWithSound(outputArea, result, gui, null);
                     if (player.getCurrentUIRoom() != currentRoom) {
                         currentRoom = player.getCurrentUIRoom();
-                        outputArea.setText(currentRoom.enter(player));
+                        TypingEffect.typeWithSound(outputArea, currentRoom.enter(player), gui, null);
                     }
 
                     if ("leave".equalsIgnoreCase(action)) {
