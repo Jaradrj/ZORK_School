@@ -104,6 +104,11 @@ public class StartMenu {
             } else {
                 name[0] = input;
                 window.close();
+                try {
+                    screen.stopScreen();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
