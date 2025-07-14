@@ -26,7 +26,8 @@ public class UIMain {
                     "main entrance hall",
                     "music room",
                     "it room",
-                    "cafeteria"
+                    "cafeteria",
+                    "chemistry room"
             };
 
             for (String name : roomNames) {

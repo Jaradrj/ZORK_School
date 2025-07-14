@@ -1,8 +1,6 @@
 package ui.game;
 
-import console.game.Commands;
-import console.rooms.*;
-import console.game.Room;
+import com.googlecode.lanterna.gui2.WindowBasedTextGUI;
 import ui.controller.UIGameController;
 import ui.rooms.*;
 
@@ -10,6 +8,7 @@ public class UIRoomFactory {
 
     private static UIGameController controller;
     private static UICommands commands;
+    private static WindowBasedTextGUI gui;
 
     public static void setController(UIGameController controller) {
         UIRoomFactory.controller = controller;
@@ -24,6 +23,7 @@ public class UIRoomFactory {
             case "music room" -> new UIMusicRoom(commands);
             case "it room" -> new UIITRoom(commands);
             case "cafeteria" -> new UICafeteria(commands);
+            case "chemistry room" -> new UIChemistryRoom(commands, gui);
             default -> throw new IllegalArgumentException("Unknown room " + name);
         };
     }
