@@ -2,7 +2,6 @@ package ui.rooms;
 
 import com.googlecode.lanterna.gui2.TextBox;
 import console.game.*;
-import ui.audio.TypingEffect;
 import ui.game.UICommands;
 import ui.game.UIRoom;
 import ui.controller.UIGameController;
@@ -74,27 +73,27 @@ public class UIITRoom implements UIRoom {
                     player.setFlag("confirmed_memory_leak");
 
                     String camFeeds = """
-                    [PROCESSING...]
-        
-                    Accessing archived camera feeds...
-        
-                    [CAM_01 - Music Room]
-                    * A shadow in the corner, not there before.
-                    * It moves when you're not watching. It leaves the room.
-        
-                    [CAM_02 - Hallway]
-                    * Lights flicker. The hallway stretches too far.
-                    * You can hear footsteps through the camera, but no person was seen.
-        
-                    [CAM_03 - Teacher Room]
-                    * Two people arguing. Then, they both walk out.\nAfter some minutes, only one returns.
-        
-                    >> Feed lost. Signal corrupted.
-        
-                    [RETURNING TO PROMPT...]
-        
-                    I should check the Teacher's Room...
-                    """;
+            [PROCESSING...]
+
+            Accessing archived camera feeds...
+
+            [CAM_01 - Music Room]
+            * A shadow in the corner, not there before.
+            * It moves when you're not watching. It leaves the room.
+
+            [CAM_02 - Hallway]
+            * Lights flicker. The hallway stretches too far.
+            * You can hear footsteps through the camera, but no person was seen.
+
+            [CAM_03 - Teacher Room]
+            * Two people arguing. Then, they both walk out.\nAfter some minutes, only one returns.
+
+            >> Feed lost. Signal corrupted.
+
+            [RETURNING TO PROMPT...]
+
+            I should check the Teacher's Room...
+            """;
                     result.append(camFeeds);
                     outputArea.setText(outputArea.getText() + "\n\n" + camFeeds);
                     result.append("Camera feeds displayed.");
@@ -129,6 +128,7 @@ public class UIITRoom implements UIRoom {
                        ██║     ██║██║ ╚████║██████╔╝███████╗██║ ╚═╝ ██║
                        ╚═╝     ╚═╝╚═╝  ╚═══╝╚═════╝ ╚══════╝╚═╝     ╚═╝
                     """;
+                    outputArea.setText(logo);
                     String terminalText = """
                     [WARNING: USER PRESENCE DETECTED]
                     [MESSAGE RECEIVED 00:03:66]
@@ -144,9 +144,14 @@ public class UIITRoom implements UIRoom {
                     [SYSTEM ERROR: MEMORY LEAK - RUNNING AUTOMATICALLY...]
                     Would you like to execute [RUN]? (Y/N)
                     """;
+                    result.append(logo);
+                    result.append(terminalText);
                     outputArea.setText(logo);
-                    outputArea.setText(outputArea.getText() + "\n\n" + terminalText);
                     SoundPlayer.playSound("/sounds/Computer.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
+                    SoundPlayer.playSound("/sounds/Computer.wav", 9500, 0, outputArea, UIGameController.getGuiInstance(), false);
+                    SoundPlayer.playSound("/sounds/Computer.wav", 19000, 0, outputArea, UIGameController.getGuiInstance(), false);
+                    SoundPlayer.playSound("/sounds/Computer.wav", 28500, 0, outputArea, UIGameController.getGuiInstance(), false);
+                    outputArea.setText(outputArea.getText() + terminalText);
                     player.setFlag("awaiting_memory_run_confirm");
                     result.append("Awaiting input: 'Y' to continue...");
                 } else {

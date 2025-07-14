@@ -35,6 +35,17 @@ public class TypingEffect {
         }).start();
     }
 
+    public static void typeText(TextBox output, String text, WindowBasedTextGUI gui, int delay) {
+        for (char c : text.toCharArray()) {
+            output.setText(output.getText() + c);
+            try {
+                Thread.sleep(delay);
+                gui.updateScreen();
+            } catch (InterruptedException | IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     private static void playSound(String resourcePath) {
         try (InputStream audioSrc = TypingEffect.class.getResourceAsStream(resourcePath);
