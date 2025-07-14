@@ -30,7 +30,9 @@ public class UIMain {
                     "chemistry room",
                     "printer room",
                     "sportshall",
-                    "secretary"
+                    "secretary",
+                    "garage",
+                    "teacher room"
             };
 
             for (String name : roomNames) {

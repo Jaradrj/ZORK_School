@@ -111,12 +111,7 @@ public class UIMusicRoom implements UIRoom {
                 return "";
 
             default:
-                if (lowerAction.startsWith("go to ")) {
-                    String roomChangeResult = handleRoomChange(player, lowerAction.substring(6).trim());
-                    result.append(roomChangeResult);
-                } else {
-                    result.append("Invalid action.");
-                }
+                result.append("Invalid action.");
                 break;
         }
 
