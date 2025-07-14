@@ -4,12 +4,14 @@ import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
+import com.googlecode.lanterna.terminal.MouseCaptureMode;
 import lombok.Getter;
 import ui.game.*;
 import console.game.*;
 import ui.audio.TypingEffect;
 
 import java.io.IOException;
+import java.util.Map;
 
 public class UIGameController {
 
@@ -17,20 +19,25 @@ public class UIGameController {
     private Player player;
     private UIRoom currentRoom;
     private UICommands command;
+    private boolean isChoosingRoom = false;
 
     private Screen screen;
+    @Getter
     private MultiWindowTextGUI gui;
     private BasicWindow window;
     private Panel mainPanel;
     private TextBox outputArea;
     private Panel actionPanel;
+    private boolean showingEndingPrompt = false;
 
     public UIGameController(UICommands commands, Player player) throws IOException {
         this.command = commands;
         this.player = player;
         UIRoomFactory.setController(this);
 
-        this.screen = new DefaultTerminalFactory().createScreen();
+        DefaultTerminalFactory factory = new DefaultTerminalFactory()
+                .setMouseCaptureMode(MouseCaptureMode.CLICK_RELEASE_DRAG_MOVE);
+        screen = factory.createScreen();
         this.screen.startScreen();
         this.gui = new MultiWindowTextGUI(screen);
 
@@ -55,33 +62,81 @@ public class UIGameController {
         updateUI();
     }
 
-    private void updateUI() throws IOException {
+    private void updateUI() {
         outputArea.setText("");
         String enterText = currentRoom.enter(player);
         TypingEffect.typeWithSound(outputArea, enterText, gui);
         refreshActionButtons();
     }
 
-    private void refreshActionButtons() throws IOException {
-        actionPanel.removeAllComponents();
-        for (String action : currentRoom.getAvailableActions(player)) {
-            Button actionButton = new Button(action, () -> {
-                String result = currentRoom.performAction(player, action.toLowerCase().trim());
-                outputArea.setText(outputArea.getText() + "\n\n" + result);
+    private void refreshActionButtons() {
 
-                if (player.getCurrentUIRoom() != currentRoom) {
+        if (showingEndingPrompt) {
+            window.invalidate();
+            return;
+        }
+
+        actionPanel.removeAllComponents();
+
+        if (isChoosingRoom) {
+
+            Map<String, Exit> exits = currentRoom.getAvailableExits(player);
+            for (String roomName : exits.keySet()) {
+                Button b = new Button(roomName, () -> {
+                    String result = currentRoom.handleRoomChange(player, roomName);
+                    outputArea.setText(outputArea.getText() + "\n\n" + result);
                     currentRoom = player.getCurrentUIRoom();
                     outputArea.setText(currentRoom.enter(player));
-                }
-                try {
+                    isChoosingRoom = false;
                     refreshActionButtons();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                });
+                actionPanel.addComponent(b);
+            }
+            Button returnButton = new Button("Return", () -> {
+                isChoosingRoom = false;
+                outputArea.setText(outputArea.getText() + "\n\nCanceled room selection.");
+                refreshActionButtons();
             });
-            actionPanel.addComponent(actionButton);
+            actionPanel.addComponent(returnButton);
+        } else {
+
+            for (String action : currentRoom.getAvailableActions(player)) {
+                Button b = new Button(action, () -> {
+                    String result = currentRoom.performAction(player, action.toLowerCase().trim(), outputArea);
+                    if (player.getCurrentUIRoom() != currentRoom) {
+                        currentRoom = player.getCurrentUIRoom();
+                        outputArea.setText(currentRoom.enter(player));
+                    }
+
+                    if ("leave".equalsIgnoreCase(action)) {
+                        isChoosingRoom = true;
+                    }
+
+                    refreshActionButtons();
+                });
+                actionPanel.addComponent(b);
+            }
         }
-        gui.updateScreen();
+
+        window.invalidate();
+    }
+
+    public void showEndingPrompt() {
+        showingEndingPrompt = true;
+        actionPanel.removeAllComponents();
+
+        actionPanel.addComponent(new Button("Yes", () -> {
+            player.clearFlags();
+            player.setFlag("second_try");
+            showingEndingPrompt = false;
+            refreshActionButtons();
+        }));
+
+        actionPanel.addComponent(new Button("No", () -> {
+            System.exit(0);
+        }));
+
+        window.invalidate();
     }
 
     public void run() {

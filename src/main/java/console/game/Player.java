@@ -53,4 +53,8 @@ public class Player {
     public void clearFlags() {
         flags.clear();
     }
+
+    public void clearFlag(String flag) {
+        flags.remove(flag);
+    }
 }

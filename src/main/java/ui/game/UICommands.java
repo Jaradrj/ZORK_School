@@ -2,6 +2,8 @@ package ui.game;
 
 import java.util.Map;
 import java.util.Set;
+
+import com.googlecode.lanterna.gui2.TextBox;
 import console.rooms.*;
 import console.game.*;
 
@@ -13,61 +15,56 @@ public class UICommands {
         this.rooms = rooms;
     }
 
-    public void checkInputCommands(String input, Player player) {
-
+    public void checkInputCommands(String input, Player player, TextBox outputArea) {
         switch (input.toLowerCase().trim()) {
             case "-h":
             case "h":
-                printCommands();
+                printCommands(outputArea);
                 break;
             case "-i":
             case "i":
-                printInventory(player.getInventory().getItems());
+                printInventory(player.getInventory().getItems(), outputArea);
                 break;
             case "-r":
             case "r":
-                printAvailableRooms(player);
+                printAvailableRooms(player, outputArea);
                 break;
             default:
-                System.out.println("Unknown command " + input);
-                System.out.println("Enter \"-h\" for help");
+                outputArea.setText(outputArea.getText() + "\nUnknown command " + input);
+                outputArea.setText(outputArea.getText() + "\nEnter \"-h\" for help");
                 break;
         }
     }
 
-    public void printCommands() {
-        System.out.println(
+    public void printCommands(TextBox outputArea) {
+        String text =
                 "Commands:\n" +
                         "-h\t\tview all commands\n" +
                         "-i\t\topen inventory\n" +
                         "-r\t\tavailable rooms\n" +
-                        "-go to …\tchange rooms\n"
-        );
+                        "-go to …\tchange rooms\n";
+
+        outputArea.setText(outputArea.getText() + "\n" + text);
     }
 
-    public void printInventory(Set<String> inventory) {
-        System.out.println("\nInventory:");
+    public void printInventory(Set<String> inventory, TextBox outputArea) {
+        StringBuilder sb = new StringBuilder("\nInventory:\n");
         if (inventory.isEmpty()) {
-            System.out.println("- (empty)");
-            return;
+            sb.append("- (empty)\n");
+        } else {
+            for (String item : inventory) {
+                sb.append("- ").append(item).append("\n");
+            }
         }
-        for (String item : inventory) {
-            System.out.println("- " + item);
-        }
+        outputArea.setText(outputArea.getText() + sb.toString());
     }
 
-    public void printAvailableRooms(Player player) {
-        String currentRoomName = player.getCurrentRoom().getName();
-        UIRoom currentRoom = rooms.get(currentRoomName);
-        Map<String, Exit> exits = currentRoom.getAvailableExits(player);
-
-        System.out.println("\nAvailable Rooms:");
-        if (exits.isEmpty()) {
-            System.out.println("(empty))");
-            return;
+    public void printAvailableRooms(Player player, TextBox outputArea) {
+        StringBuilder sb = new StringBuilder("\nAvailable Rooms:\n");
+        for (String room : rooms.keySet()) {
+            sb.append("- ").append(room).append("\n");
         }
-        for (String roomName : exits.keySet()) {
-            System.out.println("- " + roomName);
-        }
+        outputArea.setText(outputArea.getText() + sb.toString());
     }
 }
+
