@@ -1,6 +1,7 @@
 package ui.rooms;
 
 
+import com.googlecode.lanterna.gui2.MultiWindowTextGUI;
 import com.googlecode.lanterna.gui2.TextBox;
 import ui.controller.UIGameController;
 import console.game.*;
@@ -15,9 +16,11 @@ public class UITeacherRoom implements UIRoom {
 
     private UIEndings ending;
     private UICommands commands;
+    private MultiWindowTextGUI gui;
 
-    public UITeacherRoom(UIGameController controller, UICommands commands) {
-        this.ending = new UIEndings(controller);
+    public UITeacherRoom(UIGameController controller, UICommands commands, MultiWindowTextGUI gui) {
+        this.gui = gui;
+        this.ending = new UIEndings(controller, gui);
         this.commands = commands;
     }
 
@@ -180,9 +183,9 @@ public class UITeacherRoom implements UIRoom {
             case "y":
             case "yes":
             case "talk to her":
-                player.clearFlag("await_choice_talk");
-                if (!player.hasFlag("saw_teacher_leave") && !player.hasFlag("has_followed_teacher")) {
-                    ending.teacherEnding(player);
+                if (player.hasFlag("await_choice_talk")) {
+                    player.clearFlag("await_choice_talk");
+                    ending.teacherEnding(outputArea);
                 } else {
                     result.append("There’s no one here to talk to.");
                 }

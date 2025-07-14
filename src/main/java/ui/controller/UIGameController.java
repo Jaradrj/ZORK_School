@@ -22,11 +22,13 @@ public class UIGameController {
     private boolean isChoosingRoom = false;
 
     private Screen screen;
+    @Getter
     private MultiWindowTextGUI gui;
     private BasicWindow window;
     private Panel mainPanel;
     private TextBox outputArea;
     private Panel actionPanel;
+    private boolean showingEndingPrompt = false;
 
     public UIGameController(UICommands commands, Player player) throws IOException {
         this.command = commands;
@@ -68,6 +70,12 @@ public class UIGameController {
     }
 
     private void refreshActionButtons() {
+
+        if (showingEndingPrompt) {
+            window.invalidate();
+            return;
+        }
+
         actionPanel.removeAllComponents();
 
         if (isChoosingRoom) {
@@ -109,6 +117,24 @@ public class UIGameController {
                 actionPanel.addComponent(b);
             }
         }
+
+        window.invalidate();
+    }
+
+    public void showEndingPrompt() {
+        showingEndingPrompt = true;
+        actionPanel.removeAllComponents();
+
+        actionPanel.addComponent(new Button("Yes", () -> {
+            player.clearFlags();
+            player.setFlag("second_try");
+            showingEndingPrompt = false;
+            refreshActionButtons();
+        }));
+
+        actionPanel.addComponent(new Button("No", () -> {
+            System.exit(0);
+        }));
 
         window.invalidate();
     }

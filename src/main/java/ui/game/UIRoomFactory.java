@@ -1,5 +1,6 @@
 package ui.game;
 
+import com.googlecode.lanterna.gui2.MultiWindowTextGUI;
 import ui.controller.UIGameController;
 import ui.rooms.*;
 
@@ -7,12 +8,16 @@ public class UIRoomFactory {
 
     private static UIGameController controller;
     private static UICommands commands;
+    private static MultiWindowTextGUI gui;
 
     public static void setController(UIGameController controller) {
         UIRoomFactory.controller = controller;
     }
     public static void setCommands(UICommands commands) {
         UIRoomFactory.commands = commands;
+    }
+    public static void setGui(MultiWindowTextGUI gui) {
+        UIRoomFactory.gui = gui;
     }
 
     public static UIRoom createRoom(String name) {
@@ -26,8 +31,8 @@ public class UIRoomFactory {
             case "sportshall" -> new UISportshall(commands);
             case "secretary" -> new UISecretary(commands);
             case "garage" -> new UISecretary(commands);
-            case "teacher room" -> new UITeacherRoom(controller, commands);
-            case "electricity room" -> new UIElectricityRoom(controller, commands);
+            case "teacher room" -> new UITeacherRoom(controller, commands, gui);
+            case "electricity room" -> new UIElectricityRoom(controller, commands, gui);
             default -> throw new IllegalArgumentException("Unknown room " + name);
         };
     }

@@ -1,4 +1,5 @@
 package ui.rooms;
+import com.googlecode.lanterna.gui2.MultiWindowTextGUI;
 import com.googlecode.lanterna.gui2.TextBox;
 import ui.controller.UIGameController;
 import console.game.*;
@@ -12,9 +13,11 @@ import java.util.*;
 public class UIElectricityRoom implements UIRoom {
 
     private UIEndings ending;
+    private MultiWindowTextGUI gui;
     private UICommands commands;
-    public UIElectricityRoom(UIGameController controller, UICommands commands) {
-        this.ending = new UIEndings(controller);
+    public UIElectricityRoom(UIGameController controller, UICommands commands, MultiWindowTextGUI gui) {
+        this.gui = gui;
+        this.ending = new UIEndings(controller, gui);
         this.commands = commands;
     }
 
@@ -98,13 +101,14 @@ public class UIElectricityRoom implements UIRoom {
                     }
                     return "";
                 } else if(player.hasFlag("door_failed")){
-                    ending.badEnding(player);
+                    ending.badEnding(player, outputArea);
                 }
                 else {
                     player.setFlag("door_failed");
                     result.append("You try to open the door but rapidly notice that you are missing the one key that might give you your freedom.");
                     break;
                 }
+                break;
             case "2":
             case "enable radiator":
                 if (player.hasFlag("turned_on_power")) {
