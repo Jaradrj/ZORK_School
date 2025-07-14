@@ -1,13 +1,11 @@
 package ui;
 
+import console.game.Inventory;
 import console.game.Player;
 import console.game.RoomFactory;
 import ui.controller.UIGameController;
 import console.game.Commands;
-import ui.game.StartMenu;
-import ui.game.UICommands;
-import ui.game.UIRoom;
-import ui.game.UIRoomFactory;
+import ui.game.*;
 
 import java.io.IOException;
 import java.util.HashMap;

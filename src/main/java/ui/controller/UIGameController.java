@@ -28,7 +28,10 @@ public class UIGameController {
     private Panel mainPanel;
     private TextBox outputArea;
     private Panel actionPanel;
+    private Panel inventoryPanel;
     private boolean showingEndingPrompt = false;
+
+    private ShowInventory showInventory;
 
     public UIGameController(UICommands commands, Player player) throws IOException {
         this.command = commands;
@@ -58,7 +61,6 @@ public class UIGameController {
         this.mainPanel.addComponent(actionPanel);
 
         this.window.setComponent(mainPanel);
-
         updateUI();
     }
 
@@ -77,6 +79,13 @@ public class UIGameController {
         }
 
         actionPanel.removeAllComponents();
+
+        Button inventoryButton = new Button("Inventory", () -> {
+            ShowInventory inventoryView = new ShowInventory(gui, player.getInventory());
+            inventoryView.showInventory();
+            refreshActionButtons();
+        });
+        actionPanel.addComponent(inventoryButton);
 
         if (isChoosingRoom) {
 
