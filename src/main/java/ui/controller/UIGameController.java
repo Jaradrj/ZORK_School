@@ -6,6 +6,7 @@ import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.MouseCaptureMode;
 import lombok.Getter;
+import ui.UIMain;
 import ui.game.*;
 import console.game.*;
 import ui.audio.TypingEffect;
@@ -152,7 +153,12 @@ public class UIGameController {
             player.clearFlags();
             player.setFlag("second_try");
             showingEndingPrompt = false;
-            refreshActionButtons();
+            try {
+                screen.stopScreen();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            UIMain.startGame();
         }));
 
         actionPanel.addComponent(new Button("No", () -> {

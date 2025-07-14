@@ -14,6 +14,10 @@ import java.util.Map;
 public class UIMain {
 
     public static void main(String[] args) {
+        startGame();
+    }
+
+    public static void startGame() {
         try {
             Player player = new Player();
             StartMenu startMenu = new StartMenu(player);
