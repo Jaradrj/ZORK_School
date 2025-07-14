@@ -214,35 +214,4 @@ public class UIEndings {
         controller.showEndingPrompt();
     }
 
-    public void checkTryAgain(Player player, MultiWindowTextGUI gui) {
-        BasicWindow window = new BasicWindow("Try Again?");
-        Panel p = new Panel(new LinearLayout(Direction.VERTICAL));
-
-        p.addComponent(new Button("Yes", () -> {
-            player.clearFlags();
-            player.setFlag("second_try");
-            window.close();
-        }));
-
-        p.addComponent(new Button("No", () -> {
-            System.out.println("Connection terminated.\n" +
-                    "\n" +
-                    "Your decisions have been logged.\n" +
-                    "Emotional tolerance: Exceeded.\n" +
-                    "Cognitive resistance: Broken.\n" +
-                    "\n" +
-                    "No further input required.\n" +
-                    "\n" +
-                    "Thank you for your participation.\n" +
-                    "You will not be contacted again.\n" +
-                    "\n" +
-                    "[ MindScale // Phase IV Complete ]");
-
-            System.exit(0);
-        }));
-
-        window.setComponent(p);
-        gui.addWindow(window);
-    }
-
 }

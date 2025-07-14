@@ -6,6 +6,7 @@ import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.MouseCaptureMode;
 import lombok.Getter;
+import ui.UIMain;
 import ui.game.*;
 import console.game.*;
 import ui.audio.TypingEffect;
@@ -30,12 +31,15 @@ public class UIGameController {
     private Panel mainPanel;
     private TextBox outputArea;
     private Panel actionPanel;
-    private Panel inventoryPanel;
     private boolean showingEndingPrompt = false;
 
-    private ShowInventory showInventory;
-
     public UIGameController(UICommands commands, Player player) throws IOException {
+        this.command = commands;
+        this.player = player;
+        UIRoomFactory.setController(this);
+
+        UIRoom lastRoom = player.getLastUIRoom();
+
         DefaultTerminalFactory factory = new DefaultTerminalFactory()
                 .setMouseCaptureMode(MouseCaptureMode.CLICK_RELEASE_DRAG_MOVE);
         screen = factory.createScreen();
@@ -43,10 +47,6 @@ public class UIGameController {
 
         this.gui = new MultiWindowTextGUI(screen);
         UIGameController.guiInstance = this.gui;
-
-        this.command = commands;
-        this.player = player;
-        UIRoomFactory.setController(this);
 
         UIRoom room = UIRoomFactory.createRoom("main entrance hall");
         System.out.println("Created room: " + room + ", type: " + room.getClass());
@@ -105,6 +105,20 @@ public class UIGameController {
                 });
                 actionPanel.addComponent(b);
             }
+
+            if (player.getLastUIRoom() != null &&
+                    player.getCurrentUIRoom().getName().equalsIgnoreCase("chemistry room")) {
+
+                Button electricityButton = new Button("Electricity Room", () -> {
+                    String msg = "You try to corrode the door. You can hear the sizzling sound of the sulfuric acid oxidizing with the door.\n" +
+                            "\nNevertheless, you still don't manage to open it. Sad and defeated, you return to the chemistry room to try and cry.";
+                    outputArea.setText(outputArea.getText() + "\n\n" + msg);
+                    isChoosingRoom = false;
+                    refreshActionButtons();
+                });
+                actionPanel.addComponent(electricityButton);
+            }
+
             Button returnButton = new Button("Return", () -> {
                 isChoosingRoom = false;
                 outputArea.setText(outputArea.getText() + "\n\nCanceled room selection.");
@@ -143,7 +157,12 @@ public class UIGameController {
             player.clearFlags();
             player.setFlag("second_try");
             showingEndingPrompt = false;
-            refreshActionButtons();
+            try {
+                screen.stopScreen();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            UIMain.startGame();
         }));
 
         actionPanel.addComponent(new Button("No", () -> {

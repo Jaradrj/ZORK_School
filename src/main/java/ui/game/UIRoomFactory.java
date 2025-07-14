@@ -16,9 +16,6 @@ public class UIRoomFactory {
     public static void setCommands(UICommands commands) {
         UIRoomFactory.commands = commands;
     }
-    public static void setGui(MultiWindowTextGUI gui) {
-        UIRoomFactory.gui = gui;
-    }
 
     public static UIRoom createRoom(String name) {
         return switch (name) {
@@ -30,7 +27,7 @@ public class UIRoomFactory {
             case "printer room" -> new UIPrinterRoom(commands);
             case "sportshall" -> new UISportshall(commands);
             case "secretary" -> new UISecretary(commands);
-            case "garage" -> new UISecretary(commands);
+            case "garage" -> new UIGarage();
             case "teacher room" -> new UITeacherRoom(controller, commands, gui);
             case "electricity room" -> new UIElectricityRoom(controller, commands, gui);
             default -> throw new IllegalArgumentException("Unknown room " + name);

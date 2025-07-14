@@ -34,15 +34,13 @@ public class UITeacherRoom implements UIRoom {
         StringBuilder text = new StringBuilder();
 
         UIRoom lastRoom = player.getLastUIRoom();
-        boolean wasHere = player.hasFlag("was_teacher_room");
         boolean sawTeacherLeave = player.hasFlag("saw_teacher_leave");
         boolean followedTeacher = player.hasFlag("has_followed_teacher");
         boolean teacherPresent = !sawTeacherLeave && !followedTeacher && lastRoom.getName().equals("main entrance hall");
         boolean lightsOn = Objects.equals(lastRoom.getName(), "main entrance hall");
-        boolean decideToLeave = player.hasFlag("leaving");
 
-        if (!wasHere) {
-            text.append(lightsOn ? "Some candles are lit, illuminating the room." : "The room is dark.");
+        if (!player.hasFlag("was_teacher_room")) {
+            text.append(lightsOn ? "Some candles are lit, illuminating the room.\n" : "The room is dark.\n");
             player.setFlag("was_teacher_room");
         }
 
@@ -52,17 +50,17 @@ public class UITeacherRoom implements UIRoom {
             player.setFlag("await_choice_talk");
             text.append("A woman sits at the desk, sipping something from a steaming mug. ")
                     .append("She looks a lot like Mrs. Hamps, your school psychologist.\n")
-                    .append("Poor woman, must have been working really hard helping all the missing students' friends and family.")
-                    .append("Do you want to talk to her? (Y/N)");
+                    .append("Poor woman, must have been working really hard helping all the missing students' friends and family.\n")
+                    .append("Do you want to talk to her? (Y/N)\n");
         }
 
         if (!followedTeacher && !player.hasFlag("teacher_room_loot_ready")) {
-            if (!lastRoom.getName().equalsIgnoreCase("teacher room") && !player.hasFlag("saw_teacher_leave")) {
+            if (!lastRoom.getName().equalsIgnoreCase("teacher room") && !player.hasFlag("saw_teacher_leave") && !player.hasFlag("knows_teacher_name")) {
                 text.append("You see a faint silhouette disappearing into the Garage. Someone just left.\n")
                         .append("Perhaps you should follow? Or stay safe?");
                 player.setFlag("saw_teacher_leave");
             }
-            if (decideToLeave) return "";
+            if (player.hasFlag("leaving")) return "";
         }
         return text.toString();
     }
@@ -165,8 +163,9 @@ public class UITeacherRoom implements UIRoom {
                     player.getInventory().addItem("Student ID");
                     result.append("You rummage through the bin and find a half-burned Student ID card. The name on it is barely readable: ")
                             .append("\nKlara Price. It's starting to get weird now.\nNew room unlocked! This ID will help you enter the Secretary.");
+                } else {
+                    result.append("You’ve already searched the trash.");
                 }
-                result.append("You’ve already searched the trash.");
                 break;
 
             case "take flashlight":
