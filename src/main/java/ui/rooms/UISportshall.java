@@ -2,6 +2,8 @@ package ui.rooms;
 
 import com.googlecode.lanterna.gui2.TextBox;
 import console.game.*;
+import ui.audio.SoundPlayer;
+import ui.controller.UIGameController;
 import ui.game.UICommands;
 import ui.game.UIRoom;
 import ui.game.UIRoomFactory;
@@ -61,6 +63,7 @@ public class UISportshall implements UIRoom {
             case "use bench":
                 player.setFlag("entered_electricity");
                 if (!player.hasFlag("was_electricity")) {
+                    SoundPlayer.playSound("/sounds/MoveBench.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
                     result.append("You move the bench. Luckily, it's not that far away from the shaft. ")
                             .append("By using your skill, you manage to climb into the shaft.\n")
                             .append("While crawling through, you notice the smell getting worse and worse, to the point you almost have to throw up.\n")

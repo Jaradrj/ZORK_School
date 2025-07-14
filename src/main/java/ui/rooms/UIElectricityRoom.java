@@ -1,6 +1,7 @@
 package ui.rooms;
 import com.googlecode.lanterna.gui2.MultiWindowTextGUI;
 import com.googlecode.lanterna.gui2.TextBox;
+import ui.audio.SoundPlayer;
 import ui.controller.UIGameController;
 import console.game.*;
 import ui.game.UICommands;
@@ -115,6 +116,8 @@ public class UIElectricityRoom implements UIRoom {
                     result.append("You already turned on the power");
                 } else {
                     player.setFlag("turned_on_power");
+                    SoundPlayer.playSound("/sounds/Radiator.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
+                    SoundPlayer.playSound("/sounds/LightsFlickering.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
                     result.append("You walk over to the radiator.\n");
                     result.append("It’s not your first time in this room, so you’re not completely lost. Still, in this darkness, fixing the lights will be a challenge. \n");
                     result.append("You manage to open the switchboard but quickly find yourself disoriented. \n");
@@ -165,6 +168,7 @@ public class UIElectricityRoom implements UIRoom {
             case "take phone":
                 if (!player.hasFlag("phone_taken")) {
                     player.setFlag("phone_taken");
+                    SoundPlayer.playSound("/sounds/TakeItem.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
                     result.append("Phone taken");
                 } else {
                     result.append("You already picked up the phone.");
@@ -174,6 +178,7 @@ public class UIElectricityRoom implements UIRoom {
             case "read note":
                 if (!player.hasFlag("read_third_note")) {
                     player.setFlag("read_third_note");
+                    SoundPlayer.playSound("/sounds/ReadNote.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
                     result.append("\"I was here before they introduced these... 'methods' were introduced. \n");
                     result.append("Back then it was about heaters. Today it's about children. \n");
                     result.append("I've seen the power box. The real one no one knows about. The one under the office, with the cables that aren't in the plan.\n");

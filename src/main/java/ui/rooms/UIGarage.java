@@ -3,6 +3,8 @@ package ui.rooms;
 import com.googlecode.lanterna.gui2.TextBox;
 import console.game.Exit;
 import console.game.Player;
+import ui.audio.SoundPlayer;
+import ui.controller.UIGameController;
 import ui.game.UIRoom;
 import ui.game.UIRoomFactory;
 
@@ -62,6 +64,7 @@ public class UIGarage implements UIRoom {
             case "break into her car":
                 if (!player.hasFlag("keys_taken")) {
                     player.setFlag("keys_taken");
+                    SoundPlayer.playSound("/sounds/TakeItem.wav", 5000, 0, outputArea, UIGameController.getGuiInstance(), false);
                     player.getInventory().addItem("keys (to what?)");
                     result.append("\nYou need to know what she's hiding. Thank god she didn't suspect anyone to sneak around and left her car unlocked.\n")
                             .append("Easy game for you to get inside and start searching quick. You don't find much, just some mints, money, a coke and.. keys!\n")
