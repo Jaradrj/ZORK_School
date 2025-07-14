@@ -140,7 +140,6 @@ public class UIMainEntranceRoom implements UIRoom {
             exits.put("music room", new Exit("music room", null));
             exits.put("teacher room", new Exit("teacher room", null));
             exits.put("it room", new Exit("it room", null));
-            exits.put("chemistry room", new Exit("chemistry room", null));
         }
         return exits;
     }

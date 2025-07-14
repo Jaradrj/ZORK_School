@@ -1,6 +1,5 @@
 package ui.game;
 
-import com.googlecode.lanterna.gui2.WindowBasedTextGUI;
 import ui.controller.UIGameController;
 import ui.rooms.*;
 
@@ -23,6 +22,9 @@ public class UIRoomFactory {
             case "it room" -> new UIITRoom(commands);
             case "cafeteria" -> new UICafeteria(commands);
             case "chemistry room" -> new UIChemistryRoom(commands);
+            case "printer room" -> new UIPrinterRoom(commands);
+            case "sportshall" -> new UISportshall(commands);
+            case "secretary" -> new UISecretary(commands);
             default -> throw new IllegalArgumentException("Unknown room " + name);
         };
     }

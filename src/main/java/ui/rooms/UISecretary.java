@@ -2,6 +2,7 @@ package ui.rooms;
 
 import com.googlecode.lanterna.gui2.TextBox;
 import console.game.*;
+import org.w3c.dom.Text;
 import ui.game.UICommands;
 import ui.game.UIRoom;
 import ui.game.UIRoomFactory;
@@ -11,36 +12,37 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UICafeteria implements UIRoom {
+public class UISecretary implements UIRoom {
 
     private UICommands commands;
 
     @Override
     public String getName() {
-        return "cafeteria";
+        return "secretary";
     }
 
-    public UICafeteria(UICommands commands) {
+    public UISecretary(UICommands commands) {
         this.commands = commands;
     }
 
     @Override
     public String enter(Player player) {
         StringBuilder text = new StringBuilder();
-        if (!player.hasFlag("was_cafeteria")) {
-            player.setFlag("was_cafeteria");
-            text.append("Apart from dirty tables, chairs and leftovers on the food distribution counter, there's not much no find here.\n" +
-                    "Behind the iron door is the kitchen.\nNo wonder we are constantly in the media for our hygiene regulations.\n" +
-                    "About 50% of students have at least had one food poisoning.\nThe only thing shining is a safe. We need a key.");
+
+        if (!player.hasFlag("was_secretary")) {
+            player.setFlag("was_secretary");
+            text.append("This is probably the most boring room. There's just one big desk that belongs to the Head Teacher. ")
+                    .append("\nThe desk is unusually clean. Just some sticky notes. Wait!\nThere's a big pinboard. We could use some light here to check it out.");
         }
+
         return text.toString();
     }
 
     @Override
     public List<String> getAvailableActions(Player player) {
         List<String> actions = new ArrayList<>();
-        if (player.hasFlag("keys_taken")) {
-            actions.add("Try opening Safe");
+        if (player.hasFlag("flashlight_taken") || player.hasFlag("turned_on_power")) {
+            actions.add("Examine the Pinboard");
         }
         actions.add("leave");
 
@@ -55,22 +57,26 @@ public class UICafeteria implements UIRoom {
 
         switch (lowerAction) {
             case "1":
-            case "try":
-            case "try opening safe":
-                if (!player.hasFlag("tried_opening_safe")) {
-                    player.setFlag("tried_opening_safe");
-                    result.append("I'm going to be rich!\n" +
-                            "That's what's going through your head while your twisting around the key.\n" +
-                            "Not a single buckle. Wrong key.");
-                } else {
-                    result.append("\nThe safe still won't work... :(");
+            case "examine":
+            case "examine the pinboard":
+                System.out.println("Still not much to see, but the flashlight will do its job.");
+                if (!player.hasFlag("full_map_taken")) {
+                    player.setFlag("full_map_taken");
+                    player.getInventory().addItem("Schools half map 2");
+                    result.append("Wait what's that? The full card! You take it. New rooms unlocked!");
                 }
+                if (player.hasFlag("entered_electricity")) {
+                    player.setFlag("police_number_taken");
+                    player.getInventory().addItem("Polices number");
+                    result.append("Wait, there's more! You take the Note with the Police's Number on it from the pinboard.");
+                }
+                result.append("You examined the pinboard, time to leave.");
                 break;
 
             case "leave":
-                player.setFlag("leave_cafeteria");
                 commands.checkInputCommands("-r", player, outputArea);
                 return "";
+
             default:
                 result.append("Invalid action.");
                 break;
@@ -94,8 +100,11 @@ public class UICafeteria implements UIRoom {
     @Override
     public Map<String, Exit> getAvailableExits(Player player) {
         Map<String, Exit> exits = new HashMap<>();
-        exits.put("music room", new Exit("music room", null));
-        exits.put("it room", new Exit("it room", null));
+        exits.put("teacher room", new Exit("teacher room", null));
+        if (player.hasFlag("full_map_taken")) {
+            exits.put("chemistry room", new Exit("chemistry room", null));
+            exits.put("sportshall", new Exit("sportshall", null));
+        }
         return exits;
     }
 }
