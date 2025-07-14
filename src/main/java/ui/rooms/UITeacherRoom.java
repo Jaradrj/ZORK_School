@@ -163,8 +163,9 @@ public class UITeacherRoom implements UIRoom {
                     player.getInventory().addItem("Student ID");
                     result.append("You rummage through the bin and find a half-burned Student ID card. The name on it is barely readable: ")
                             .append("\nKlara Price. It's starting to get weird now.\nNew room unlocked! This ID will help you enter the Secretary.");
+                } else {
+                    result.append("You’ve already searched the trash.");
                 }
-                result.append("You’ve already searched the trash.");
                 break;
 
             case "take flashlight":
