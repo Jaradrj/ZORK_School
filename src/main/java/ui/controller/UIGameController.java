@@ -30,10 +30,13 @@ public class UIGameController {
     private Panel actionPanel;
     private boolean showingEndingPrompt = false;
 
+
     public UIGameController(UICommands commands, Player player) throws IOException {
         this.command = commands;
         this.player = player;
         UIRoomFactory.setController(this);
+
+        UIRoom lastRoom = player.getLastUIRoom();
 
         DefaultTerminalFactory factory = new DefaultTerminalFactory()
                 .setMouseCaptureMode(MouseCaptureMode.CLICK_RELEASE_DRAG_MOVE);
@@ -98,6 +101,20 @@ public class UIGameController {
                 });
                 actionPanel.addComponent(b);
             }
+
+            if (player.getLastUIRoom() != null &&
+                    player.getCurrentUIRoom().getName().equalsIgnoreCase("chemistry room")) {
+
+                Button electricityButton = new Button("Electricity Room", () -> {
+                    String msg = "You try to corrode the door. You can hear the sizzling sound of the sulfuric acid oxidizing with the door.\n" +
+                            "\nNevertheless, you still don't manage to open it. Sad and defeated, you return to the chemistry room to try and cry.";
+                    outputArea.setText(outputArea.getText() + "\n\n" + msg);
+                    isChoosingRoom = false;
+                    refreshActionButtons();
+                });
+                actionPanel.addComponent(electricityButton);
+            }
+
             Button returnButton = new Button("Return", () -> {
                 isChoosingRoom = false;
                 outputArea.setText(outputArea.getText() + "\n\nCanceled room selection.");
