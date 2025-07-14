@@ -16,9 +16,6 @@ public class UIRoomFactory {
     public static void setCommands(UICommands commands) {
         UIRoomFactory.commands = commands;
     }
-    public static void setGui(MultiWindowTextGUI gui) {
-        UIRoomFactory.gui = gui;
-    }
 
     public static UIRoom createRoom(String name) {
         return switch (name) {
