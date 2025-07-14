@@ -9,9 +9,14 @@ import java.io.InputStream;
 
 public class TypingEffect {
 
-    public static void typeWithSound(TextBox textBox, String text, WindowBasedTextGUI gui) {
-        int delayMillis = 40;
+    public static void typeWithSound(TextBox textBox, String text, WindowBasedTextGUI gui, String soundPath) {
+        int delayMillis = 55;
 
+        if (soundPath == null || soundPath.isEmpty()) {
+            soundPath = "/sounds/Terminal.wav";
+        }
+
+        String finalSoundPath = soundPath;
         new Thread(() -> {
             StringBuilder currentText = new StringBuilder();
             for (int i = 0; i < text.length(); i++) {
@@ -19,9 +24,8 @@ public class TypingEffect {
                 currentText.append(c);
                 gui.getGUIThread().invokeLater(() -> textBox.setText(currentText.toString()));
                 if (i % 2 == 0 && (Character.isLetterOrDigit(c) || Character.isWhitespace(c))) {
-                    playSound("/sounds/Terminal.wav");
+                    playSound(finalSoundPath);
                 }
-
                 try {
                     Thread.sleep(delayMillis);
                 } catch (InterruptedException e) {
@@ -29,6 +33,18 @@ public class TypingEffect {
                 }
             }
         }).start();
+    }
+
+    public static void typeText(TextBox output, String text, WindowBasedTextGUI gui, int delay) {
+        for (char c : text.toCharArray()) {
+            output.setText(output.getText() + c);
+            try {
+                Thread.sleep(delay);
+                gui.updateScreen();
+            } catch (InterruptedException | IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private static void playSound(String resourcePath) {
