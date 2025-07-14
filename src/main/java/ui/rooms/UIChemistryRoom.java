@@ -3,6 +3,8 @@ package ui.rooms;
 import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.gui2.dialogs.TextInputDialogBuilder;
 import console.game.*;
+import ui.audio.SoundPlayer;
+import ui.controller.UIGameController;
 import ui.game.UICommands;
 import ui.game.UIRoom;
 import ui.game.UIRoomFactory;
@@ -73,6 +75,7 @@ public class UIChemistryRoom implements UIRoom {
             case "1":
             case "look":
             case "look at periodic table":
+                SoundPlayer.playSound("/sounds/ReadNote.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
                 player.setFlag("saw_periodic_table");
                 result.append("+----+----+----+----+----+----+----+----+----+----+----+----+----+\n" +
                         "| H  | He                                                         |\n" +
@@ -88,6 +91,7 @@ public class UIChemistryRoom implements UIRoom {
                 break;
             case "2":
             case "look at formula papers":
+                SoundPlayer.playSound("/sounds/ReadNote.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
                 player.setFlag("saw_formula_papers");
                 result.append("╔════════════════════════════════════╗\n" +
                         "║     ADVANCED CHEMISTRY FORMULAS   ║\n" +
@@ -125,7 +129,7 @@ public class UIChemistryRoom implements UIRoom {
                 if (action.equalsIgnoreCase("h2so4")) {
                     player.setFlag("acid_taken");
                     player.getInventory().addItem("Acid");
-
+                    SoundPlayer.playSound("/sounds/Brewing.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
                     result.append("You mix the chemicals carefully. The solution bubbles violently.\n")
                             .append("You now carry Sulfuric Acid. Maybe it can help melt the lock on the Electricity Room door.");
                 } else {

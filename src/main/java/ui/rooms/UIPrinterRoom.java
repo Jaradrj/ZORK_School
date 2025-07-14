@@ -3,6 +3,8 @@ package ui.rooms;
 
 import com.googlecode.lanterna.gui2.TextBox;
 import console.game.*;
+import ui.audio.SoundPlayer;
+import ui.controller.UIGameController;
 import ui.game.UICommands;
 import ui.game.UIRoom;
 import ui.game.UIRoomFactory;
@@ -54,6 +56,7 @@ public class UIPrinterRoom implements UIRoom {
             case "1":
             case "look":
             case "look at chemistry exam":
+                SoundPlayer.playSound("/sounds/ReadNote.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
                 result.append("CHEMISTRY EXAM – GRADE 12\n");
                 result.append("\n");
                 result.append("Name: _______________________  Date: //20__\n");

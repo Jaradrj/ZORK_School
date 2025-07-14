@@ -8,7 +8,9 @@ import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.TextColor;
 import console.game.Player;
 import lombok.Getter;
+import ui.audio.SoundPlayer;
 import ui.components.ButtonStyling;
+import ui.controller.UIGameController;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -30,7 +32,7 @@ public class StartMenu {
 
     public void showStartMenu() {
         final BasicWindow window = new BasicWindow("Start Menu");
-
+        SoundPlayer.playSound("/sounds/Soundtrack.wav", 0, 0, null, UIGameController.getGuiInstance(), false);
         Panel panel = new Panel();
         panel.setLayoutManager(new LinearLayout(Direction.VERTICAL));
 
@@ -110,6 +112,7 @@ public class StartMenu {
                     throw new RuntimeException(e);
                 }
             }
+            SoundPlayer.stopSound();
         });
 
         ok.setRenderer(new ButtonStyling());

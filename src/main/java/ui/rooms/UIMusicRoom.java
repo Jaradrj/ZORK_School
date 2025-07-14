@@ -95,7 +95,7 @@ public class UIMusicRoom implements UIRoom {
                     if (player.hasFlag("flashlight_taken")) {
                         player.setFlag("listened_to_cassette");
                         result.append("Luckily, you have your flashlight. The batteries fit the same.\nAfter inserting your flashlight's batteries into the cassette,\nthe message continues:\n\n");
-                        SoundPlayer.playSound("/sounds/StartCassette.wav", 4000, 500, outputArea, UIGameController.getGuiInstance(), false);
+                        SoundPlayer.playSound("/sounds/StartCassette.wav", 12000, 500, outputArea, UIGameController.getGuiInstance(), false);
                                 result.append("'I'm sorry. For the last three years I've tried everything\nto become the best, to help my family and myself.\n")
                                 .append("I had to keep my reputation up and now...\nThey are gone. I killed them.\n")
                                 .append("And I'll be next... If they ever offer you a drink,\ndon't drink it.\n")

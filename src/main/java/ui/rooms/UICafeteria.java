@@ -2,6 +2,8 @@ package ui.rooms;
 
 import com.googlecode.lanterna.gui2.TextBox;
 import console.game.*;
+import ui.audio.SoundPlayer;
+import ui.controller.UIGameController;
 import ui.game.UICommands;
 import ui.game.UIRoom;
 import ui.game.UIRoomFactory;
@@ -59,6 +61,7 @@ public class UICafeteria implements UIRoom {
             case "try opening safe":
                 if (!player.hasFlag("tried_opening_safe")) {
                     player.setFlag("tried_opening_safe");
+                    SoundPlayer.playSound("/sounds/OpenSafe.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
                     result.append("I'm going to be rich!\n" +
                             "That's what's going through your head while your twisting around the key.\n" +
                             "Not a single buckle. Wrong key.");
