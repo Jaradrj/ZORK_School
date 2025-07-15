@@ -127,8 +127,8 @@ public class UIEndings {
                 .append("            _.' '._\n")
                 .append("           `\"\"\"\"\"\"\"`\n");
 
-        System.exit(0);
         outputArea.setText(outputArea.getText() + "\n\n" + text);
+        System.exit(0);
     }
 
     public void badEnding(Player player, TextBox outputArea) {

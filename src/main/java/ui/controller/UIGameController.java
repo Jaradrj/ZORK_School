@@ -10,6 +10,7 @@ import com.googlecode.lanterna.terminal.MouseCaptureMode;
 import lombok.Getter;
 import lombok.Setter;
 import ui.audio.SoundPlayer;
+import ui.UIMain;
 import ui.game.*;
 import console.game.*;
 import ui.audio.TypingEffect;
@@ -110,7 +111,7 @@ public class UIGameController {
         }
 
         actionPanel.removeAllComponents();
-        
+
         Button inventoryButton = new Button("Inventory", () -> {
             ShowInventory inventoryView = new ShowInventory(guiInstance, player.getInventory());
             inventoryView.showInventory();
@@ -142,7 +143,6 @@ public class UIGameController {
 
                 Button electricityButton = new Button("Electricity Room", () -> {
                     player.setFlag("corrosed_door");
-                    SoundPlayer.playSound("/sounds/Sizzling.wav", 1000, 0, outputArea, UIGameController.getGuiInstance(), false);
                     String msg = "You try to corrode the door.\nYou can hear the sizzling sound of the\nsulfuric acid oxidizing with the door.\n" +
                             "\nNevertheless, you still don't manage to open it.\nSad and defeated, you return to the chemistry room\nto try and cry.";
                     outputArea.setText(outputArea.getText() + "\n\n" + msg);
@@ -197,6 +197,7 @@ public class UIGameController {
             player.setFlag("second_try");
             showingEndingPrompt = false;
             refreshActionButtons();
+            UIMain.startGame();
         }));
 
         actionPanel.addComponent(new Button("No", () -> {
