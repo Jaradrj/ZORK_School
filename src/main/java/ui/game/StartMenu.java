@@ -22,8 +22,7 @@ public class StartMenu {
     private final Player player;
 
     public StartMenu(Player player) throws IOException {
-        TerminalSize size = new TerminalSize(200, 40);
-        this.screen = new DefaultTerminalFactory().setInitialTerminalSize(size).createScreen();
+        this.screen = new DefaultTerminalFactory().createScreen();
         this.screen.startScreen();
         this.gui = new MultiWindowTextGUI(screen, new DefaultWindowManager(), new EmptySpace(TextColor.ANSI.BLACK_BRIGHT));
         this.player = player;
