@@ -24,7 +24,8 @@ public class UIRoomFactory {
 
     public static UIRoom createRoom(String name) {
         return switch (name) {
-            case "main entrance hall" -> new UIMainEntranceRoom(commands);
+            case "main entrance hall" -> new UIMainEntranceRoom(commands, printer
+            );
             case "music room" -> new UIMusicRoom(commands);
             case "it room" -> new UIITRoom(commands);
             case "cafeteria" -> new UICafeteria(commands);

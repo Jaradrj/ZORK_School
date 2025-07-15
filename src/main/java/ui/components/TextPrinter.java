@@ -8,6 +8,7 @@ public final class TextPrinter {
 
     public void textPrinter(String input, TextBox outputArea) {
 
+        outputArea.invalidate();
         outputArea.addLine("");
         for (String line : input.split("\n")) {
             outputArea.addLine(line);
