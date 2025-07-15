@@ -49,10 +49,6 @@ public class UIElectricityRoom implements UIRoom {
             text.append("You wonder and wonder what it is, but just can't figure it out.\nIt smells like mold and blood or just like death.\n");
             text.append("Then you remember the weird thing you stumbled over earlier.");
         }
-        System.out.println("- Open the door");
-        if (!player.hasFlag("turned_on_power")) {
-            System.out.println("- Enable radiator");
-        }
         return text.toString();
     }
 

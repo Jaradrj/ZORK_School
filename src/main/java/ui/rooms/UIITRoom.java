@@ -3,6 +3,7 @@ package ui.rooms;
 import com.googlecode.lanterna.gui2.TextBox;
 import console.game.*;
 import ui.game.UICommands;
+import ui.game.UIEndings;
 import ui.game.UIRoom;
 import ui.controller.UIGameController;
 import ui.game.UIRoomFactory;
@@ -171,13 +172,13 @@ public class UIITRoom implements UIRoom {
             case "call":
             case "call the police":
                 if (player.hasFlag("police_number_taken") && player.hasFlag("turned_on_wlan")) {
-                    Endings.happyEnding(player);
+                    UIEndings.happyEnding(player);
                     result.append("You don't hesitate and grab the note with the\npolice's number out of your backpack. Calling now...");
                     SoundPlayer.playSound("/audio/HappyEnding.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
                 } else if (!player.hasFlag("turned_on_wlan")) {
                     result.append("You need to turn on the Wlan before making a call.");
                 } else {
-                    result.append("What's the Police's number again?\nI think I saw a note in the Secretary.");
+                    result.append("What's the Police's number again? I think I saw a note in the Secretary.");
                 }
                 break;
             case "leave":
