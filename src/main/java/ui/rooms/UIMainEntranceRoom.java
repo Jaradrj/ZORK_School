@@ -72,6 +72,7 @@ public class UIMainEntranceRoom implements UIRoom {
                 }
                 return "";
             case "sit down at a table":
+                outputArea.invalidate();
                 if (!player.hasFlag("hasReadNote")) {
                     player.setFlag("hasReadNote");
                     String text = "You sit and notice a folded piece of paper under the table:\n\n" +
