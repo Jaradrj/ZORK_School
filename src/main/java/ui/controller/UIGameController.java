@@ -9,6 +9,7 @@ import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.MouseCaptureMode;
 import lombok.Getter;
 import lombok.Setter;
+import ui.audio.SoundPlayer;
 import ui.UIMain;
 import ui.game.*;
 import console.game.*;
