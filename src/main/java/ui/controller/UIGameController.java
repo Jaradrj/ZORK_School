@@ -8,9 +8,13 @@ import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.MouseCaptureMode;
 import lombok.Getter;
+import lombok.Setter;
+import ui.audio.SoundPlayer;
+import ui.UIMain;
 import ui.game.*;
 import console.game.*;
 import ui.audio.TypingEffect;
+import lombok.Setter;
 
 import java.io.IOException;
 import java.util.Map;
@@ -24,24 +28,29 @@ public class UIGameController {
     private boolean isChoosingRoom = false;
 
     private Screen screen;
-    @Getter
-    private MultiWindowTextGUI gui;
     private BasicWindow window;
     private Panel mainPanel;
     private TextBox outputArea;
     private Panel actionPanel;
     private boolean showingEndingPrompt = false;
 
+    @Setter
+    @Getter
+    private static MultiWindowTextGUI guiInstance;
+
     public UIGameController(UICommands commands, Player player) throws IOException {
         this.command = commands;
         this.player = player;
         UIRoomFactory.setController(this);
 
+        TerminalSize size = new TerminalSize(200, 40);
         DefaultTerminalFactory factory = new DefaultTerminalFactory()
+                .setInitialTerminalSize(size)
                 .setMouseCaptureMode(MouseCaptureMode.CLICK_RELEASE_DRAG_MOVE);
         screen = factory.createScreen();
         this.screen.startScreen();
-        this.gui = new MultiWindowTextGUI(screen, new DefaultWindowManager(), new EmptySpace(TextColor.ANSI.BLACK_BRIGHT));
+        guiInstance = new MultiWindowTextGUI(screen, new DefaultWindowManager(), new EmptySpace(TextColor.ANSI.BLACK_BRIGHT));
+        UIGameController.setGuiInstance(guiInstance);
 
 
         SimpleTheme customTheme = SimpleTheme.makeTheme(
@@ -55,7 +64,7 @@ public class UIGameController {
                 TextColor.ANSI.BLACK_BRIGHT
         );
 
-        this.gui.setTheme(customTheme);
+        this.guiInstance.setTheme(customTheme);
 
         UIRoom room = UIRoomFactory.createRoom("main entrance hall");
         System.out.println("Created room: " + room + ", type: " + room.getClass());
@@ -66,7 +75,7 @@ public class UIGameController {
 
         this.window = new BasicWindow("MindScale");
         this.mainPanel = new Panel(new LinearLayout(Direction.VERTICAL));
-        this.outputArea = new TextBox(new TerminalSize(100, 18), TextBox.Style.MULTI_LINE)
+        this.outputArea = new TextBox(new TerminalSize(200, 30), TextBox.Style.MULTI_LINE)
                 .setReadOnly(true);
         this.mainPanel.addComponent(outputArea);
 
@@ -81,7 +90,7 @@ public class UIGameController {
     private void updateUI() {
         outputArea.setText("");
         String enterText = currentRoom.enter(player);
-        TypingEffect.typeWithSound(outputArea, enterText, gui);
+        TypingEffect.typeWithSound(outputArea, enterText, guiInstance, "/sounds/Terminal.wav");
         refreshActionButtons();
     }
 
@@ -105,6 +114,13 @@ public class UIGameController {
 
         actionPanel.removeAllComponents();
 
+        Button inventoryButton = new Button("Inventory", () -> {
+            ShowInventory inventoryView = new ShowInventory(guiInstance, player.getInventory());
+            inventoryView.showInventory();
+            refreshActionButtons();
+        });
+        actionPanel.addComponent(inventoryButton);
+
         if (isChoosingRoom) {
 
             Map<String, Exit> exits = currentRoom.getAvailableExits(player);
@@ -113,7 +129,8 @@ public class UIGameController {
                     String result = currentRoom.handleRoomChange(player, roomName);
                     outputArea.setText(outputArea.getText() + "\n\n" + result);
                     currentRoom = player.getCurrentUIRoom();
-                    outputArea.setText(currentRoom.enter(player));
+                    String enterText = currentRoom.enter(player);
+                    TypingEffect.typeWithSound(outputArea, enterText, guiInstance, "/sounds/Terminal.wav");
                     isChoosingRoom = false;
                     refreshActionButtons();
                 });
@@ -122,20 +139,28 @@ public class UIGameController {
             }
 
             if (player.getLastUIRoom() != null &&
-                    player.getCurrentUIRoom().getName().equalsIgnoreCase("chemistry room")) {
+                    player.getCurrentUIRoom().getName().equalsIgnoreCase("chemistry room") &&
+                    player.hasFlag("acid_taken") &&
+                    !player.hasFlag("corrosed_door")) {
 
                 Button electricityButton = new Button("Electricity Room", () -> {
+                    player.setFlag("corrosed_door");
                     String msg = "You try to corrode the door.\nYou can hear the sizzling sound of the\nsulfuric acid oxidizing with the door.\n" +
                             "\nNevertheless, you still don't manage to open it.\nSad and defeated, you return to the chemistry room\nto try and cry.";
                     outputArea.setText(outputArea.getText() + "\n\n" + msg);
                     TypingEffect.typeWithSound(outputArea, msg, guiInstance, null);
-                    player.getInventory().removeItem("Acid");
                     isChoosingRoom = false;
+                    outputArea.invalidate();
+                    try {
+                        getGuiInstance().updateScreen();
+
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     refreshActionButtons();
                 });
                 actionPanel.addComponent(electricityButton);
             }
-
 
             Button returnButton = new Button("Return", () -> {
                 isChoosingRoom = false;
@@ -148,12 +173,15 @@ public class UIGameController {
 
             for (String action : currentRoom.getAvailableActions(player)) {
                 Button b = new Button(action, () -> {
-                    currentRoom.performAction(player, action.toLowerCase().trim(), outputArea);
+                    String result = currentRoom.performAction(player, action.toLowerCase().trim(), outputArea);
+                    if (!result.isEmpty()) {
+                        TypingEffect.typeWithSound(outputArea, "\n\n" + result, guiInstance, "/sounds/Terminal.wav");
+                    }
                     if (player.getCurrentUIRoom() != currentRoom) {
                         currentRoom = player.getCurrentUIRoom();
-                        outputArea.setText(currentRoom.enter(player));
+                        String enterText = currentRoom.enter(player);
+                        TypingEffect.typeWithSound(outputArea, enterText, guiInstance, "/sounds/Terminal.wav");
                     }
-
                     if ("leave".equalsIgnoreCase(action)) {
                         isChoosingRoom = true;
                     }
@@ -172,11 +200,15 @@ public class UIGameController {
         showingEndingPrompt = true;
         actionPanel.removeAllComponents();
 
+        String ending = "Do you want to ty again?";
+        TypingEffect.typeWithSound(outputArea, ending, getGuiInstance(), null);
+
         actionPanel.addComponent(new Button("Yes", () -> {
             player.clearFlags();
             player.setFlag("second_try");
             showingEndingPrompt = false;
             refreshActionButtons();
+            UIMain.startGame();
         }));
 
         actionPanel.addComponent(new Button("No", () -> {
@@ -187,6 +219,6 @@ public class UIGameController {
     }
 
     public void run() {
-        gui.addWindowAndWait(window);
+        guiInstance.addWindowAndWait(window);
     }
 }
