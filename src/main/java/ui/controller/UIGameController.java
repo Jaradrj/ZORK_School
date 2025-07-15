@@ -109,7 +109,7 @@ public class UIGameController {
         }
 
         actionPanel.removeAllComponents();
-        
+
         Button inventoryButton = new Button("Inventory", () -> {
             ShowInventory inventoryView = new ShowInventory(guiInstance, player.getInventory());
             inventoryView.showInventory();
@@ -135,14 +135,18 @@ public class UIGameController {
             }
 
             if (player.getLastUIRoom() != null &&
-                    player.getCurrentUIRoom().getName().equalsIgnoreCase("chemistry room")) {
+                    player.getCurrentUIRoom().getName().equalsIgnoreCase("chemistry room") &&
+                    player.hasFlag("acid_taken") &&
+                    !player.hasFlag("corrosed_door")) {
 
                 Button electricityButton = new Button("Electricity Room", () -> {
+                    player.setFlag("corrosed_door");
                     String msg = "You try to corrode the door.\nYou can hear the sizzling sound of the\nsulfuric acid oxidizing with the door.\n" +
                             "\nNevertheless, you still don't manage to open it.\nSad and defeated, you return to the chemistry room\nto try and cry.";
                     outputArea.setText(outputArea.getText() + "\n\n" + msg);
                     TypingEffect.typeWithSound(outputArea, msg, guiInstance, null);
                     isChoosingRoom = false;
+                    outputArea.invalidate();
                     refreshActionButtons();
                 });
                 actionPanel.addComponent(electricityButton);
