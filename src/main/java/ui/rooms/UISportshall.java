@@ -32,7 +32,7 @@ public class UISportshall implements UIRoom {
 
         if (!player.hasFlag("was_sports")) {
             player.setFlag("was_sports");
-            text.append("It smells weird in here. Not the type of weird you find in a boys wardrobe, but rather the type of weird you smell in basements. ")
+            text.append("It smells weird in here. Not the type of weird you find in a boys wardrobe,\nbut rather the type of weird you smell in basements. ")
                     .append("\nThe smell seems like it's coming from the shaft.\nWhy is it open? There must be a way to get up there. ");
         }
         return text.toString();

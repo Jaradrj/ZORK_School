@@ -1,12 +1,13 @@
 package ui.controller;
 
 import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.graphics.SimpleTheme;
 import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.MouseCaptureMode;
 import lombok.Getter;
-import ui.UIMain;
 import ui.game.*;
 import console.game.*;
 import ui.audio.TypingEffect;
@@ -16,8 +17,6 @@ import java.util.Map;
 
 public class UIGameController {
 
-    @Getter
-    private static MultiWindowTextGUI guiInstance;
     @Getter
     private Player player;
     private UIRoom currentRoom;
@@ -38,25 +37,36 @@ public class UIGameController {
         this.player = player;
         UIRoomFactory.setController(this);
 
-        UIRoom lastRoom = player.getLastUIRoom();
-
         DefaultTerminalFactory factory = new DefaultTerminalFactory()
                 .setMouseCaptureMode(MouseCaptureMode.CLICK_RELEASE_DRAG_MOVE);
         screen = factory.createScreen();
-        screen.startScreen();
+        this.screen.startScreen();
+        this.gui = new MultiWindowTextGUI(screen, new DefaultWindowManager(), new EmptySpace(TextColor.ANSI.BLACK_BRIGHT));
 
-        this.gui = new MultiWindowTextGUI(screen);
-        UIGameController.guiInstance = this.gui;
+
+        SimpleTheme customTheme = SimpleTheme.makeTheme(
+                true,
+                TextColor.ANSI.WHITE,
+                TextColor.ANSI.BLACK_BRIGHT,
+                TextColor.ANSI.WHITE,
+                TextColor.ANSI.BLACK,
+                TextColor.ANSI.BLACK,
+                TextColor.ANSI.WHITE,
+                TextColor.ANSI.BLACK_BRIGHT
+        );
+
+        this.gui.setTheme(customTheme);
 
         UIRoom room = UIRoomFactory.createRoom("main entrance hall");
         System.out.println("Created room: " + room + ", type: " + room.getClass());
+
 
         this.currentRoom = room;
         player.setCurrentUIRoom(currentRoom);
 
         this.window = new BasicWindow("MindScale");
         this.mainPanel = new Panel(new LinearLayout(Direction.VERTICAL));
-        this.outputArea = new TextBox(new TerminalSize(100, 15), TextBox.Style.MULTI_LINE)
+        this.outputArea = new TextBox(new TerminalSize(100, 18), TextBox.Style.MULTI_LINE)
                 .setReadOnly(true);
         this.mainPanel.addComponent(outputArea);
 
@@ -64,18 +74,29 @@ public class UIGameController {
         this.mainPanel.addComponent(actionPanel);
 
         this.window.setComponent(mainPanel);
+
         updateUI();
     }
-
 
     private void updateUI() {
         outputArea.setText("");
         String enterText = currentRoom.enter(player);
-        TypingEffect.typeWithSound(outputArea, enterText, gui, null);
+        TypingEffect.typeWithSound(outputArea, enterText, gui);
         refreshActionButtons();
     }
 
     private void refreshActionButtons() {
+
+        SimpleTheme customButtonTheme = SimpleTheme.makeTheme(
+                false,
+                TextColor.ANSI.WHITE,
+                TextColor.ANSI.BLACK_BRIGHT,
+                TextColor.ANSI.WHITE,
+                TextColor.ANSI.BLACK,
+                TextColor.ANSI.BLACK,
+                TextColor.ANSI.WHITE,
+                TextColor.ANSI.BLACK_BRIGHT
+        );
 
         if (showingEndingPrompt) {
             window.invalidate();
@@ -83,13 +104,6 @@ public class UIGameController {
         }
 
         actionPanel.removeAllComponents();
-
-        Button inventoryButton = new Button("Inventory", () -> {
-            ShowInventory inventoryView = new ShowInventory(gui, player.getInventory());
-            inventoryView.showInventory();
-            refreshActionButtons();
-        });
-        actionPanel.addComponent(inventoryButton);
 
         if (isChoosingRoom) {
 
@@ -99,41 +113,46 @@ public class UIGameController {
                     String result = currentRoom.handleRoomChange(player, roomName);
                     outputArea.setText(outputArea.getText() + "\n\n" + result);
                     currentRoom = player.getCurrentUIRoom();
-                    TypingEffect.typeWithSound(outputArea, currentRoom.enter(player), gui, null);
+                    outputArea.setText(currentRoom.enter(player));
                     isChoosingRoom = false;
                     refreshActionButtons();
                 });
+                b.setTheme(customButtonTheme);
                 actionPanel.addComponent(b);
             }
+<<<<<<< Updated upstream
+=======
 
             if (player.getLastUIRoom() != null &&
                     player.getCurrentUIRoom().getName().equalsIgnoreCase("chemistry room")) {
 
                 Button electricityButton = new Button("Electricity Room", () -> {
-                    String msg = "You try to corrode the door. You can hear the sizzling sound of the sulfuric acid oxidizing with the door.\n" +
-                            "\nNevertheless, you still don't manage to open it. Sad and defeated, you return to the chemistry room to try and cry.";
+                    String msg = "You try to corrode the door.\nYou can hear the sizzling sound of the\nsulfuric acid oxidizing with the door.\n" +
+                            "\nNevertheless, you still don't manage to open it.\nSad and defeated, you return to the chemistry room\nto try and cry.";
                     outputArea.setText(outputArea.getText() + "\n\n" + msg);
+                    TypingEffect.typeWithSound(outputArea, msg, gui, null);
                     isChoosingRoom = false;
                     refreshActionButtons();
                 });
                 actionPanel.addComponent(electricityButton);
             }
 
+>>>>>>> Stashed changes
             Button returnButton = new Button("Return", () -> {
                 isChoosingRoom = false;
                 outputArea.setText(outputArea.getText() + "\n\nCanceled room selection.");
                 refreshActionButtons();
             });
+            returnButton.setTheme(customButtonTheme);
             actionPanel.addComponent(returnButton);
         } else {
 
             for (String action : currentRoom.getAvailableActions(player)) {
                 Button b = new Button(action, () -> {
                     String result = currentRoom.performAction(player, action.toLowerCase().trim(), outputArea);
-                    TypingEffect.typeWithSound(outputArea, result, gui, null);
                     if (player.getCurrentUIRoom() != currentRoom) {
                         currentRoom = player.getCurrentUIRoom();
-                        TypingEffect.typeWithSound(outputArea, currentRoom.enter(player), gui, null);
+                        outputArea.setText(currentRoom.enter(player));
                     }
 
                     if ("leave".equalsIgnoreCase(action)) {
@@ -142,6 +161,7 @@ public class UIGameController {
 
                     refreshActionButtons();
                 });
+                b.setTheme(customButtonTheme);
                 actionPanel.addComponent(b);
             }
         }
@@ -157,12 +177,7 @@ public class UIGameController {
             player.clearFlags();
             player.setFlag("second_try");
             showingEndingPrompt = false;
-            try {
-                screen.stopScreen();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            UIMain.startGame();
+            refreshActionButtons();
         }));
 
         actionPanel.addComponent(new Button("No", () -> {
@@ -175,5 +190,4 @@ public class UIGameController {
     public void run() {
         gui.addWindowAndWait(window);
     }
-
 }

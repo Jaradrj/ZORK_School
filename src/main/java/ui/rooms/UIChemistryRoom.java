@@ -32,8 +32,8 @@ public class UIChemistryRoom implements UIRoom {
         if (!player.hasFlag("was_chemistry")) {
             player.setFlag("was_chemistry");
 
-            text.append("Science has never been your favorite subject. But it most definitely is Klara's.\n")
-                    .append("The brewing station in the back of the room still has some chemicals opened. What is Scopolamine? I heard of that before...")
+            text.append("Science has never been your favorite subject.\nBut it most definitely is Klara's.\n")
+                    .append("The brewing station in the back of the\nroom still has some chemicals opened.\nWhat is Scopolamine? I heard of that before...\n")
                     .append("While trying to remember, your flashlight suddenly starts flickering.\n ")
                     .append("Maybe you should try to find a way into the Electricity Room?");
         }
@@ -131,7 +131,7 @@ public class UIChemistryRoom implements UIRoom {
                     player.getInventory().addItem("Acid");
                     SoundPlayer.playSound("/sounds/Brewing.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
                     result.append("You mix the chemicals carefully. The solution bubbles violently.\n")
-                            .append("You now carry Sulfuric Acid. Maybe it can help melt the lock on the Electricity Room door.");
+                            .append("You now carry Sulfuric Acid.\nMaybe it can help melt the lock on the Electricity Room door.");
                 } else {
                     result.append("You mix the chemicals, but nothing happens. Wrong combination?");
                 }

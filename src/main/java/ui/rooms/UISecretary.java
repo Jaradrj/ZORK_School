@@ -3,8 +3,6 @@ package ui.rooms;
 import com.googlecode.lanterna.gui2.TextBox;
 import console.game.*;
 import org.w3c.dom.Text;
-import ui.audio.SoundPlayer;
-import ui.controller.UIGameController;
 import ui.game.UICommands;
 import ui.game.UIRoom;
 import ui.game.UIRoomFactory;
@@ -66,13 +64,11 @@ public class UISecretary implements UIRoom {
                     player.setFlag("full_map_taken");
                     player.getInventory().addItem("Schools half map 2");
                     result.append("Wait what's that? The full card! You take it. New rooms unlocked!");
-                    SoundPlayer.playSound("/sounds/TakeItem.wav", 1000, 0, outputArea, UIGameController.getGuiInstance(), false);
                 }
                 if (player.hasFlag("entered_electricity")) {
                     player.setFlag("police_number_taken");
                     player.getInventory().addItem("Polices number");
                     result.append("Wait, there's more! You take the Note with the Police's Number on it from the pinboard.");
-                    SoundPlayer.playSound("/sounds/TakeItem.wav", 1000, 0, outputArea, UIGameController.getGuiInstance(), false);
                 }
                 result.append("You examined the pinboard, time to leave.");
                 break;
