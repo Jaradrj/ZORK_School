@@ -149,6 +149,11 @@ public class UIGameController {
                     TypingEffect.typeWithSound(outputArea, msg, guiInstance, null);
                     isChoosingRoom = false;
                     outputArea.invalidate();
+                    try {
+                        getGuiInstance().updateScreen();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     refreshActionButtons();
                 });
                 actionPanel.addComponent(electricityButton);
@@ -191,6 +196,9 @@ public class UIGameController {
     public void showEndingPrompt() {
         showingEndingPrompt = true;
         actionPanel.removeAllComponents();
+
+        String ending = "Do you want to ty again?";
+        TypingEffect.typeWithSound(outputArea, ending, getGuiInstance(), null);
 
         actionPanel.addComponent(new Button("Yes", () -> {
             player.clearFlags();

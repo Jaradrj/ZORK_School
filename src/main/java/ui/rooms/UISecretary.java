@@ -66,7 +66,8 @@ public class UISecretary implements UIRoom {
                 if (player.hasFlag("entered_electricity")) {
                     player.setFlag("police_number_taken");
                     player.getInventory().addItem("Polices number");
-                    result.append("Wait, there's more! You take the Note with the Police's\nNumber on it from the pinboard.");
+                    result.append("\n" +
+                            "Wait, there's more! You take the Note with the Police's\nNumber on it from the pinboard.");
                 }
                 result.append("\nYou examined the pinboard, time to leave.");
                 break;

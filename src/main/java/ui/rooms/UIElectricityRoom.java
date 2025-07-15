@@ -50,7 +50,7 @@ public class UIElectricityRoom implements UIRoom {
             text.append("You manage to take the first few steps, until suddenly,\nthe hard ground meets your knees once more.\n");
             text.append("Out of frustration and the need for light you manage to\nget up and continue walking, ignoring whatever it was that you stumbled over.\n");
             text.append("You keep walking, step after step, until you finally reach the light.\n");
-            text.append("You glance around, and through the dimness,you make out the\n shape of the reactor and next to it, the exit.\n");
+            text.append("You glance around, and through the dimness,you make out the\nshape of the reactor and next to it, the exit.\n");
             text.append("While you keep observing your surroundings you notice that\nweird irony smell once again.\n");
             text.append("You wonder and wonder what it is, but just can't figure it out.\nIt smells like mold and blood or just like death.\n");
             text.append("Then you remember the weird thing you stumbled over earlier.");
@@ -179,15 +179,14 @@ public class UIElectricityRoom implements UIRoom {
                                         "Familiar.\n" +
                                         "Way too familiar.\n";
 
-                        TypingEffect.typeWithSound(outputArea, input, UIGameController.getGuiInstance(), null);
-
                         if (player.hasFlag("second_try")) {
                             String text = "It's your friend " + player.oldName;
-                            TypingEffect.typeWithSound(outputArea, text, UIGameController.getGuiInstance(), null);
+                            input += text;
                         } else {
                             String text = "It's the janitor Toby";
-                            TypingEffect.typeWithSound(outputArea, text, UIGameController.getGuiInstance(), null);
+                            input += text;
                         }
+                        TypingEffect.typeWithSound(outputArea, input, UIGameController.getGuiInstance(), null);
                     }
                 }
                 break;
