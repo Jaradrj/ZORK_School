@@ -98,7 +98,7 @@ public class UIITRoom implements UIRoom {
                     result.append(camFeeds);
                     outputArea.setText(outputArea.getText() + "\n\n" + camFeeds);
                     result.append("Camera feeds displayed.");
-                    SoundPlayer.playSound("/sounds/Camera.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
+                    SoundPlayer.playSound("/sounds/Camera.wav", 500, 0, outputArea, UIGameController.getGuiInstance(), false);
                 } else {
                     result.append("No memory leak is waiting to be confirmed.");
                 }
