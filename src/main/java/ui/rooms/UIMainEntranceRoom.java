@@ -110,7 +110,7 @@ public class UIMainEntranceRoom implements UIRoom {
                                   "New rooms unlocked!\n" +
                                   "(You can now go to: Music Room, Teacher Room, IT Room)";
                     TypingEffect.typeWithSound(outputArea, text, UIGameController.getGuiInstance(), null);
-                    SoundPlayer.playSound("/sounds/TakeItem.wav", 3000, 0, outputArea, UIGameController.getGuiInstance(), false);
+                    SoundPlayer.playSound("/sounds/TakeItem.wav", 3500, 0, outputArea, UIGameController.getGuiInstance(), false);
                 } else {
                     TypingEffect.typeWithSound(outputArea, "You already took the half map from the pinboard.", UIGameController.getGuiInstance(), null);
                 }

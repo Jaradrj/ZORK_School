@@ -3,6 +3,7 @@ package ui.rooms;
 import com.googlecode.lanterna.gui2.TextBox;
 import console.game.*;
 import ui.audio.SoundPlayer;
+import ui.controller.UIGameController;
 import ui.game.UICommands;
 import ui.game.UIRoom;
 import ui.game.UIRoomFactory;

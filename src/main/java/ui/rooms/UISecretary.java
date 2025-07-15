@@ -62,10 +62,10 @@ public class UISecretary implements UIRoom {
 
         switch (lowerAction) {
             case "examine the pinboard":
-                result.append("Still not much to see, but the flashlight will do its job.");
                 if (!player.hasFlag("full_map_taken")) {
                     player.setFlag("full_map_taken");
                     player.getInventory().addItem("Schools half map 2");
+                    result.append("Still not much to see, but the flashlight will do its job.\n");
                     result.append("Wait what's that? The full card! You take it. New rooms unlocked!\n");
                     SoundPlayer.playSound("/sounds/TakeItem.wav", 1000, 0, outputArea, UIGameController.getGuiInstance(), false);
                 } else if (player.hasFlag("entered_electricity")) {
