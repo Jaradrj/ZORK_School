@@ -7,6 +7,7 @@ import com.googlecode.lanterna.gui2.WindowBasedTextGUI;
 import console.game.*;
 import ui.audio.TypingEffect;
 import ui.game.UICommands;
+import ui.game.UIEndings;
 import ui.game.UIRoom;
 import ui.controller.UIGameController;
 import ui.game.UIRoomFactory;
@@ -119,7 +120,7 @@ public class UIITRoom implements UIRoom {
             case "call":
             case "call the police":
                 if (player.hasFlag("police_number_taken") && player.hasFlag("turned_on_wlan")) {
-                    Endings.happyEnding(player);
+                    UIEndings.happyEnding(player, outputArea);
                     result.append("You don't hesitate and grab the note with the police's number out of your backpack. Calling now...");
                 } else if (!player.hasFlag("turned_on_wlan")) {
                     result.append("You need to turn on the Wlan before making a call.");
