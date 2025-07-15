@@ -34,7 +34,7 @@ public class UIRoomFactory {
             case "sportshall" -> new UISportshall(commands);
             case "secretary" -> new UISecretary(commands);
             case "garage" -> new UIGarage();
-            case "teacher room" -> new UITeacherRoom(controller, commands, gui);
+            case "teacher room" -> new UITeacherRoom(controller, commands, gui, printer);
             case "electricity room" -> new UIElectricityRoom(controller, commands, gui, printer);
             default -> throw new IllegalArgumentException("Unknown room " + name);
         };

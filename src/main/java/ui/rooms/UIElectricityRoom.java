@@ -23,7 +23,7 @@ public class UIElectricityRoom implements UIRoom {
 
     public UIElectricityRoom(UIGameController controller, UICommands commands, MultiWindowTextGUI gui, TextPrinter printer) {
         this.gui = gui;
-        this.ending = new UIEndings(controller, gui);
+        this.ending = new UIEndings(controller, gui, printer);
         this.commands = commands;
         this.printer = printer;
     }

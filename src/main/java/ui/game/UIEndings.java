@@ -4,14 +4,14 @@ package ui.game;
 import com.googlecode.lanterna.gui2.*;
 import console.game.Player;
 import ui.audio.TypingEffect;
+import ui.components.TextPrinter;
 import ui.controller.UIGameController;
-
-import java.util.Scanner;
 
 public class UIEndings {
 
     private UIGameController controller;
     private MultiWindowTextGUI gui;
+    private TextPrinter printer;
     private String banner = """
               ██████╗  █████╗ ███╗   ███╗███████╗     ██████╗ ██╗   ██╗███████╗██████╗ 
              ██╔════╝ ██╔══██╗████╗ ████║██╔════╝    ██╔═══██╗██║   ██║██╔════╝██╔══██╗
@@ -21,12 +21,27 @@ public class UIEndings {
               ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝     ╚═════╝  ╚═════╝ ╚══════╝╚═╝  ╚═╝
             """;
 
-    public UIEndings(UIGameController controller, MultiWindowTextGUI gui) {
+    private String trophy = """
+                          ___________
+                         '._==_==_=_.' 
+                         .-\\:      /-. 
+                        | (|:.     |) | 
+                         '-|:.     |-' 
+                           \\::.    / 
+                            '::. .' 
+                              ) ( 
+                            _.' '._ 
+                           `^^^^^^^^` 
+            """;
+
+    public UIEndings(UIGameController controller, MultiWindowTextGUI gui, TextPrinter printer) {
         this.controller = controller;
+        this.printer = printer;
         this.gui = gui;
     }
 
     public static void happyEnding(Player player, TextBox outputArea) {
+
         String input = """
                 Congratulations. You made it out. Alive.
                 You called the police. You exposed the hidden doors. You told them everything.
@@ -122,25 +137,15 @@ public class UIEndings {
                 
                 THE END.
                 (or maybe just the next phase)
-                
-                          ___________
-                         '._==_==_=_.' 
-                         .-\\:      /-. 
-                        | (|:.     |) | 
-                         '-|:.     |-' 
-                           \\::.    / 
-                            '::. .' 
-                              ) ( 
-                            _.' '._ 
-                           `^^^^^^^^` 
                 """;
 
-        outputArea.setText(outputArea.getText() + "\n\n" + input);
+        TypingEffect.typeWithSound(outputArea, input, UIGameController.getGuiInstance(), null);
 
     }
 
     public void badEnding(Player player, TextBox outputArea) {
-        StringBuilder text = new StringBuilder();
+
+        printer.logoPrinter(banner, outputArea);
 
         String input =
                 "There you are. You pull on the door, harder and harder, hoping it will move.\n" +
@@ -191,7 +196,6 @@ public class UIEndings {
                         "You already know your answer.\n" +
                         "They already recorded it.\n";
 
-        outputArea.setText(outputArea.getText() + "\n\n" + text);
         TypingEffect.typeWithSound(outputArea, input, UIGameController.getGuiInstance(), null);
         controller.showEndingPrompt();
     }
@@ -220,7 +224,7 @@ public class UIEndings {
                 They already recorded it.
                 """;
 
-        TypingEffect.typeWithSound(outputArea, narrative + banner + prompt, UIGameController.getGuiInstance(), null);
+        TypingEffect.typeWithSound(outputArea, narrative + prompt, UIGameController.getGuiInstance(), null);
 
         controller.showEndingPrompt();
     }

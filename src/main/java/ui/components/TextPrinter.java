@@ -7,7 +7,7 @@ import ui.controller.UIGameController;
 import java.io.IOException;
 
 
-public final class TextPrinter {
+public class TextPrinter {
 
     public void textPrinter(String input, TextBox outputArea) {
 
@@ -29,5 +29,18 @@ public final class TextPrinter {
         for (String line : input.split("\n")) {
             outputArea.addLine(line);
         }
+    }
+
+    public void printBanner(TextBox outputArea) {
+        outputArea.addLine("""
+             \s
+              ██████╗  █████╗ ███╗   ███╗███████╗     ██████╗ ██╗   ██╗███████╗██████╗\s
+             ██╔════╝ ██╔══██╗████╗ ████║██╔════╝    ██╔═══██╗██║   ██║██╔════╝██╔══██╗
+             ██║  ███╗███████║██╔████╔██║█████╗      ██║   ██║██║   ██║█████╗  ██████╔╝
+             ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝      ██║   ██║██║   ██║██╔══╝  ██╔══██╗
+             ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗    ╚██████╔╝╚██████╔╝███████╗██║  ██║
+              ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝     ╚═════╝  ╚═════╝ ╚══════╝╚═╝  ╚═╝
+           \s
+           \s""");
     }
 }

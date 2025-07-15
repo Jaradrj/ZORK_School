@@ -4,6 +4,7 @@ package ui.rooms;
 import com.googlecode.lanterna.gui2.MultiWindowTextGUI;
 import com.googlecode.lanterna.gui2.TextBox;
 import ui.audio.SoundPlayer;
+import ui.components.TextPrinter;
 import ui.controller.UIGameController;
 import console.game.*;
 import ui.game.UICommands;
@@ -18,10 +19,12 @@ public class UITeacherRoom implements UIRoom {
     private UIEndings ending;
     private UICommands commands;
     private MultiWindowTextGUI gui;
+    private TextPrinter printer;
 
-    public UITeacherRoom(UIGameController controller, UICommands commands, MultiWindowTextGUI gui) {
+    public UITeacherRoom(UIGameController controller, UICommands commands, MultiWindowTextGUI gui, TextPrinter printer) {
         this.gui = gui;
-        this.ending = new UIEndings(controller, gui);
+        this.printer = printer;
+        this.ending = new UIEndings(controller, gui, printer);
         this.commands = commands;
     }
 
