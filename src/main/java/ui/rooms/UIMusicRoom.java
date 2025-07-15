@@ -55,8 +55,6 @@ public class UIMusicRoom implements UIRoom {
         StringBuilder result = new StringBuilder();
 
         switch (lowerAction) {
-            case "1":
-            case "check":
             case "check out instruments":
                 if (!player.hasFlag("has_checked_instruments")) {
                     player.setFlag("has_checked_instruments");
@@ -67,8 +65,6 @@ public class UIMusicRoom implements UIRoom {
                 }
                 break;
 
-            case "2":
-            case "watch":
             case "watch the notes":
                 if (!player.hasFlag("watched_song_notes")) {
                     player.setFlag("watched_song_notes");
@@ -87,8 +83,6 @@ public class UIMusicRoom implements UIRoom {
                 }
                 break;
 
-            case "3":
-            case "listen":
             case "listen to the cassette":
                 if (!player.hasFlag("listened_to_cassette")) {
                     result.append("\nYou get closer to the cassette, step by step\nThe message you're hearing becomes clearer...\nBut then, suddenly the cassette shuts down. No battery.\n");
@@ -110,7 +104,6 @@ public class UIMusicRoom implements UIRoom {
                 break;
 
             case "leave":
-                commands.checkInputCommands("-r", player, outputArea);
                 return "";
 
             default:

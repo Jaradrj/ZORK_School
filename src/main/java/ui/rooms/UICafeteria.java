@@ -56,8 +56,6 @@ public class UICafeteria implements UIRoom {
         StringBuilder result = new StringBuilder();
 
         switch (lowerAction) {
-            case "1":
-            case "try":
             case "try opening safe":
                 if (!player.hasFlag("tried_opening_safe")) {
                     player.setFlag("tried_opening_safe");
@@ -72,7 +70,6 @@ public class UICafeteria implements UIRoom {
 
             case "leave":
                 player.setFlag("leave_cafeteria");
-                commands.checkInputCommands("-r", player, outputArea);
                 return "";
             default:
                 result.append("Invalid action.");

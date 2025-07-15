@@ -59,8 +59,6 @@ public class UIGarage implements UIRoom {
         StringBuilder result = new StringBuilder();
 
         switch (lowerAction) {
-            case "1":
-            case "break":
             case "break into her car":
                 if (!player.hasFlag("keys_taken")) {
                     player.setFlag("keys_taken");
@@ -73,10 +71,12 @@ public class UIGarage implements UIRoom {
                     result.append("\nYou already broke in to her car, time to leave!");
                 }
                 break;
-            case "return":
             case "return to teacher room":
                 player.setFlag("teacher_room_loot_ready");
                 return handleRoomChange(player, "teacher room");
+
+            case "leave":
+                return "";
 
             default:
                 result.append("Invalid action.");

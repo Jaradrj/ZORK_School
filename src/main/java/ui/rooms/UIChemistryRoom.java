@@ -72,8 +72,6 @@ public class UIChemistryRoom implements UIRoom {
         StringBuilder result = new StringBuilder();
 
         switch (lowerAction) {
-            case "1":
-            case "look":
             case "look at periodic table":
                 SoundPlayer.playSound("/sounds/ReadNote.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
                 player.setFlag("saw_periodic_table");
@@ -89,7 +87,6 @@ public class UIChemistryRoom implements UIRoom {
                         "| Br | I  | Hg | Pb | Sn | As | Sb | Cd | Ba | Sr | Ra | U  |\n" +
                         "+----+----+----+----+----+----+----+----+----+----+----+----+\n");
                 break;
-            case "2":
             case "look at formula papers":
                 SoundPlayer.playSound("/sounds/ReadNote.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
                 player.setFlag("saw_formula_papers");
@@ -105,7 +102,6 @@ public class UIChemistryRoom implements UIRoom {
                         "*Note: Handle with caution.\n");
                 break;
 
-            case "3":
             case "brew acid":
                 if (player.hasFlag("acid_taken")) {
                     result.append("You’ve already brewed the acid. You can’t carry more.");
@@ -137,15 +133,9 @@ public class UIChemistryRoom implements UIRoom {
                 }
                 break;
             case "leave":
-                commands.checkInputCommands("-r", player, outputArea);
                 return "";
             default:
-                if (lowerAction.startsWith("go to ")) {
-                    String roomChangeResult = handleRoomChange(player, lowerAction.substring(6).trim());
-                    result.append(roomChangeResult);
-                } else {
-                    result.append("Invalid action.");
-                }
+                result.append("Invalid action.");
                 break;
         }
         outputArea.setText(outputArea.getText() + "\n\n" + result);

@@ -27,7 +27,7 @@ public class UICommands {
                 break;
             case "-r":
             case "r":
-                printAvailableRooms(player, outputArea);
+
                 break;
             default:
                 outputArea.setText(outputArea.getText() + "\nUnknown command " + input);
@@ -59,12 +59,5 @@ public class UICommands {
         outputArea.setText(outputArea.getText() + sb.toString());
     }
 
-    public void printAvailableRooms(Player player, TextBox outputArea) {
-        StringBuilder sb = new StringBuilder("\nAvailable Rooms:\n");
-        for (String room : rooms.keySet()) {
-            sb.append("- ").append(room).append("\n");
-        }
-        outputArea.setText(outputArea.getText() + sb.toString());
-    }
 }
 

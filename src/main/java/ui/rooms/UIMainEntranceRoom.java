@@ -118,7 +118,6 @@ public class UIMainEntranceRoom implements UIRoom {
                 }
                 return "";
             case "leave":
-                commands.checkInputCommands("-r", player, outputArea);
                 return "";
             default:
                 result.append("Invalid action. Try one of the available buttons.");

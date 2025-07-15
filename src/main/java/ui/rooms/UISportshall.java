@@ -58,9 +58,6 @@ public class UISportshall implements UIRoom {
         switch (lowerAction) {
             case "move bench":
             case "use bench":
-            case "move":
-            case "use":
-            case "1":
                 player.setFlag("entered_electricity");
                 StringBuilder transitionText = new StringBuilder();
                 if (!player.hasFlag("was_electricity")) {
@@ -77,10 +74,7 @@ public class UISportshall implements UIRoom {
                 outputArea.setText(outputArea.getText() + "\n\n" + enterText);
                 return "";
             case "leave":
-            case "2":
-                commands.checkInputCommands("-r", player, outputArea);
                 return "";
-
             default:
                 result.append("Invalid action.");
                 break;
