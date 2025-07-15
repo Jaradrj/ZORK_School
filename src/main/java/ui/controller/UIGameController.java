@@ -120,8 +120,6 @@ public class UIGameController {
                 b.setTheme(customButtonTheme);
                 actionPanel.addComponent(b);
             }
-<<<<<<< Updated upstream
-=======
 
             if (player.getLastUIRoom() != null &&
                     player.getCurrentUIRoom().getName().equalsIgnoreCase("chemistry room")) {
@@ -130,14 +128,15 @@ public class UIGameController {
                     String msg = "You try to corrode the door.\nYou can hear the sizzling sound of the\nsulfuric acid oxidizing with the door.\n" +
                             "\nNevertheless, you still don't manage to open it.\nSad and defeated, you return to the chemistry room\nto try and cry.";
                     outputArea.setText(outputArea.getText() + "\n\n" + msg);
-                    TypingEffect.typeWithSound(outputArea, msg, gui, null);
+                    TypingEffect.typeWithSound(outputArea, msg, guiInstance, null);
+                    player.getInventory().removeItem("Acid");
                     isChoosingRoom = false;
                     refreshActionButtons();
                 });
                 actionPanel.addComponent(electricityButton);
             }
 
->>>>>>> Stashed changes
+
             Button returnButton = new Button("Return", () -> {
                 isChoosingRoom = false;
                 outputArea.setText(outputArea.getText() + "\n\nCanceled room selection.");
@@ -149,7 +148,7 @@ public class UIGameController {
 
             for (String action : currentRoom.getAvailableActions(player)) {
                 Button b = new Button(action, () -> {
-                    String result = currentRoom.performAction(player, action.toLowerCase().trim(), outputArea);
+                    currentRoom.performAction(player, action.toLowerCase().trim(), outputArea);
                     if (player.getCurrentUIRoom() != currentRoom) {
                         currentRoom = player.getCurrentUIRoom();
                         outputArea.setText(currentRoom.enter(player));

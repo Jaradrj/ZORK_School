@@ -3,9 +3,11 @@ package ui.rooms;
 import com.googlecode.lanterna.gui2.TextBox;
 import console.game.Exit;
 import console.game.Player;
+import ui.audio.SoundPlayer;
+import ui.audio.TypingEffect;
+import ui.controller.UIGameController;
 import ui.game.UIRoom;
 import ui.game.UIRoomFactory;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,7 +34,7 @@ public class UIGarage implements UIRoom {
                     text.append("the woman ");
                 }
                 text.append("go to her car, you're hiding behind a big pillar.\n")
-                        .append("Suddenly, she stops, tries to grad something from her pocket,\n")
+                        .append("Suddenly, she stops, tries to grab something from her pocket,\n")
                         .append("turns around and is now moving towards you. You manage to keep hidden. It seems that she forgot something.\n")
                         .append("What does she have in that car?");
             }
@@ -62,16 +64,13 @@ public class UIGarage implements UIRoom {
             case "break into her car":
                 if (!player.hasFlag("keys_taken")) {
                     player.setFlag("keys_taken");
-<<<<<<< Updated upstream
-=======
                     SoundPlayer.playSound("/sounds/TakeItem.wav", 10000, 0, outputArea, UIGameController.getGuiInstance(), false);
->>>>>>> Stashed changes
                     player.getInventory().addItem("keys (to what?)");
-                    result.append("\nYou need to know what she's hiding. Thank god she didn't suspect anyone to sneak around and left her car unlocked.\n")
-                            .append("Easy game for you to get inside and start searching quick. You don't find much, just some mints, money, a coke and.. keys!\n")
+                    result.append("You need to know what she's hiding. Thank god she didn't suspect\nanyone to sneak around and left her car unlocked.\n")
+                            .append("Easy game for you to get inside and start searching quick.\nYou don't find much, just some mints, money, a coke and.. keys!\n")
                             .append("But what are they for?");
                 } else {
-                    result.append("\nYou already broke in to her car, time to leave!");
+                    result.append("You already broke in to her car, time to leave!");
                 }
                 break;
             case "return":
@@ -83,7 +82,7 @@ public class UIGarage implements UIRoom {
                 result.append("Invalid action.");
                 break;
         }
-        outputArea.setText(outputArea.getText() + "\n\n" + result);
+        TypingEffect.typeWithSound(outputArea, result.toString(), UIGameController.getGuiInstance(), null);
         return result.toString();
     }
 

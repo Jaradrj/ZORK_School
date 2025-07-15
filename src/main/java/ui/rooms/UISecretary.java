@@ -3,6 +3,9 @@ package ui.rooms;
 import com.googlecode.lanterna.gui2.TextBox;
 import console.game.*;
 import org.w3c.dom.Text;
+import ui.audio.SoundPlayer;
+import ui.audio.TypingEffect;
+import ui.controller.UIGameController;
 import ui.game.UICommands;
 import ui.game.UIRoom;
 import ui.game.UIRoomFactory;
@@ -34,7 +37,9 @@ public class UISecretary implements UIRoom {
             text.append("This is probably the most boring room.\nThere's just one big desk that belongs to the Head Teacher. ")
                     .append("\nThe desk is unusually clean. Just some sticky notes. Wait!\nThere's a big pinboard.\nWe could use some light here to check it out.");
         }
-
+        if (player.hasFlag("entered_electricity")) {
+            text.append("Maybe we'll find something interesting here...");
+        }
         return text.toString();
     }
 
@@ -62,22 +67,15 @@ public class UISecretary implements UIRoom {
                 if (!player.hasFlag("full_map_taken")) {
                     player.setFlag("full_map_taken");
                     player.getInventory().addItem("Schools half map 2");
-<<<<<<< Updated upstream
-                    result.append("Wait what's that? The full card! You take it. New rooms unlocked!");
-=======
                     result.append("Wait what's that? The full card! You take it. New rooms unlocked!\n");
                     SoundPlayer.playSound("/sounds/TakeItem.wav", 1000, 0, outputArea, UIGameController.getGuiInstance(), false);
->>>>>>> Stashed changes
-                }
-                if (player.hasFlag("entered_electricity")) {
+                } else if (player.hasFlag("entered_electricity")) {
                     player.setFlag("police_number_taken");
                     player.getInventory().addItem("Polices number");
-<<<<<<< Updated upstream
-                    result.append("Wait, there's more! You take the Note with the Police's Number on it from the pinboard.");
-=======
-                    result.append("Wait, there's more! You take the Note with the Police's Number\non it from the pinboard.");
+                    result.append("Here we are again, seems to be nothing new. But wait, there's more!\nYou take the Note with the Police's\nNumber on it from the pinboard.");
                     SoundPlayer.playSound("/sounds/TakeItem.wav", 1000, 0, outputArea, UIGameController.getGuiInstance(), false);
->>>>>>> Stashed changes
+                } else {
+                    result.append("You already examined the pinboard, time to leave.");
                 }
                 break;
 
@@ -89,7 +87,7 @@ public class UISecretary implements UIRoom {
                 result.append("Invalid action.");
                 break;
         }
-        outputArea.setText(outputArea.getText() + "\n\n" + result);
+        TypingEffect.typeWithSound(outputArea, result.toString(), UIGameController.getGuiInstance(), null);
         return result.toString();
     }
 

@@ -3,12 +3,14 @@ package ui.rooms;
 
 import com.googlecode.lanterna.gui2.MultiWindowTextGUI;
 import com.googlecode.lanterna.gui2.TextBox;
+import ui.audio.SoundPlayer;
 import ui.controller.UIGameController;
 import console.game.*;
 import ui.game.UICommands;
 import ui.game.UIEndings;
 import ui.game.UIRoom;
 import ui.game.UIRoomFactory;
+import ui.audio.TypingEffect;
 
 import java.util.*;
 
@@ -113,7 +115,7 @@ public class UITeacherRoom implements UIRoom {
                 if (player.hasFlag("saw_teacher_leave") && !player.hasFlag("has_followed_teacher")) {
                     player.setFlag("has_followed_teacher");
                     handleRoomChange(player, "garage");
-                    result.append("You quietly follow her through the dim hallway, into the Garage.");
+                    return "";
                 } else {
                     result.append("There's no one to follow.");
                 }
@@ -133,23 +135,21 @@ public class UITeacherRoom implements UIRoom {
             case "coffee":
                 if (!player.hasFlag("coffee_taken")) {
                     player.setFlag("coffee_taken");
-<<<<<<< Updated upstream
-                    result.append("You take a sip... and accidentally spill it all over the laptop. It's fried. Whatever was on it is lost.");
-=======
                     SoundPlayer.playSound("/sounds/DrinkCoffee.wav", 1000, 0, outputArea, UIGameController.getGuiInstance(), false);
-                    result.append("You take a sip... and accidentally spill it all over the laptop.\nIt's fried. Whatever was on it is lost.");
->>>>>>> Stashed changes
-                }
+                    result.append("You take a sip... and accidentally spill it all\nover the laptop. It's fried. Whatever was on it is lost.\n");
+                } else {
                 result.append("The cup is empty.");
+                }
                 break;
 
             case "use laptop":
             case "laptop":
                 if (player.hasFlag("coffee_taken")) {
-                    result.append("\nThe laptop is short-circuited. Nothing works anymore.");
+                    result.append("The laptop is short-circuited. Nothing works anymore.");
                 } else if (!player.hasFlag("read_email")) {
                     player.setFlag("read_email");
-                    result.append("\nYou open the laptop. A strange draft email catches your eye:\n\n");
+                    SoundPlayer.playSound("/sounds/ReceiveEmail.wav", 4000, 0, outputArea, UIGameController.getGuiInstance(), false);
+                    result.append("You open the laptop. A strange draft email catches your eye:\n\n");
                     result.append("\"To: ???@district.edu\n");
                     result.append("Subject: MindScale Test Distribution\n");
                     result.append("Message: 'Make sure Room 302 is ventilated this time. The last trial was... messy. \n");
@@ -158,7 +158,7 @@ public class UITeacherRoom implements UIRoom {
                     result.append("You unlocked a new Room: the Printer Room.");
 
                 } else {
-                    result.append("\nThere’s nothing new on the laptop.");
+                    result.append("There’s nothing new on the laptop.");
                 }
                 break;
 
@@ -168,12 +168,8 @@ public class UITeacherRoom implements UIRoom {
                 if (!player.hasFlag("found_trash_id")) {
                     player.setFlag("found_trash_id");
                     player.getInventory().addItem("Student ID");
-<<<<<<< Updated upstream
-                    result.append("You rummage through the bin and find a half-burned Student ID card. The name on it is barely readable: ")
-=======
                     SoundPlayer.playSound("/sounds/TakeItem.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
                     result.append("You rummage through the bin and find a half-burned Student ID card.\nThe name on it is barely readable: ")
->>>>>>> Stashed changes
                             .append("\nKlara Price. It's starting to get weird now.\nNew room unlocked! This ID will help you enter the Secretary.");
                 }
                 result.append("You’ve already searched the trash.");
@@ -219,8 +215,7 @@ public class UITeacherRoom implements UIRoom {
                 result.append("Invalid action.");
                 break;
         }
-
-        outputArea.setText(outputArea.getText() + "\n\n" + result);
+        TypingEffect.typeWithSound(outputArea, result.toString(), UIGameController.getGuiInstance(), null);
         return result.toString();
     }
 
