@@ -64,10 +64,10 @@ public class UIGarage implements UIRoom {
             case "break into her car":
                 if (!player.hasFlag("keys_taken")) {
                     player.setFlag("keys_taken");
-                    SoundPlayer.playSound("/sounds/TakeItem.wav", 10000, 0, outputArea, UIGameController.getGuiInstance(), false);
+                    SoundPlayer.playSound("/sounds/TakeItem.wav", 13000, 0, outputArea, UIGameController.getGuiInstance(), false);
                     player.getInventory().addItem("keys (to what?)");
-                    result.append("\nYou need to know what she's hiding. Thank god she didn't suspect anyone to sneak around and left her car unlocked.\n")
-                            .append("Easy game for you to get inside and start searching quick. You don't find much, just some mints, money, a coke and.. keys!\n")
+                    result.append("\nYou need to know what she's hiding. Thank god she didn't suspect\nanyone to sneak around and left her car unlocked.\n")
+                            .append("Easy game for you to get inside and start searching quick.\n You don't find much, just some mints, money, a coke and.. keys!\n")
                             .append("But what are they for?");
                 } else {
                     result.append("\nYou already broke in to her car, time to leave!");

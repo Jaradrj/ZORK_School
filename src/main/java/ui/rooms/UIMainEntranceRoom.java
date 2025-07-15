@@ -62,11 +62,12 @@ public class UIMainEntranceRoom implements UIRoom {
                 SoundPlayer.playSound("/sounds/Lightswitch.wav", 0, 500, outputArea, UIGameController.getGuiInstance(), true);
                 if (!player.hasFlag("lights_tried")) {
                     player.setFlag("lights_tried");
-                    result.append("You flip the switch. Nothing happens. The power must be out.\nMaybe you need to restore it elsewhere.");
+                    String text = "You flip the switch. Nothing happens. The power must be out.\nMaybe you need to restore it elsewhere.";
+                    TypingEffect.typeWithSound(outputArea, text, UIGameController.getGuiInstance(), null);
                 } else {
-                    result.append("Still no power. The switch is unresponsive.");
+                    TypingEffect.typeWithSound(outputArea, "Still no power. The switch is unresponsive.", UIGameController.getGuiInstance(), null);
                 }
-                break;
+                return "";
             case "sit down at a table":
                 if (!player.hasFlag("hasReadNote")) {
                     player.setFlag("hasReadNote");
@@ -106,15 +107,16 @@ public class UIMainEntranceRoom implements UIRoom {
                     player.setFlag("half_map_taken");
                     player.getInventory().addItem("Schools half map");
 
-                    result.append("Among the generic school announcements, you find something useful:\n")
-                            .append("half of a torn school map.\n\n")
-                            .append("New rooms unlocked!\n")
-                            .append("(You can now go to: Music Room, Teacher Room, IT Room)");
-                    SoundPlayer.playSound("/sounds/TakeItem.wav", 3500, 0, outputArea, UIGameController.getGuiInstance(), false);
+                    String text = "Among the generic school announcements, you find something useful:\n" +
+                                  "half of a torn school map.\n\n" +
+                                  "New rooms unlocked!\n" +
+                                  "(You can now go to: Music Room, Teacher Room, IT Room)";
+                    TypingEffect.typeWithSound(outputArea, text, UIGameController.getGuiInstance(), null);
+                    SoundPlayer.playSound("/sounds/TakeItem.wav", 3000, 0, outputArea, UIGameController.getGuiInstance(), false);
                 } else {
-                    result.append("You already took the half map from the pinboard.");
+                    TypingEffect.typeWithSound(outputArea, "You already took the half map from the pinboard.", UIGameController.getGuiInstance(), null);
                 }
-                break;
+                return "";
             case "leave":
                 commands.checkInputCommands("-r", player, outputArea);
                 return "";

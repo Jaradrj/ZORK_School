@@ -4,6 +4,7 @@ import com.googlecode.lanterna.gui2.TextBox;
 import com.googlecode.lanterna.gui2.WindowBasedTextGUI;
 
 import javax.sound.sampled.*;
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -48,16 +49,31 @@ public class TypingEffect {
     }
 
     private static void playSound(String resourcePath) {
-        try (InputStream audioSrc = TypingEffect.class.getResourceAsStream(resourcePath);
-             InputStream bufferedIn = new java.io.BufferedInputStream(audioSrc)) {
-
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(bufferedIn);
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioStream);
-            clip.start();
-
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-            System.err.println("Error playing sound: " + e.getMessage());
-        }
+        new Thread(() -> {
+            try {
+                InputStream audioSrc = TypingEffect.class.getResourceAsStream(resourcePath);
+                if (audioSrc == null) {
+                    System.err.println("Sound not found: " + resourcePath);
+                    return;
+                }
+                BufferedInputStream bufferedIn = new BufferedInputStream(audioSrc);
+                AudioInputStream audioStream = AudioSystem.getAudioInputStream(bufferedIn);
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioStream);
+                clip.start();
+                clip.addLineListener(event -> {
+                    if (event.getType() == LineEvent.Type.STOP) {
+                        clip.close();
+                        try {
+                            audioStream.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            } catch (Exception e) {
+                System.err.println("Error playing sound: " + e.getMessage());
+            }
+        }).start();
     }
 }

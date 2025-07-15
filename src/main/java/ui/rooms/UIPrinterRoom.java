@@ -82,7 +82,7 @@ public class UIPrinterRoom implements UIRoom {
                 result.append("     c) Documented, then administered\n");
                 result.append("     d) Immediately neutralized\n");
                 result.append("\n");
-                result.append("    A subject shows signs of acute paranoia after exposure to Substance X. What is the next step according to protocol?\n");
+                result.append("    A subject shows signs of acute paranoia after exposure to Substance X.\nWhat is the next step according to protocol?\n");
                 result.append("     a) Terminate contact\n");
                 result.append("     b) Continue observation\n");
                 result.append("     c) Report to supervisor\n");
@@ -105,10 +105,10 @@ public class UIPrinterRoom implements UIRoom {
                 result.append("    I sometimes feel like I’m being watched.\n");
                 result.append("\n");
                 result.append("Note to Instructors (Do not remove this page):\n");
-                result.append("This version includes the revised M-Scale Index. Only to be administered in Room 302. Ensure proper ventilation – prior incidents must not be repeated.\n");
+                result.append("This version includes the revised M-Scale Index.\nOnly to be administered in Room 302.\nEnsure proper ventilation – prior incidents must not be repeated.\n");
                 result.append("\n");
                 result.append("    Scratched notes barely visible at the bottom:\n");
-                result.append("    “…Baseline behavior triggers activated after 14 minutes. No resistance. Synchronization confirmed.”\n");
+                result.append("    “…Baseline behavior triggers activated after 14 minutes.\nNo resistance. Synchronization confirmed.”\n");
                 result.append("\n");
                 result.append("\n");
                 result.append("This is not the chemistry I know. Room 302. Isn't that the Electricity Room?\n");

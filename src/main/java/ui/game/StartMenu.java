@@ -32,7 +32,7 @@ public class StartMenu {
 
     public void showStartMenu() {
         final BasicWindow window = new BasicWindow("Start Menu");
-        SoundPlayer.playSound("/sounds/Soundtrack.wav", 0, 0, null, UIGameController.getGuiInstance(), false);
+        SoundPlayer.playSound("/sounds/Soundtrack.wav", 0, 0, null, gui, false);
         Panel panel = new Panel();
         panel.setLayoutManager(new LinearLayout(Direction.VERTICAL));
 

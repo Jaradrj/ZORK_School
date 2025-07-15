@@ -56,18 +56,14 @@ public class UISportshall implements UIRoom {
         String lowerAction = action.toLowerCase().trim();
         StringBuilder result = new StringBuilder();
         switch (lowerAction) {
-            case "1":
-            case "move":
-            case "use":
             case "move bench":
             case "use bench":
+            case "move":
+            case "use":
+            case "1":
                 player.setFlag("entered_electricity");
                 if (!player.hasFlag("was_electricity")) {
                     SoundPlayer.playSound("/sounds/MoveBench.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
-                    result.append("You move the bench. Luckily, it's not that far away from the shaft. ")
-                            .append("By using your skill, you manage to climb into the shaft.\n")
-                            .append("While crawling through, you notice the smell getting worse and worse, to the point you almost have to throw up.\n")
-                            .append("You start to hear a buzzing sound. That's the moment you realize, you made it to the Electricity Room. ");
                 }
                 return handleRoomChange(player, "electricity room");
             case "leave":
@@ -84,13 +80,14 @@ public class UISportshall implements UIRoom {
         return result.toString();
     }
 
+    @Override
     public String handleRoomChange(Player player, String roomName) {
         Map<String, Exit> exits = getAvailableExits(player);
         String roomKey = roomName.toLowerCase();
         if (exits.containsKey(roomKey)) {
             UIRoom targetRoom = UIRoomFactory.createRoom(roomName);
             player.setCurrentUIRoom(targetRoom);
-            return "You enter the " + roomName + ".";
+            return targetRoom.enter(player);
         } else {
             return "There is no room called '" + roomName + "' here.";
         }

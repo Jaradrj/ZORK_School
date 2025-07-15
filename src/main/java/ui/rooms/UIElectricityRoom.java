@@ -218,10 +218,11 @@ public class UIElectricityRoom implements UIRoom {
     @Override
     public String handleRoomChange(Player player, String roomName) {
         Map<String, Exit> exits = getAvailableExits(player);
-        if (exits.containsKey(roomName)) {
+        String roomKey = roomName.toLowerCase();
+        if (exits.containsKey(roomKey)) {
             UIRoom targetRoom = UIRoomFactory.createRoom(roomName);
             player.setCurrentUIRoom(targetRoom);
-            return "You enter the " + roomName + ".";
+            return targetRoom.enter(player);
         } else {
             return "There is no room called '" + roomName + "' here.";
         }

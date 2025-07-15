@@ -8,6 +8,7 @@ import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.MouseCaptureMode;
 import lombok.Getter;
+import lombok.Setter;
 import ui.game.*;
 import console.game.*;
 import ui.audio.TypingEffect;
@@ -108,6 +109,13 @@ public class UIGameController {
         }
 
         actionPanel.removeAllComponents();
+        
+        Button inventoryButton = new Button("Inventory", () -> {
+            ShowInventory inventoryView = new ShowInventory(guiInstance, player.getInventory());
+            inventoryView.showInventory();
+            refreshActionButtons();
+        });
+        actionPanel.addComponent(inventoryButton);
 
         if (isChoosingRoom) {
 

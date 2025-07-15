@@ -34,7 +34,7 @@ public class UIChemistryRoom implements UIRoom {
 
             text.append("Science has never been your favorite subject.\nBut it most definitely is Klara's.\n")
                     .append("The brewing station in the back of the\nroom still has some chemicals opened.\nWhat is Scopolamine? I heard of that before...\n")
-                    .append("While trying to remember, your flashlight suddenly starts flickering.\n ")
+                    .append("While trying to remember, your flashlight suddenly starts flickering.\n")
                     .append("Maybe you should try to find a way into the Electricity Room?");
         }
         return text.toString();

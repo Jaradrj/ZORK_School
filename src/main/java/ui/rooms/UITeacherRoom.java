@@ -111,8 +111,8 @@ public class UITeacherRoom implements UIRoom {
             case "follow her":
                 if (player.hasFlag("saw_teacher_leave") && !player.hasFlag("has_followed_teacher")) {
                     player.setFlag("has_followed_teacher");
-                    handleRoomChange(player, "garage");
-                    result.append("You quietly follow her through the dim hallway, into the Garage.");
+                    String roomChangeMsg = handleRoomChange(player, "garage");
+                    return player.getCurrentUIRoom().enter(player);
                 } else {
                     result.append("There's no one to follow.");
                 }
@@ -133,7 +133,7 @@ public class UITeacherRoom implements UIRoom {
                 if (!player.hasFlag("coffee_taken")) {
                     player.setFlag("coffee_taken");
                     SoundPlayer.playSound("/sounds/DrinkCoffee.wav", 1000, 0, outputArea, UIGameController.getGuiInstance(), false);
-                    result.append("You take a sip... and accidentally spill it all over the laptop. It's fried. Whatever was on it is lost.");
+                    result.append("You take a sip... and accidentally spill it all\nover the laptop. It's fried. Whatever was on it is lost.");
                 }
                 result.append("The cup is empty.");
                 break;
@@ -144,11 +144,11 @@ public class UITeacherRoom implements UIRoom {
                     result.append("\nThe laptop is short-circuited. Nothing works anymore.");
                 } else if (!player.hasFlag("read_email")) {
                     player.setFlag("read_email");
-                    SoundPlayer.playSound("/sounds/ReceiveEmail.wav", 3000, 0, outputArea, UIGameController.getGuiInstance(), false);
+                    SoundPlayer.playSound("/sounds/ReceiveEmail.wav", 4000, 0, outputArea, UIGameController.getGuiInstance(), false);
                     result.append("\nYou open the laptop. A strange draft email catches your eye:\n\n");
                     result.append("\"To: ???@district.edu\n");
                     result.append("Subject: MindScale Test Distribution\n");
-                    result.append("Message: 'Make sure Room 302 is ventilated this time. The last trial was... messy. \n");
+                    result.append("Message: 'Make sure Room 302 is ventilated this time.\nThe last trial was... messy. \n");
                     result.append("Also, please print out the test attached.'\"\n\n");
                     result.append("Disturbing...\n");
                     result.append("You unlocked a new Room: the Printer Room.");
@@ -166,7 +166,7 @@ public class UITeacherRoom implements UIRoom {
                     SoundPlayer.playSound("/sounds/SearchTrashBin.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
                     player.getInventory().addItem("Student ID");
                     SoundPlayer.playSound("/sounds/TakeItem.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
-                    result.append("You rummage through the bin and find a half-burned Student ID card. The name on it is barely readable: ")
+                    result.append("You rummage through the bin and find a half-burned Student ID card.\nThe name on it is barely readable: ")
                             .append("\nKlara Price. It's starting to get weird now.\nNew room unlocked! This ID will help you enter the Secretary.");
                 } else {
                     result.append("You’ve already searched the trash.");
@@ -201,7 +201,7 @@ public class UITeacherRoom implements UIRoom {
                 player.clearFlag("await_choice_talk");
                 player.setLastUIRoom(this);
                 player.setFlag("saw_teacher_leave");
-                result.append("You choose to take a look around the room, as you slowly notice that the teacher stands up and starts to slowly walk away. ")
+                result.append("You choose to take a look around the room, as you slowly\nnotice that the teacher stands up and starts to slowly walk away. ")
                         .append("\nShould you follow her?");
                 SoundPlayer.playSound("/sounds/Footsteps.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
                 break;

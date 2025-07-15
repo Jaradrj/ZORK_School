@@ -31,7 +31,7 @@ public class UISecretary implements UIRoom {
 
         if (!player.hasFlag("was_secretary")) {
             player.setFlag("was_secretary");
-            text.append("This is probably the most boring room. There's just one big desk that belongs to the Head Teacher. ")
+            text.append("This is probably the most boring room.\nThere's just one big desk that belongs to the Head Teacher. ")
                     .append("\nThe desk is unusually clean. Just some sticky notes. Wait!\nThere's a big pinboard. We could use some light here to check it out.");
         }
 
@@ -68,9 +68,9 @@ public class UISecretary implements UIRoom {
                 if (player.hasFlag("entered_electricity")) {
                     player.setFlag("police_number_taken");
                     player.getInventory().addItem("Polices number");
-                    result.append("Wait, there's more! You take the Note with the Police's Number on it from the pinboard.");
+                    result.append("Wait, there's more! You take the Note with the Police's\nNumber on it from the pinboard.");
                 }
-                result.append("You examined the pinboard, time to leave.");
+                result.append("\nYou examined the pinboard, time to leave.");
                 break;
 
             case "leave":
