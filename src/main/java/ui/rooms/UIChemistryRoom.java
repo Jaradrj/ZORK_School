@@ -4,6 +4,7 @@ import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.gui2.dialogs.TextInputDialogBuilder;
 import console.game.*;
 import ui.audio.SoundPlayer;
+import ui.components.TextPrinter;
 import ui.controller.UIGameController;
 import ui.game.UICommands;
 import ui.game.UIRoom;
@@ -15,13 +16,16 @@ public class UIChemistryRoom implements UIRoom {
 
     private UICommands commands;
 
+    private TextPrinter printer;
+
     @Override
     public String getName() {
         return "chemistry room";
     }
 
-    public UIChemistryRoom(UICommands commands) {
+    public UIChemistryRoom(UICommands commands, TextPrinter printer) {
         this.commands = commands;
+        this.printer = printer;
     }
 
     @Override
@@ -72,40 +76,44 @@ public class UIChemistryRoom implements UIRoom {
         StringBuilder result = new StringBuilder();
 
         switch (lowerAction) {
-            case "1":
-            case "look":
             case "look at periodic table":
-                SoundPlayer.playSound("/sounds/ReadNote.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
                 player.setFlag("saw_periodic_table");
-                result.append("+----+----+----+----+----+----+----+----+----+----+----+----+----+\n" +
-                        "| H  | He                                                         |\n" +
-                        "+----+----+                                                    +--+\n" +
-                        "| Li | Be |                      | B  | C  | N  | O  | F  | Ne |  |\n" +
-                        "+----+----+                      +----+----+----+----+----+----+--+\n" +
-                        "| Na | Mg |                      | Al | Si | P  | S  | Cl | Ar |\n" +
-                        "+----+----+                      +----+----+----+----+----+----+\n" +
-                        "| K  | Ca | Sc | Ti | V  | Cr | Mn | Fe | Co | Ni | Cu | Zn |\n" +
-                        "+----+----+----+----+----+----+----+----+----+----+----+----+\n" +
-                        "| Br | I  | Hg | Pb | Sn | As | Sb | Cd | Ba | Sr | Ra | U  |\n" +
-                        "+----+----+----+----+----+----+----+----+----+----+----+----+\n");
-                break;
-            case "2":
-            case "look at formula papers":
+                String input = """                    
+                        +----+----+----+----+----+----+----+----+----+----+----+----+----+\n
+                        | H  | He                                                         |\n
+                        +----+----+                                                    +--+\n
+                        | Li | Be |                      | B  | C  | N  | O  | F  | Ne |  |\n
+                        +----+----+                      +----+----+----+----+----+----+--+\n
+                        | Na | Mg |                      | Al | Si | P  | S  | Cl | Ar |\n
+                        +----+----+                      +----+----+----+----+----+----+\n
+                        | K  | Ca | Sc | Ti | V  | Cr | Mn | Fe | Co | Ni | Cu | Zn |\n
+                        +----+----+----+----+----+----+----+----+----+----+----+----+\n
+                        | Br | I  | Hg | Pb | Sn | As | Sb | Cd | Ba | Sr | Ra | U  |\n
+                        +----+----+----+----+----+----+----+----+----+----+----+----+\n
+                        """;
+                printer.textPrinter(input, outputArea);
                 SoundPlayer.playSound("/sounds/ReadNote.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
+
+                break;
+            case "look at formula papers":
                 player.setFlag("saw_formula_papers");
-                result.append("╔════════════════════════════════════╗\n" +
-                        "║     ADVANCED CHEMISTRY FORMULAS   ║\n" +
-                        "╠════════════════════════════════════╣\n" +
-                        "║ Water               -> H2O         ║\n" +
-                        "║ Sulfuric Acid       -> H2SO4       ║\n" +
-                        "║ Hydrochloric Acid   -> HCl         ║\n" +
-                        "║ Nitric Acid         -> HNO3        ║\n" +
-                        "║ Scopolamine (alk.)  -> C17H21NO4   ║\n" +
-                        "╚════════════════════════════════════╝\n" +
-                        "*Note: Handle with caution.\n");
+                String text = """
+                        ╔════════════════════════════════════╗\n
+                        ║     ADVANCED CHEMISTRY FORMULAS    ║\n
+                        ╠════════════════════════════════════╣\n
+                        ║ Water               -> H2O         ║\n
+                        ║ Sulfuric Acid       -> H2SO4       ║\n
+                        ║ Hydrochloric Acid   -> HCl         ║\n
+                        ║ Nitric Acid         -> HNO3        ║\n
+                        ║ Scopolamine (alk.)  -> C17H21NO4   ║\n
+                        ╚════════════════════════════════════╝\n
+                        *Note: Handle with caution.\n
+                        """;
+
+                printer.textPrinter(text, outputArea);
+                SoundPlayer.playSound("/sounds/ReadNote.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
                 break;
 
-            case "3":
             case "brew acid":
                 if (player.hasFlag("acid_taken")) {
                     result.append("You’ve already brewed the acid. You can’t carry more.");
@@ -137,15 +145,9 @@ public class UIChemistryRoom implements UIRoom {
                 }
                 break;
             case "leave":
-                commands.checkInputCommands("-r", player, outputArea);
                 return "";
             default:
-                if (lowerAction.startsWith("go to ")) {
-                    String roomChangeResult = handleRoomChange(player, lowerAction.substring(6).trim());
-                    result.append(roomChangeResult);
-                } else {
-                    result.append("Invalid action.");
-                }
+                result.append("Invalid action.");
                 break;
         }
         outputArea.setText(outputArea.getText() + "\n\n" + result);

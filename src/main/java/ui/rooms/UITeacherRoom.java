@@ -107,7 +107,6 @@ public class UITeacherRoom implements UIRoom {
         StringBuilder result = new StringBuilder();
 
         switch (lowerAction) {
-            case "follow":
             case "follow her":
                 if (player.hasFlag("saw_teacher_leave") && !player.hasFlag("has_followed_teacher")) {
                     player.setFlag("has_followed_teacher");
@@ -129,7 +128,6 @@ public class UITeacherRoom implements UIRoom {
                 break;
 
             case "drink coffee":
-            case "coffee":
                 if (!player.hasFlag("coffee_taken")) {
                     player.setFlag("coffee_taken");
                     SoundPlayer.playSound("/sounds/DrinkCoffee.wav", 1000, 0, outputArea, UIGameController.getGuiInstance(), false);
@@ -139,7 +137,6 @@ public class UITeacherRoom implements UIRoom {
                 break;
 
             case "use laptop":
-            case "laptop":
                 if (player.hasFlag("coffee_taken")) {
                     result.append("\nThe laptop is short-circuited. Nothing works anymore.");
                 } else if (!player.hasFlag("read_email")) {
@@ -158,8 +155,6 @@ public class UITeacherRoom implements UIRoom {
                 }
                 break;
 
-            case "search trash":
-            case "trash":
             case "search trash bin":
                 if (!player.hasFlag("found_trash_id")) {
                     player.setFlag("found_trash_id");
@@ -174,7 +169,6 @@ public class UITeacherRoom implements UIRoom {
                 break;
 
             case "take flashlight":
-            case "flashlight":
                 if (!player.hasFlag("flashlight_taken")) {
                     player.setFlag("flashlight_taken");
                     player.getInventory().addItem("Flashlight");
@@ -185,9 +179,7 @@ public class UITeacherRoom implements UIRoom {
                 }
                 break;
 
-            case "y":
             case "yes":
-            case "talk to her":
                 if (player.hasFlag("await_choice_talk")) {
                     player.clearFlag("await_choice_talk");
                     ending.teacherEnding(outputArea);
@@ -196,7 +188,6 @@ public class UITeacherRoom implements UIRoom {
                 }
                 break;
 
-            case "n":
             case "no":
                 player.clearFlag("await_choice_talk");
                 player.setLastUIRoom(this);
@@ -208,7 +199,6 @@ public class UITeacherRoom implements UIRoom {
 
             case "leave":
                 player.setFlag("leaving");
-                commands.checkInputCommands("-r", player, outputArea);
                 return "";
 
             default:

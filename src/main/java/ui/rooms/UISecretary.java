@@ -56,8 +56,6 @@ public class UISecretary implements UIRoom {
         StringBuilder result = new StringBuilder();
 
         switch (lowerAction) {
-            case "1":
-            case "examine":
             case "examine the pinboard":
                 if (!player.hasFlag("full_map_taken")) {
                     player.setFlag("full_map_taken");
@@ -73,7 +71,6 @@ public class UISecretary implements UIRoom {
                 break;
 
             case "leave":
-                commands.checkInputCommands("-r", player, outputArea);
                 return "";
 
             default:
