@@ -172,7 +172,7 @@ public class UIITRoom implements UIRoom {
             case "call":
             case "call the police":
                 if (player.hasFlag("police_number_taken") && player.hasFlag("turned_on_wlan")) {
-                    UIEndings.happyEnding(player);
+                    UIEndings.happyEnding(player, outputArea);
                     result.append("You don't hesitate and grab the note with the\npolice's number out of your backpack. Calling now...");
                     SoundPlayer.playSound("/audio/HappyEnding.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
                 } else if (!player.hasFlag("turned_on_wlan")) {
