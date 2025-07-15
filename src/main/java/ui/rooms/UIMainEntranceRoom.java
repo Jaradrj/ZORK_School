@@ -3,6 +3,7 @@ package ui.rooms;
 import com.googlecode.lanterna.gui2.TextBox;
 import ui.audio.SoundPlayer;
 import ui.audio.TypingEffect;
+import ui.components.TextPrinter;
 import ui.controller.UIGameController;
 import ui.game.UICommands;
 import ui.game.UIRoom;
@@ -15,9 +16,11 @@ import java.util.*;
 public class UIMainEntranceRoom implements UIRoom {
 
     private final UICommands commands;
+    private TextPrinter printer;
 
-    public UIMainEntranceRoom(UICommands commands) {
+    public UIMainEntranceRoom(UICommands commands, TextPrinter printer) {
         this.commands = commands;
+        this.printer = printer;
     }
 
     @Override
@@ -69,6 +72,7 @@ public class UIMainEntranceRoom implements UIRoom {
                 }
                 return "";
             case "sit down at a table":
+                outputArea.invalidate();
                 if (!player.hasFlag("hasReadNote")) {
                     player.setFlag("hasReadNote");
                     String text = "You sit and notice a folded piece of paper under the table:\n\n" +
@@ -89,15 +93,9 @@ public class UIMainEntranceRoom implements UIRoom {
                                   "He questioned the disappearances, especially after his friend vanished.\n" +
                                   "One day, Klara—the class leader—told everyone he'd been expelled.\n" +
                                   "No one's heard from him since.";
-                    TypingEffect.typeWithSound(outputArea, text, UIGameController.getGuiInstance(), null);
-                    new Thread(() -> {
-                        try {
-                            Thread.sleep(2800);
-                            SoundPlayer.playSound("/sounds/ReadNote.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }).start();
+
+                    printer.textPrinter(text, outputArea);
+                    SoundPlayer.playSound("/sounds/ReadNote.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
                 } else {
                     TypingEffect.typeWithSound(outputArea, "You've already read the note. There's nothing else under the table.", UIGameController.getGuiInstance(), null);
                 }
