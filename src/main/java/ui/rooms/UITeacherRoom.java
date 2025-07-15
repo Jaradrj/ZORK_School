@@ -133,7 +133,12 @@ public class UITeacherRoom implements UIRoom {
             case "coffee":
                 if (!player.hasFlag("coffee_taken")) {
                     player.setFlag("coffee_taken");
+<<<<<<< Updated upstream
                     result.append("You take a sip... and accidentally spill it all over the laptop. It's fried. Whatever was on it is lost.");
+=======
+                    SoundPlayer.playSound("/sounds/DrinkCoffee.wav", 1000, 0, outputArea, UIGameController.getGuiInstance(), false);
+                    result.append("You take a sip... and accidentally spill it all over the laptop.\nIt's fried. Whatever was on it is lost.");
+>>>>>>> Stashed changes
                 }
                 result.append("The cup is empty.");
                 break;
@@ -163,7 +168,12 @@ public class UITeacherRoom implements UIRoom {
                 if (!player.hasFlag("found_trash_id")) {
                     player.setFlag("found_trash_id");
                     player.getInventory().addItem("Student ID");
+<<<<<<< Updated upstream
                     result.append("You rummage through the bin and find a half-burned Student ID card. The name on it is barely readable: ")
+=======
+                    SoundPlayer.playSound("/sounds/TakeItem.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
+                    result.append("You rummage through the bin and find a half-burned Student ID card.\nThe name on it is barely readable: ")
+>>>>>>> Stashed changes
                             .append("\nKlara Price. It's starting to get weird now.\nNew room unlocked! This ID will help you enter the Secretary.");
                 }
                 result.append("You’ve already searched the trash.");

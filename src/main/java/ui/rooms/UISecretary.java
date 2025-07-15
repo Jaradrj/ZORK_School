@@ -31,8 +31,8 @@ public class UISecretary implements UIRoom {
 
         if (!player.hasFlag("was_secretary")) {
             player.setFlag("was_secretary");
-            text.append("This is probably the most boring room. There's just one big desk that belongs to the Head Teacher. ")
-                    .append("\nThe desk is unusually clean. Just some sticky notes. Wait!\nThere's a big pinboard. We could use some light here to check it out.");
+            text.append("This is probably the most boring room.\nThere's just one big desk that belongs to the Head Teacher. ")
+                    .append("\nThe desk is unusually clean. Just some sticky notes. Wait!\nThere's a big pinboard.\nWe could use some light here to check it out.");
         }
 
         return text.toString();
@@ -59,18 +59,26 @@ public class UISecretary implements UIRoom {
             case "1":
             case "examine":
             case "examine the pinboard":
-                System.out.println("Still not much to see, but the flashlight will do its job.");
                 if (!player.hasFlag("full_map_taken")) {
                     player.setFlag("full_map_taken");
                     player.getInventory().addItem("Schools half map 2");
+<<<<<<< Updated upstream
                     result.append("Wait what's that? The full card! You take it. New rooms unlocked!");
+=======
+                    result.append("Wait what's that? The full card! You take it. New rooms unlocked!\n");
+                    SoundPlayer.playSound("/sounds/TakeItem.wav", 1000, 0, outputArea, UIGameController.getGuiInstance(), false);
+>>>>>>> Stashed changes
                 }
                 if (player.hasFlag("entered_electricity")) {
                     player.setFlag("police_number_taken");
                     player.getInventory().addItem("Polices number");
+<<<<<<< Updated upstream
                     result.append("Wait, there's more! You take the Note with the Police's Number on it from the pinboard.");
+=======
+                    result.append("Wait, there's more! You take the Note with the Police's Number\non it from the pinboard.");
+                    SoundPlayer.playSound("/sounds/TakeItem.wav", 1000, 0, outputArea, UIGameController.getGuiInstance(), false);
+>>>>>>> Stashed changes
                 }
-                result.append("You examined the pinboard, time to leave.");
                 break;
 
             case "leave":

@@ -92,6 +92,24 @@ public class UIGameController {
                 });
                 actionPanel.addComponent(b);
             }
+<<<<<<< Updated upstream
+=======
+
+            if (player.getLastUIRoom() != null &&
+                    player.getCurrentUIRoom().getName().equalsIgnoreCase("chemistry room")) {
+
+                Button electricityButton = new Button("Electricity Room", () -> {
+                    String msg = "You try to corrode the door.\nYou can hear the sizzling sound of the\nsulfuric acid oxidizing with the door.\n" +
+                            "\nNevertheless, you still don't manage to open it.\nSad and defeated, you return to the chemistry room\nto try and cry.";
+                    outputArea.setText(outputArea.getText() + "\n\n" + msg);
+                    TypingEffect.typeWithSound(outputArea, msg, gui, null);
+                    isChoosingRoom = false;
+                    refreshActionButtons();
+                });
+                actionPanel.addComponent(electricityButton);
+            }
+
+>>>>>>> Stashed changes
             Button returnButton = new Button("Return", () -> {
                 isChoosingRoom = false;
                 outputArea.setText(outputArea.getText() + "\n\nCanceled room selection.");
