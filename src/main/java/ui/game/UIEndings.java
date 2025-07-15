@@ -3,6 +3,7 @@ package ui.game;
 
 import com.googlecode.lanterna.gui2.*;
 import console.game.Player;
+import ui.audio.SoundPlayer;
 import ui.controller.UIGameController;
 
 import java.util.Scanner;
@@ -18,6 +19,7 @@ public class UIEndings {
 
     public static void happyEnding(Player player, TextBox outputArea) {
         StringBuilder text = new StringBuilder();
+        SoundPlayer.playSound("/sounds/HappyEnding.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
         text.append("Congratulations. You made it out. Alive.\n")
                 .append("You called the police. You exposed the hidden doors. You told them everything.\n")
                 .append("And for a while, it felt like justice would follow.\n")
@@ -131,7 +133,7 @@ public class UIEndings {
 
     public void badEnding(Player player, TextBox outputArea) {
         StringBuilder text = new StringBuilder();
-
+        SoundPlayer.playSound("/sounds/BadEnding.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
         text.append("There you are. You pull on the door, harder and harder, hoping it will move.\n")
                 .append("Not a jolt.\n")
                 .append("\n")
@@ -190,6 +192,7 @@ public class UIEndings {
 
     public void teacherEnding(TextBox outputArea) {
         StringBuilder text = new StringBuilder();
+        SoundPlayer.playSound("/sounds/TeacherEnding.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
         text.append("She turns slowly, her eyes glinting in the dim light.\n")
                 .append("'You found me... I didn’t think anyone would get this far.'\n")
                 .append("A pause. The room feels colder now.\n")

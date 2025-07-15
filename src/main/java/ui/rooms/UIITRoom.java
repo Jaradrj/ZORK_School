@@ -132,16 +132,12 @@ public class UIITRoom implements UIRoom {
                     outputArea.setText(logo);
                     String terminalText = """
                     [WARNING: USER PRESENCE DETECTED]
-                    [MESSAGE RECEIVED 00:03:66]
                     
                     > YOU SHOULDN’T BE HERE.
                     > THEY’RE LISTENING THROUGH THE WIRES.
                     
                     > █ █ █  ▄▄▄▄▄▄▄▄▄  █ █ █
-                    
-                    > She never left the music room.
-                      Why did you?
-                    
+                
                     [SYSTEM ERROR: MEMORY LEAK - RUNNING AUTOMATICALLY...]
                     Would you like to execute [RUN]? (Y/N)
                     """;
@@ -154,7 +150,6 @@ public class UIITRoom implements UIRoom {
                     SoundPlayer.playSound("/sounds/Computer.wav", 28500, 0, outputArea, UIGameController.getGuiInstance(), false);
                     outputArea.setText(outputArea.getText() + terminalText);
                     player.setFlag("awaiting_memory_run_confirm");
-                    result.append("Awaiting input: 'Y' to continue...");
                 } else {
                     result.append("You've already inspected the message.");
                 }

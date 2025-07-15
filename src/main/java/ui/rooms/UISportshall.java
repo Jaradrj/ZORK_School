@@ -62,10 +62,20 @@ public class UISportshall implements UIRoom {
             case "use":
             case "1":
                 player.setFlag("entered_electricity");
+                StringBuilder transitionText = new StringBuilder();
                 if (!player.hasFlag("was_electricity")) {
                     SoundPlayer.playSound("/sounds/MoveBench.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
+                    transitionText.append("You move the bench. Luckily, it's not that far away from the shaft. ")
+                            .append("By using your skill, you manage to climb into the shaft.\n")
+                            .append("While crawling through, you notice the smell getting worse\nand worse, to the point you almost have to throw up.\n")
+                            .append("You start to hear a buzzing sound. That's the moment you\nrealize, you made it to the Electricity Room.\n\n");
                 }
-                return handleRoomChange(player, "electricity room");
+                outputArea.setText(outputArea.getText() + "\n\n" + transitionText);
+                UIRoom targetRoom = UIRoomFactory.createRoom("electricity room");
+                player.setCurrentUIRoom(targetRoom);
+                String enterText = targetRoom.enter(player);
+                outputArea.setText(outputArea.getText() + "\n\n" + enterText);
+                return "";
             case "leave":
             case "2":
                 commands.checkInputCommands("-r", player, outputArea);

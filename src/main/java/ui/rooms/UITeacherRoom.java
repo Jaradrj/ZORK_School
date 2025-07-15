@@ -133,7 +133,7 @@ public class UITeacherRoom implements UIRoom {
                 if (!player.hasFlag("coffee_taken")) {
                     player.setFlag("coffee_taken");
                     SoundPlayer.playSound("/sounds/DrinkCoffee.wav", 1000, 0, outputArea, UIGameController.getGuiInstance(), false);
-                    result.append("You take a sip... and accidentally spill it all\nover the laptop. It's fried. Whatever was on it is lost.");
+                    result.append("You take a sip... and accidentally spill it all\nover the laptop. It's fried. Whatever was on it is lost.\n");
                 }
                 result.append("The cup is empty.");
                 break;

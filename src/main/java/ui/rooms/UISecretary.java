@@ -59,13 +59,12 @@ public class UISecretary implements UIRoom {
             case "1":
             case "examine":
             case "examine the pinboard":
-                System.out.println("Still not much to see, but the flashlight will do its job.");
                 if (!player.hasFlag("full_map_taken")) {
                     player.setFlag("full_map_taken");
                     player.getInventory().addItem("Schools half map 2");
                     result.append("Wait what's that? The full card! You take it. New rooms unlocked!");
                 }
-                if (player.hasFlag("entered_electricity")) {
+                if (player.hasFlag("entered_electricity") && !player.hasFlag("police_number_taken")) {
                     player.setFlag("police_number_taken");
                     player.getInventory().addItem("Polices number");
                     result.append("Wait, there's more! You take the Note with the Police's\nNumber on it from the pinboard.");
