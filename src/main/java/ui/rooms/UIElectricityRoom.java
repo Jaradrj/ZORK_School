@@ -86,17 +86,13 @@ public class UIElectricityRoom implements UIRoom {
         String lowerAction = action.toLowerCase().trim();
         StringBuilder result = new StringBuilder();
         switch (lowerAction) {
-            case "1":
             case "open the door":
                 if (player.hasFlag("keys_taken")) {
                     if (!player.hasFlag("door_opened")) {
                         player.setFlag("door_opened");
                         result.append("You successfully open the door to freedom. Maybe you could call the police?");
-                    }
-                    if (player.hasFlag("door_opened")){
-                        commands.checkInputCommands("-r", player, outputArea);
-                    }
-                    return "";
+                    } return "";
+
                 } else if(player.hasFlag("door_failed")){
                     ending.badEnding(player, outputArea);
                 }
@@ -106,7 +102,6 @@ public class UIElectricityRoom implements UIRoom {
                     break;
                 }
                 break;
-            case "2":
             case "enable radiator":
                 if (player.hasFlag("turned_on_power")) {
                     result.append("You already turned on the power");
@@ -129,7 +124,6 @@ public class UIElectricityRoom implements UIRoom {
                     player.setFlag("body_checked");
                 }
                 break;
-            case "3":
             case "inspect unknown object":
             case "inspect body":
                 if (!player.hasFlag("body_checked")) {
@@ -160,7 +154,6 @@ public class UIElectricityRoom implements UIRoom {
                 }
                 break;
 
-            case "get phone":
             case "take phone":
                 if (!player.hasFlag("phone_taken")) {
                     player.setFlag("phone_taken");
@@ -196,7 +189,6 @@ public class UIElectricityRoom implements UIRoom {
                 break;
             case "leave":
                 player.setFlag("leaving");
-                commands.checkInputCommands("-r", player, outputArea);
                 return "";
             default:
                 result.append("Invalid action.");

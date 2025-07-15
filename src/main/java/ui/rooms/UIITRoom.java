@@ -113,8 +113,8 @@ public class UIITRoom implements UIRoom {
                     result.append("There is nothing to cancel.");
                 }
                 break;
-            case "1":
-            case "inspect":
+            case "leave":
+                return "";
             case "inspect message":
                 if (!player.hasFlag("inspected_message")) {
                     player.setFlag("inspected_message");
@@ -159,8 +159,6 @@ public class UIITRoom implements UIRoom {
                     result.append("You've already inspected the message.");
                 }
                 break;
-            case "2":
-            case "turn":
             case "turn on wlan":
                 if (!player.hasFlag("turned_on_wlan")) {
                     player.setFlag("turned_on_wlan");
@@ -169,7 +167,6 @@ public class UIITRoom implements UIRoom {
                     result.append("The Wlan is already on.");
                 }
                 break;
-            case "call":
             case "call the police":
                 if (player.hasFlag("police_number_taken") && player.hasFlag("turned_on_wlan")) {
                     UIEndings.happyEnding(player, outputArea);
@@ -181,16 +178,8 @@ public class UIITRoom implements UIRoom {
                     result.append("What's the Police's number again? I think I saw a note in the Secretary.");
                 }
                 break;
-            case "leave":
-                commands.checkInputCommands("-r", player, outputArea);
-                return "";
             default:
-                if (lowerAction.startsWith("go to ")) {
-                    String roomChangeResult = handleRoomChange(player, lowerAction.substring(6).trim());
-                    result.append(roomChangeResult);
-                } else {
-                    result.append("Invalid action.");
-                }
+                result.append("Invalid action.");
                 break;
         }
         outputArea.setText(outputArea.getText() + "\n\n" + result.toString());

@@ -58,19 +58,13 @@ public class UISportshall implements UIRoom {
         switch (lowerAction) {
             case "move bench":
             case "use bench":
-            case "move":
-            case "use":
-            case "1":
                 player.setFlag("entered_electricity");
                 if (!player.hasFlag("was_electricity")) {
                     SoundPlayer.playSound("/sounds/MoveBench.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
                 }
                 return handleRoomChange(player, "electricity room");
             case "leave":
-            case "2":
-                commands.checkInputCommands("-r", player, outputArea);
                 return "";
-
             default:
                 result.append("Invalid action.");
                 break;
