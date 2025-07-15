@@ -3,7 +3,6 @@ package ui.rooms;
 import com.googlecode.lanterna.gui2.TextBox;
 import console.game.*;
 import ui.audio.SoundPlayer;
-import ui.controller.UIGameController;
 import ui.game.UICommands;
 import ui.game.UIRoom;
 import ui.game.UIRoomFactory;
@@ -56,25 +55,25 @@ public class UISportshall implements UIRoom {
         String lowerAction = action.toLowerCase().trim();
         StringBuilder result = new StringBuilder();
         switch (lowerAction) {
+            case "1":
+            case "move":
+            case "use":
             case "move bench":
             case "use bench":
                 player.setFlag("entered_electricity");
-                StringBuilder transitionText = new StringBuilder();
                 if (!player.hasFlag("was_electricity")) {
-                    SoundPlayer.playSound("/sounds/MoveBench.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
+                    SoundPlayer.playSound("/sounds/MovingBench.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
                     transitionText.append("You move the bench. Luckily, it's not that far away from the shaft. ")
                             .append("By using your skill, you manage to climb into the shaft.\n")
-                            .append("While crawling through, you notice the smell getting worse\nand worse, to the point you almost have to throw up.\n")
-                            .append("You start to hear a buzzing sound. That's the moment you\nrealize, you made it to the Electricity Room.\n\n");
+                            .append("While crawling through, you notice the smell getting worse and worse, to the point you almost have to throw up.\n")
+                            .append("You start to hear a buzzing sound. That's the moment you realize, you made it to the Electricity Room. ");
                 }
-                outputArea.setText(outputArea.getText() + "\n\n" + transitionText);
-                UIRoom targetRoom = UIRoomFactory.createRoom("electricity room");
-                player.setCurrentUIRoom(targetRoom);
-                String enterText = targetRoom.enter(player);
-                outputArea.setText(outputArea.getText() + "\n\n" + enterText);
-                return "";
+                return handleRoomChange(player, "electricity room");
             case "leave":
+            case "2":
+                commands.checkInputCommands("-r", player, outputArea);
                 return "";
+
             default:
                 result.append("Invalid action.");
                 break;
@@ -84,14 +83,13 @@ public class UISportshall implements UIRoom {
         return result.toString();
     }
 
-    @Override
     public String handleRoomChange(Player player, String roomName) {
         Map<String, Exit> exits = getAvailableExits(player);
         String roomKey = roomName.toLowerCase();
         if (exits.containsKey(roomKey)) {
             UIRoom targetRoom = UIRoomFactory.createRoom(roomName);
             player.setCurrentUIRoom(targetRoom);
-            return targetRoom.enter(player);
+            return "You enter the " + roomName + ".";
         } else {
             return "There is no room called '" + roomName + "' here.";
         }
