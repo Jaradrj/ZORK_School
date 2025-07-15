@@ -4,6 +4,7 @@ import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.gui2.dialogs.TextInputDialogBuilder;
 import console.game.*;
 import ui.audio.SoundPlayer;
+import ui.audio.TypingEffect;
 import ui.components.TextPrinter;
 import ui.controller.UIGameController;
 import ui.game.UICommands;
@@ -91,6 +92,7 @@ public class UIChemistryRoom implements UIRoom {
                         | Br | I  | Hg | Pb | Sn | As | Sb | Cd | Ba | Sr | Ra | U  |\n
                         +----+----+----+----+----+----+----+----+----+----+----+----+\n
                         """;
+                outputArea.setText("");
                 printer.textPrinter(input, outputArea);
                 SoundPlayer.playSound("/sounds/ReadNote.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
 
@@ -109,7 +111,7 @@ public class UIChemistryRoom implements UIRoom {
                         ╚════════════════════════════════════╝\n
                         *Note: Handle with caution.\n
                         """;
-
+                outputArea.setText("");
                 printer.textPrinter(text, outputArea);
                 SoundPlayer.playSound("/sounds/ReadNote.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
                 break;
@@ -150,7 +152,7 @@ public class UIChemistryRoom implements UIRoom {
                 result.append("Invalid action.");
                 break;
         }
-        outputArea.setText(outputArea.getText() + "\n\n" + result);
+        TypingEffect.typeWithSound(outputArea, result.toString(), UIGameController.getGuiInstance(), null);
         return result.toString();
     }
 
