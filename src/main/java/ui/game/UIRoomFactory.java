@@ -1,6 +1,7 @@
 package ui.game;
 
 import com.googlecode.lanterna.gui2.MultiWindowTextGUI;
+import ui.components.TextPrinter;
 import ui.controller.UIGameController;
 import ui.rooms.*;
 
@@ -9,12 +10,16 @@ public class UIRoomFactory {
     private static UIGameController controller;
     private static UICommands commands;
     private static MultiWindowTextGUI gui;
+    private static TextPrinter printer;
 
     public static void setController(UIGameController controller) {
         UIRoomFactory.controller = controller;
     }
     public static void setCommands(UICommands commands) {
         UIRoomFactory.commands = commands;
+    }
+    public static void setPrinter(TextPrinter printer) {
+        UIRoomFactory.printer = printer;
     }
 
     public static UIRoom createRoom(String name) {
@@ -23,7 +28,7 @@ public class UIRoomFactory {
             case "music room" -> new UIMusicRoom(commands);
             case "it room" -> new UIITRoom(commands);
             case "cafeteria" -> new UICafeteria(commands);
-            case "chemistry room" -> new UIChemistryRoom(commands);
+            case "chemistry room" -> new UIChemistryRoom(commands, printer);
             case "printer room" -> new UIPrinterRoom(commands);
             case "sportshall" -> new UISportshall(commands);
             case "secretary" -> new UISecretary(commands);
