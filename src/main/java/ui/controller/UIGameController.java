@@ -111,13 +111,6 @@ public class UIGameController {
 
         actionPanel.removeAllComponents();
 
-        Button inventoryButton = new Button("Inventory", () -> {
-            ShowInventory inventoryView = new ShowInventory(guiInstance, player.getInventory());
-            inventoryView.showInventory();
-            refreshActionButtons();
-        });
-        actionPanel.addComponent(inventoryButton);
-
         if (isChoosingRoom) {
 
             Map<String, Exit> exits = currentRoom.getAvailableExits(player);
@@ -190,6 +183,12 @@ public class UIGameController {
                 actionPanel.addComponent(b);
             }
         }
+        Button inventoryButton = new Button("Inventory", () -> {
+            ShowInventory inventoryView = new ShowInventory(guiInstance, player.getInventory());
+            inventoryView.showInventory();
+            refreshActionButtons();
+        });
+        actionPanel.addComponent(inventoryButton);
 
         window.invalidate();
     }
