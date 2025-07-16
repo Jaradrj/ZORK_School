@@ -214,19 +214,34 @@ public class UIGameController {
         showingEndingPrompt = true;
         actionPanel.removeAllComponents();
 
-        String ending = "Do you want to ty again?";
+        String ending = "Do you want to try again?";
         TypingEffect.typeWithSound(outputArea, ending, getGuiInstance(), null);
 
         actionPanel.addComponent(new Button("Yes", () -> {
             player.clearFlags();
             player.setFlag("second_try");
             showingEndingPrompt = false;
-            refreshActionButtons();
+
+            screen.clear();
+            guiInstance.removeWindow(window);
+            window.close();
+            try {
+                screen.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             UIMain.startGame();
+
         }));
 
         actionPanel.addComponent(new Button("No", () -> {
-            System.exit(0);
+            try {
+                screen.stopScreen();
+                System.exit(0);
+            } catch (IOException e) {
+                System.err.println("Error exiting game: " + e.getMessage());
+                System.exit(1);
+            }
         }));
 
         window.invalidate();

@@ -38,7 +38,7 @@ public class UIElectricityRoom implements UIRoom {
 
     @Override
     public String enter(Player player) {
-        String input;
+        String input = "";
 
         if (!player.hasFlag("was_electricity")) {
             player.setFlag("was_electricity");
