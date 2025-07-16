@@ -34,6 +34,10 @@ public class UIGameController {
     private Panel actionPanel;
     private boolean showingEndingPrompt = false;
 
+    @Getter
+    @Setter
+    private static UIGameController current;
+
     @Setter
     @Getter
     private static MultiWindowTextGUI guiInstance;
@@ -41,6 +45,7 @@ public class UIGameController {
     public UIGameController(UICommands commands, Player player) throws IOException {
         this.command = commands;
         this.player = player;
+        current = this;
         UIRoomFactory.setController(this);
 
         DefaultTerminalFactory factory = new DefaultTerminalFactory()
@@ -85,11 +90,21 @@ public class UIGameController {
         updateUI();
     }
 
+
+    public void disableActionPanel() {
+        actionPanel.setVisible(false);
+        window.invalidate();
+    }
+
+    public void enableActionPanel() {
+        actionPanel.setVisible(true);
+        refreshActionButtons();
+    }
+
     private void updateUI() {
         outputArea.setText("");
         String enterText = currentRoom.enter(player);
         TypingEffect.typeWithSound(outputArea, enterText, guiInstance, "/sounds/Terminal.wav");
-        refreshActionButtons();
     }
 
     private void refreshActionButtons() {
@@ -115,8 +130,9 @@ public class UIGameController {
         Button inventoryButton = new Button("Inventory", () -> {
             ShowInventory inventoryView = new ShowInventory(guiInstance, player.getInventory());
             inventoryView.showInventory();
-            refreshActionButtons();
+
         });
+
         actionPanel.addComponent(inventoryButton);
 
         if (isChoosingRoom) {
@@ -156,6 +172,7 @@ public class UIGameController {
                     }
                     refreshActionButtons();
                 });
+
                 actionPanel.addComponent(electricityButton);
             }
 
