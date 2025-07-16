@@ -4,6 +4,7 @@ import com.googlecode.lanterna.gui2.MultiWindowTextGUI;
 import com.googlecode.lanterna.gui2.TextBox;
 import ui.audio.SoundPlayer;
 import ui.audio.TypingEffect;
+import ui.components.Logos;
 import ui.components.TextPrinter;
 import ui.controller.UIGameController;
 import console.game.*;
@@ -20,10 +21,12 @@ public class UIElectricityRoom implements UIRoom {
     private MultiWindowTextGUI gui;
     private UICommands commands;
     private TextPrinter printer;
+    private Logos logos;
 
-    public UIElectricityRoom(UIGameController controller, UICommands commands, MultiWindowTextGUI gui, TextPrinter printer) {
+    public UIElectricityRoom(UIGameController controller, UICommands commands, MultiWindowTextGUI gui, TextPrinter printer, Logos logos) {
         this.gui = gui;
-        this.ending = new UIEndings(controller, gui, printer);
+        this.logos = logos;
+        this.ending = new UIEndings(controller, gui, printer, logos);
         this.commands = commands;
         this.printer = printer;
     }

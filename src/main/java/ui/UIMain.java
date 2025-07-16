@@ -3,6 +3,7 @@ package ui;
 import console.game.Inventory;
 import console.game.Player;
 import console.game.RoomFactory;
+import ui.components.Logos;
 import ui.components.TextPrinter;
 import ui.controller.UIGameController;
 import console.game.Commands;
@@ -45,8 +46,10 @@ public class UIMain {
 
             UICommands commands = new UICommands(roomMap);
             TextPrinter printer = new TextPrinter();
+            Logos logos = new Logos(printer);
             UIRoomFactory.setCommands(commands);
             UIRoomFactory.setPrinter(printer);
+            UIRoomFactory.setLogos(logos);
 
             UIGameController controller = new UIGameController(commands, player);
             UIRoomFactory.setController(controller);
