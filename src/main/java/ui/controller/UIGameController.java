@@ -10,6 +10,7 @@ import com.googlecode.lanterna.terminal.MouseCaptureMode;
 import lombok.Getter;
 import lombok.Setter;
 import ui.UIMain;
+import ui.audio.SoundPlayer;
 import ui.game.*;
 import console.game.*;
 import ui.audio.TypingEffect;
@@ -222,27 +223,22 @@ public class UIGameController {
             player.setFlag("second_try");
             showingEndingPrompt = false;
 
-            screen.clear();
-            guiInstance.removeWindow(window);
-            window.close();
-            try {
-                screen.close();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            UIMain.startGame();
+            SoundPlayer.stopSound();
 
-        }));
-
-        actionPanel.addComponent(new Button("No", () -> {
             try {
+                guiInstance.removeWindow(window);
+                window.close();
                 screen.stopScreen();
-                System.exit(0);
+
+                UIMain.startGame();
+
             } catch (IOException e) {
-                System.err.println("Error exiting game: " + e.getMessage());
+                System.err.println("Restart error: " + e.getMessage());
                 System.exit(1);
             }
         }));
+
+        actionPanel.addComponent(new Button("No", () -> System.exit(0)));
 
         window.invalidate();
     }
