@@ -5,6 +5,7 @@ import com.googlecode.lanterna.gui2.*;
 import console.game.Player;
 import ui.audio.SoundPlayer;
 import ui.audio.TypingEffect;
+import ui.components.Logos;
 import ui.components.TextPrinter;
 import ui.controller.UIGameController;
 
@@ -12,30 +13,11 @@ public class UIEndings {
 
     private UIGameController controller;
     private MultiWindowTextGUI gui;
-    private TextPrinter printer;
-    private String banner = """
-              ██████╗  █████╗ ███╗   ███╗███████╗     ██████╗ ██╗   ██╗███████╗██████╗ 
-             ██╔════╝ ██╔══██╗████╗ ████║██╔════╝    ██╔═══██╗██║   ██║██╔════╝██╔══██╗
-             ██║  ███╗███████║██╔████╔██║█████╗      ██║   ██║██║   ██║█████╗  ██████╔╝
-             ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝      ██║   ██║██║   ██║██╔══╝  ██╔══██╗
-             ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗    ╚██████╔╝╚██████╔╝███████╗██║  ██║
-              ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝     ╚═════╝  ╚═════╝ ╚══════╝╚═╝  ╚═╝
-            """;
+    private static TextPrinter printer;
+    private static Logos logos;
 
-    private String trophy = """
-                          ___________
-                         '._==_==_=_.' 
-                         .-\\:      /-. 
-                        | (|:.     |) | 
-                         '-|:.     |-' 
-                           \\::.    / 
-                            '::. .' 
-                              ) ( 
-                            _.' '._ 
-                           `^^^^^^^^` 
-            """;
-
-    public UIEndings(UIGameController controller, MultiWindowTextGUI gui, TextPrinter printer) {
+    public UIEndings(UIGameController controller, MultiWindowTextGUI gui, TextPrinter printer, Logos logos) {
+        this.logos = logos;
         this.controller = controller;
         this.printer = printer;
         this.gui = gui;
@@ -140,13 +122,14 @@ public class UIEndings {
                 (or maybe just the next phase)
                 """;
 
-        TypingEffect.typeWithSound(outputArea, input, UIGameController.getGuiInstance(), null);
+        TypingEffect.typeWithBanner(outputArea, input, UIGameController.getGuiInstance(), null, false, () -> {
+            Logos.printBanner(Logos.trophy, outputArea);
+        });
 
     }
 
     public void badEnding(Player player, TextBox outputArea) {
 
-        printer.logoPrinter(banner, outputArea);
         SoundPlayer.playSound("/sounds/BadEnding.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
         String input =
                 "There you are. You pull on the door, harder and harder, hoping it will move.\n" +
@@ -189,7 +172,6 @@ public class UIEndings {
                         "You close your eyes, but the darkness is no different.\n" +
                         "\n" +
                         "\n" +
-                        banner +
                         "\n" +
                         "\n" +
                         "Do you want to give up, or try again?\n" +
@@ -197,7 +179,9 @@ public class UIEndings {
                         "You already know your answer.\n" +
                         "They already recorded it.\n";
 
-        TypingEffect.typeWithSound(outputArea, input, UIGameController.getGuiInstance(), null);
+        TypingEffect.typeWithBanner(outputArea, input, UIGameController.getGuiInstance(), null, false, () -> {
+            Logos.printBanner(Logos.banner, outputArea);
+        });
         controller.showEndingPrompt();
     }
 
@@ -225,7 +209,9 @@ public class UIEndings {
                 They already recorded it.
                 """;
 
-        TypingEffect.typeWithSound(outputArea, narrative + prompt, UIGameController.getGuiInstance(), null);
+        TypingEffect.typeWithBanner(outputArea, narrative + prompt, UIGameController.getGuiInstance(), null, false, () -> {
+            Logos.printBanner(Logos.banner, outputArea);
+        });
 
         controller.showEndingPrompt();
     }
