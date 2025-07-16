@@ -104,7 +104,7 @@ public class UIGameController {
         currentRoom = player.getCurrentUIRoom();
         window.setTitle(currentRoom.getName());
         String enterText = currentRoom.enter(player);
-        TypingEffect.typeWithSound(outputArea, enterText, guiInstance, "/sounds/Terminal.wav");
+        TypingEffect.typeWithSound(outputArea, enterText, getGuiInstance(), null);
     }
 
     private void refreshActionButtons() {
