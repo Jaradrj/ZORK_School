@@ -38,27 +38,41 @@ public class UIElectricityRoom implements UIRoom {
 
     @Override
     public String enter(Player player) {
-        StringBuilder text = new StringBuilder();
+        String input;
+
         if (!player.hasFlag("was_electricity")) {
             player.setFlag("was_electricity");
-            text.append("You look inside, but all you see is darkness.\n");
-            text.append("And so it's clear, the only way forward is to jump.\n");
-            text.append("You pause, thinking about everything that brought you here.\n");
-            text.append("The risks, the choices, the distance you've come. And all\nthat just to turn around and leave?\n");
-            text.append("No. Not after all of this. I mean it's just a jump right?\n");
-            text.append("You try and climb out of the shaft, barely getting into the\nright position to just let go and jump.\n");
-            text.append("Just a few seconds later, you feel the hard ground beneath\nyour feet. You tried to land upright, but your legs buckle\nand you drop to your knees with a sharp jolt of pain.\n");
-            text.append("They're sore. Nothing broken, but it hurts.\n");
-            text.append("You stand up and try to figure out, what you can do.\nAt the far end of the room, a green emergency exit light flickers.\nHoping to see something useful, you decide to walk toward it.\n");
-            text.append("You manage to take the first few steps, until suddenly,\nthe hard ground meets your knees once more.\n");
-            text.append("Out of frustration and the need for light you manage to\nget up and continue walking, ignoring whatever it was that you stumbled over.\n");
-            text.append("You keep walking, step after step, until you finally reach the light.\n");
-            text.append("You glance around, and through the dimness,you make out the\nshape of the reactor and next to it, the exit.\n");
-            text.append("While you keep observing your surroundings you notice that\nweird irony smell once again.\n");
-            text.append("You wonder and wonder what it is, but just can't figure it out.\nIt smells like mold and blood or just like death.\n");
-            text.append("Then you remember the weird thing you stumbled over earlier.");
+            input = """
+                    You look inside, but all you see is darkness.
+                    And so it's clear, the only way forward is to jump.
+                    You pause, thinking about everything that brought you here.
+                    The risks, the choices, the distance you've come. And all
+                    that just to turn around and leave?
+                    No. Not after all of this. I mean it's just a jump right?
+                    You try and climb out of the shaft, barely getting into the
+                    right position to just let go and jump.
+                    Just a few seconds later, you feel the hard ground beneath
+                    your feet. You tried to land upright, but your legs buckle
+                    and you drop to your knees with a sharp jolt of pain.
+                    They're sore. Nothing broken, but it hurts.
+                    You stand up and try to figure out, what you can do.
+                    At the far end of the room, a green emergency exit light flickers.
+                    Hoping to see something useful, you decide to walk toward it.
+                    You manage to take the first few steps, until suddenly,
+                    the hard ground meets your knees once more.
+                    Out of frustration and the need for light you manage to
+                    get up and continue walking, ignoring whatever it was that you stumbled over.
+                    You keep walking, step after step, until you finally reach the light.
+                    You glance around, and through the dimness, you make out the
+                    shape of the reactor and next to it, the exit.
+                    While you keep observing your surroundings you notice that
+                    weird irony smell once again.
+                    You wonder and wonder what it is, but just can't figure it out.
+                    It smells like mold and blood or just like death.
+                    Then you remember the weird thing you stumbled over earlier.
+                    """;
         }
-        return text.toString();
+        return input;
     }
 
     @Override

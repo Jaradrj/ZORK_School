@@ -204,6 +204,7 @@ public class UIGameController {
             inventoryView.showInventory();
             refreshActionButtons();
         });
+        inventoryButton.setTheme(customButtonTheme);
         actionPanel.addComponent(inventoryButton);
 
         window.invalidate();

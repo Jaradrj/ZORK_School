@@ -47,7 +47,7 @@ public class TypingEffect {
         }).start();
     }
 
-    public static void typeWithBanner(TextBox textBox, String text, WindowBasedTextGUI gui, String soundPath, boolean sound, Runnable onComplete) {
+    public static void typeWithBanner(TextBox textBox, String text, WindowBasedTextGUI gui, String soundPath, boolean sound, boolean first, Runnable onComplete) {
 
         int delayMillis;
 
@@ -64,32 +64,56 @@ public class TypingEffect {
         String finalSoundPath = soundPath;
 
         new Thread(() -> {
-            UIGameController.getCurrent().disableActionPanel();
+            try {
+                if (first && onComplete != null) {
+                    gui.getGUIThread().invokeAndWait(() -> {
+                        UIGameController.getCurrent().disableActionPanel();
+                        onComplete.run();
+                        try {
+                            gui.updateScreen();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                    Thread.sleep(2000);
+                } else {
+                    gui.getGUIThread().invokeAndWait(() -> {
+                        UIGameController.getCurrent().disableActionPanel();
+                    });
+                }
 
-            StringBuilder currentText = new StringBuilder();
-            for (int i = 0; i < text.length(); i++) {
-                char c = text.charAt(i);
-                currentText.append(c);
-                gui.getGUIThread().invokeLater(() -> textBox.setText(currentText.toString()));
-                if (sound) {
-                    if (i % 2 == 0 && (Character.isLetterOrDigit(c) || Character.isWhitespace(c))) {
+                StringBuilder currentText = new StringBuilder();
+                for (int i = 0; i < text.length(); i++) {
+                    char c = text.charAt(i);
+                    currentText.append(c);
+
+                    gui.getGUIThread().invokeAndWait(() -> {
+                        textBox.setText(currentText.toString());
+                        try {
+                            gui.updateScreen();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
+
+                    if (sound && i % 2 == 0 &&
+                            (Character.isLetterOrDigit(c) || Character.isWhitespace(c))) {
                         playSound(finalSoundPath);
                     }
-                }
 
-                try {
                     Thread.sleep(delayMillis);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
                 }
-            }
 
-            gui.getGUIThread().invokeLater(() -> {
-                if (onComplete != null) {
-                    onComplete.run();
+                if (!first && onComplete != null) {
+                    gui.getGUIThread().invokeAndWait(onComplete::run);
                 }
-                UIGameController.getCurrent().enableActionPanel();
-            });
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            } finally {
+                gui.getGUIThread().invokeLater(() -> {
+                    UIGameController.getCurrent().enableActionPanel();
+                });
+            }
         }).start();
     }
 

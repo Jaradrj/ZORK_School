@@ -122,7 +122,7 @@ public class UIEndings {
                 (or maybe just the next phase)
                 """;
 
-        TypingEffect.typeWithBanner(outputArea, input, UIGameController.getGuiInstance(), null, false, () -> {
+        TypingEffect.typeWithBanner(outputArea, input, UIGameController.getGuiInstance(), null, false, false,  () -> {
             Logos.printBanner(Logos.trophy, outputArea);
         });
 
@@ -179,7 +179,7 @@ public class UIEndings {
                         "You already know your answer.\n" +
                         "They already recorded it.\n";
 
-        TypingEffect.typeWithBanner(outputArea, input, UIGameController.getGuiInstance(), null, false, () -> {
+        TypingEffect.typeWithBanner(outputArea, input, UIGameController.getGuiInstance(), null, false, false, () -> {
             Logos.printBanner(Logos.banner, outputArea);
         });
         controller.showEndingPrompt();
@@ -209,7 +209,7 @@ public class UIEndings {
                 They already recorded it.
                 """;
 
-        TypingEffect.typeWithBanner(outputArea, narrative + prompt, UIGameController.getGuiInstance(), null, false, () -> {
+        TypingEffect.typeWithBanner(outputArea, narrative + prompt, UIGameController.getGuiInstance(), null, false, false,  () -> {
             Logos.printBanner(Logos.banner, outputArea);
         });
 

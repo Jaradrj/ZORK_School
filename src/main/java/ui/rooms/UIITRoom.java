@@ -2,12 +2,16 @@ package ui.rooms;
 
 import com.googlecode.lanterna.gui2.TextBox;
 import console.game.*;
+import ui.audio.TypingEffect;
+import ui.components.Logos;
 import ui.game.UICommands;
 import ui.game.UIEndings;
 import ui.game.UIRoom;
 import ui.controller.UIGameController;
 import ui.game.UIRoomFactory;
 import ui.audio.SoundPlayer;
+
+import java.lang.reflect.Type;
 import java.util.*;
 
 public class UIITRoom implements UIRoom {
@@ -119,17 +123,6 @@ public class UIITRoom implements UIRoom {
                 if (!player.hasFlag("inspected_message")) {
                     player.setFlag("inspected_message");
                     player.setFlag("ran_memory_leak");
-                    String logo = """
-                    [ACCESSING TERMINAL...]
-                    
-                       ███████╗██╗███╗   ██╗██████╗ ███████╗███╗   ███╗
-                       ██╔════╝██║████╗  ██║██╔══██╗██╔════╝████╗ ████║
-                       █████╗  ██║██╔██╗ ██║██║  ██║█████╗  ██╔████╔██║
-                       ██╔══╝  ██║██║╚██╗██║██║  ██║██╔══╝  ██║╚██╔╝██║
-                       ██║     ██║██║ ╚████║██████╔╝███████╗██║ ╚═╝ ██║
-                       ╚═╝     ╚═╝╚═╝  ╚═══╝╚═════╝ ╚══════╝╚═╝     ╚═╝
-                    """;
-                    outputArea.setText(logo);
                     String terminalText = """
                     [WARNING: USER PRESENCE DETECTED]
                     
@@ -141,14 +134,16 @@ public class UIITRoom implements UIRoom {
                     [SYSTEM ERROR: MEMORY LEAK - RUNNING AUTOMATICALLY...]
                     Would you like to execute [RUN]? (Y/N)
                     """;
-                    result.append(logo);
-                    result.append(terminalText);
-                    outputArea.setText(logo);
+
                     SoundPlayer.playSound("/sounds/Computer.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
                     SoundPlayer.playSound("/sounds/Computer.wav", 9500, 0, outputArea, UIGameController.getGuiInstance(), false);
                     SoundPlayer.playSound("/sounds/Computer.wav", 19000, 0, outputArea, UIGameController.getGuiInstance(), false);
                     SoundPlayer.playSound("/sounds/Computer.wav", 28500, 0, outputArea, UIGameController.getGuiInstance(), false);
-                    outputArea.setText(outputArea.getText() + terminalText);
+
+                    TypingEffect.typeWithBanner(outputArea, terminalText, UIGameController.getGuiInstance(), null, true,true, () -> {
+                        Logos.printBanner(Logos.itLogo, outputArea);
+                    });
+
                     player.setFlag("awaiting_memory_run_confirm");
                 } else {
                     result.append("You've already inspected the message.");

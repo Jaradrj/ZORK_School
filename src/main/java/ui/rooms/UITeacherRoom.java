@@ -148,7 +148,7 @@ public class UITeacherRoom implements UIRoom {
                 } else if (!player.hasFlag("read_email")) {
                     player.setFlag("read_email");
                     SoundPlayer.playSound("/sounds/ReceiveEmail.wav", 4000, 0, outputArea, UIGameController.getGuiInstance(), false);
-                    result.append("\nYou open the laptop. A strange draft email catches your eye:\n\n");
+                    result.append("You open the laptop. A strange draft email catches your eye:\n\n");
                     result.append("\"To: ???@district.edu\n");
                     result.append("Subject: MindScale Test Distribution\n");
                     result.append("Message: 'Make sure Room 302 is ventilated this time.\nThe last trial was... messy. \n");
