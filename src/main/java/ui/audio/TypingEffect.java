@@ -53,6 +53,8 @@ public class TypingEffect {
 
         if (sound) {
             delayMillis = 55;
+        } else if (soundPath.equalsIgnoreCase("TeacherEnding.wav")){
+            delayMillis = 65;
         } else {
             delayMillis = 100;
         }

@@ -9,6 +9,9 @@ import ui.components.Logos;
 import ui.components.TextPrinter;
 import ui.controller.UIGameController;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class UIEndings {
 
     private UIGameController controller;
@@ -24,7 +27,11 @@ public class UIEndings {
     }
 
     public static void happyEnding(Player player, TextBox outputArea) {
-        SoundPlayer.playSound("/sounds/HappyEnding.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
+        if (player.hasFlag("second_try")) {
+            SoundPlayer.playSound("/sounds/HappyEndingSecondTry.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
+        } else {
+            SoundPlayer.playSound("/sounds/HappyEnding.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
+        }
         String input = """
                 Congratulations. You made it out. Alive.
                 You called the police. You exposed the hidden doors. You told them everything.
@@ -126,11 +133,31 @@ public class UIEndings {
             Logos.printBanner(Logos.trophy, outputArea);
         });
 
+        Timer timer = new Timer();
+        int delay = 0;
+        if (player.hasFlag("second_try")) {
+            delay = 300000;
+        } else {
+            delay = 282000;
+        }
+        timer.schedule(new TimerTask() {
+            public UIGameController controller;
+
+            @Override
+            public void run() {
+                UIGameController.getGuiInstance().getGUIThread().invokeLater(() -> {
+                    controller.showEndingPrompt();
+                });
+            }
+        }, delay);
     }
 
     public void badEnding(Player player, TextBox outputArea) {
-
-        SoundPlayer.playSound("/sounds/BadEnding.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
+        if (!player.hasFlag("body_inspected")) {
+            SoundPlayer.playSound("/sounds/BadEnding.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
+        } else {
+            SoundPlayer.playSound("/sounds/BadEndingBodyInspected.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
+        }
         String input =
                 "There you are. You pull on the door, harder and harder, hoping it will move.\n" +
                         "Not a jolt.\n" +
@@ -182,38 +209,51 @@ public class UIEndings {
         TypingEffect.typeWithBanner(outputArea, input, UIGameController.getGuiInstance(), null, false, () -> {
             Logos.printBanner(Logos.banner, outputArea);
         });
-        controller.showEndingPrompt();
+
+        Timer timer = new Timer();
+        int delay = 0;
+        if (player.hasFlag("body_inspected")) {
+            delay = 98000;
+        } else {
+            delay = 90000;
+        }
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                UIGameController.getGuiInstance().getGUIThread().invokeLater(() -> {
+                    controller.showEndingPrompt();
+                });
+            }
+        }, delay);
     }
 
     public void teacherEnding(TextBox outputArea) {
         SoundPlayer.playSound("/sounds/TeacherEnding.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
+
         String narrative = """
-                She turns slowly, her eyes glinting in the dim light.
-                'You found me... I didn’t think anyone would get this far.'
-                A pause. The room feels colder now.
-                'This place — it was never meant for you. Or anyone. We tried to bury it, erase it.'
-                She looks past you, as if seeing something distant. Or remembering.
-                'I stayed to make sure no one would open the door again. But now it's too late.'
-                Her voice drops to a whisper. 'They’re already after us.'
-                The ground trembles. Lights flicker.
-                'I’m sorry.'
-                Everything fades.
-                
-                """;
+            She turns slowly, her eyes glinting in the dim light.
+            'You found me... I didn’t think anyone would get this far.'
+            A pause. The room feels colder now.
+            'This place — it was never meant for you. Or anyone. We tried to bury it, erase it.'
+            She looks past you, as if seeing something distant. Or remembering.
+            'I stayed to make sure no one would open the door again. But now it's too late.'
+            Her voice drops to a whisper. 'They’re already after us.'
+            The ground trembles. Lights flicker.
+            'I’m sorry.'
+            Everything fades.
+            """;
 
-
-        String prompt = """
-                Do you want to give up, or try again?
-                
-                You already know your answer.
-                They already recorded it.
-                """;
-
-        TypingEffect.typeWithBanner(outputArea, narrative + prompt, UIGameController.getGuiInstance(), null, false, () -> {
+        TypingEffect.typeWithBanner(outputArea, narrative, UIGameController.getGuiInstance(), "TeacherEnding.wav", false, () -> {
             Logos.printBanner(Logos.banner, outputArea);
         });
 
-        controller.showEndingPrompt();
-    }
-
-}
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                UIGameController.getGuiInstance().getGUIThread().invokeLater(() -> {
+                    controller.showEndingPrompt();
+                });
+            }
+        }, 42000);
+    }}

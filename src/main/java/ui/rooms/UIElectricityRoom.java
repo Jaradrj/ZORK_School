@@ -209,6 +209,7 @@ public class UIElectricityRoom implements UIRoom {
             case "read note":
                 if (!player.hasFlag("read_third_note")) {
                     player.setFlag("read_third_note");
+                    SoundPlayer.playSound("/sounds/Toby.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
                     String input = """
                             I was here before they introduced these... 'methods' were introduced. 
                             Back then it was about heaters. Today it's about children. 

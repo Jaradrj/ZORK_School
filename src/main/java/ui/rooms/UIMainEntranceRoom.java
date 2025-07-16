@@ -75,6 +75,7 @@ public class UIMainEntranceRoom implements UIRoom {
                 outputArea.invalidate();
                 if (!player.hasFlag("hasReadNote")) {
                     player.setFlag("hasReadNote");
+                    SoundPlayer.playSound("/sounds/Leandro.wav", 2000, 0, outputArea, UIGameController.getGuiInstance(), false);
                     String text = "You sit and notice a folded piece of paper under the table:\n\n" +
                                   "\"It doesn't start with the light.\n" +
                                   "It never starts with the light.\n\n" +

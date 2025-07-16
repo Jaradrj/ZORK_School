@@ -10,6 +10,7 @@ import com.googlecode.lanterna.terminal.MouseCaptureMode;
 import lombok.Getter;
 import lombok.Setter;
 import ui.UIMain;
+import ui.audio.SoundPlayer;
 import ui.game.*;
 import console.game.*;
 import ui.audio.TypingEffect;
@@ -212,8 +213,14 @@ public class UIGameController {
     public void showEndingPrompt() {
         showingEndingPrompt = true;
         actionPanel.removeAllComponents();
+        SoundPlayer.playSound("/sounds/TryAgain.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
 
-        String ending = "Do you want to ty again?";
+        String ending = """
+                Do you want to give up, or try again?
+                
+                You already know your answer.
+                They already recorded it.
+                """;
         TypingEffect.typeWithSound(outputArea, ending, getGuiInstance(), null);
 
         actionPanel.addComponent(new Button("Yes", () -> {
