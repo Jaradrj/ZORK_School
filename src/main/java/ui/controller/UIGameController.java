@@ -9,12 +9,10 @@ import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.MouseCaptureMode;
 import lombok.Getter;
 import lombok.Setter;
-import ui.audio.SoundPlayer;
 import ui.UIMain;
 import ui.game.*;
 import console.game.*;
 import ui.audio.TypingEffect;
-import lombok.Setter;
 
 import java.io.IOException;
 import java.util.Map;
@@ -65,13 +63,10 @@ public class UIGameController {
         this.guiInstance.setTheme(customTheme);
 
         UIRoom room = UIRoomFactory.createRoom("main entrance hall");
-        System.out.println("Created room: " + room + ", type: " + room.getClass());
-
 
         this.currentRoom = room;
         player.setCurrentUIRoom(currentRoom);
 
-        this.window = new BasicWindow("MindScale");
         this.mainPanel = new Panel(new LinearLayout(Direction.VERTICAL));
         this.outputArea = new TextBox(new TerminalSize(200, 30), TextBox.Style.MULTI_LINE)
                 .setReadOnly(true);
@@ -80,6 +75,8 @@ public class UIGameController {
         this.actionPanel = new Panel(new LinearLayout(Direction.VERTICAL));
         this.mainPanel.addComponent(actionPanel);
 
+        this.window = new BasicWindow();
+        this.window.setTitle(currentRoom.getName());
         this.window.setComponent(mainPanel);
 
         updateUI();
@@ -87,6 +84,8 @@ public class UIGameController {
 
     private void updateUI() {
         outputArea.setText("");
+        currentRoom = player.getCurrentUIRoom();
+        window.setTitle(currentRoom.getName());
         String enterText = currentRoom.enter(player);
         TypingEffect.typeWithSound(outputArea, enterText, guiInstance, "/sounds/Terminal.wav");
         refreshActionButtons();
@@ -127,6 +126,7 @@ public class UIGameController {
                     String result = currentRoom.handleRoomChange(player, roomName);
                     outputArea.setText(outputArea.getText() + "\n\n" + result);
                     currentRoom = player.getCurrentUIRoom();
+                    window.setTitle(currentRoom.getName());
                     String enterText = currentRoom.enter(player);
                     TypingEffect.typeWithSound(outputArea, enterText, guiInstance, "/sounds/Terminal.wav");
                     isChoosingRoom = false;
@@ -176,6 +176,7 @@ public class UIGameController {
                     }
                     if (player.getCurrentUIRoom() != currentRoom) {
                         currentRoom = player.getCurrentUIRoom();
+                        window.setTitle(currentRoom.getName());
                         String enterText = currentRoom.enter(player);
                         TypingEffect.typeWithSound(outputArea, enterText, guiInstance, "/sounds/Terminal.wav");
                     }
