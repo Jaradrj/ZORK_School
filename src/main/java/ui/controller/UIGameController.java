@@ -132,7 +132,7 @@ public class UIGameController {
             for (String roomName : exits.keySet()) {
                 Button b = new Button(roomName, () -> {
                     String result = currentRoom.handleRoomChange(player, roomName);
-                    outputArea.setText(outputArea.getText() + "\n\n" + result);
+                    outputArea.setText(outputArea.getText() + result);
                     currentRoom = player.getCurrentUIRoom();
                     window.setTitle(currentRoom.getName());
                     String enterText = currentRoom.enter(player);
@@ -181,7 +181,7 @@ public class UIGameController {
                 Button b = new Button(action, () -> {
                     String result = currentRoom.performAction(player, action.toLowerCase().trim(), outputArea);
                     if (!result.isEmpty()) {
-                        TypingEffect.typeWithSound(outputArea, "\n\n" + result, guiInstance, "/sounds/Terminal.wav");
+                        TypingEffect.typeWithSound(outputArea, result, guiInstance, "/sounds/Terminal.wav");
                     }
                     if (player.getCurrentUIRoom() != currentRoom) {
                         currentRoom = player.getCurrentUIRoom();
