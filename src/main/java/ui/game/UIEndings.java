@@ -33,6 +33,9 @@ public class UIEndings {
             SoundPlayer.playSound("/sounds/HappyEnding.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
         }
         String input = """
+                You don't hesitate and grab the note with the
+                police's number out of your backpack. Calling now...
+                
                 Congratulations. You made it out. Alive.
                 You called the police. You exposed the hidden doors. You told them everything.
                 And for a while, it felt like justice would follow.
@@ -128,7 +131,11 @@ public class UIEndings {
                 THE END.
                 (or maybe just the next phase)
                 """;
-
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         TypingEffect.typeWithBanner(outputArea, input, UIGameController.getGuiInstance(), null, false, false, () -> {
             Logos.printBanner(Logos.trophy, outputArea);
         });
