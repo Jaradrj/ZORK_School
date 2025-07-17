@@ -227,13 +227,23 @@ public class UIGameController {
             player.clearFlags();
             player.setFlag("second_try");
             showingEndingPrompt = false;
-            refreshActionButtons();
-            UIMain.startGame();
+
+            SoundPlayer.stopSound();
+
+            try {
+                guiInstance.removeWindow(window);
+                window.close();
+                screen.stopScreen();
+
+                UIMain.startGame();
+
+            } catch (IOException e) {
+                System.err.println("Restart error: " + e.getMessage());
+                System.exit(1);
+            }
         }));
 
-        actionPanel.addComponent(new Button("No", () -> {
-            System.exit(0);
-        }));
+        actionPanel.addComponent(new Button("No", () -> System.exit(0)));
 
         window.invalidate();
     }

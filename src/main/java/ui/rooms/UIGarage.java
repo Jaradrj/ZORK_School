@@ -39,7 +39,7 @@ public class UIGarage implements UIRoom {
                         .append("What does she have in that car?");
             }
         } else {
-            text.append("What is the name of the garage?");
+            text.append("You enter the garage");
         }
         return text.toString();
     }
@@ -47,7 +47,7 @@ public class UIGarage implements UIRoom {
     @Override
     public List<String> getAvailableActions(Player player) {
         List<String> actions = new ArrayList<>();
-        if (!player.hasFlag("keys_taken")) {
+        if (!player.hasFlag("keys_taken") && !player.hasFlag("was_garage")) {
             actions.add("Break into her car");
         }
         actions.add("Return to teacher room");
