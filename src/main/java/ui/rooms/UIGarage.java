@@ -47,7 +47,7 @@ public class UIGarage implements UIRoom {
     @Override
     public List<String> getAvailableActions(Player player) {
         List<String> actions = new ArrayList<>();
-        if (!player.hasFlag("keys_taken") && !player.hasFlag("was_garage")) {
+        if (!player.hasFlag("keys_taken")) {
             actions.add("Break into her car");
         }
         actions.add("Return to teacher room");

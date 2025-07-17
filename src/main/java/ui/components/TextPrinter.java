@@ -10,6 +10,8 @@ import java.io.IOException;
 public class TextPrinter {
 
     public void textPrinter(String input, TextBox outputArea) {
+
+        outputArea.setText("");
         outputArea.addLine("");
         for (String line : input.split("\n")) {
             outputArea.addLine(line);
@@ -20,26 +22,5 @@ public class TextPrinter {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public void logoPrinter(String input, TextBox outputArea) {
-
-        outputArea.addLine("");
-        for (String line : input.split("\n")) {
-            outputArea.addLine(line);
-        }
-    }
-
-    public void printBanner(TextBox outputArea) {
-        outputArea.addLine("""
-             \s
-              ██████╗  █████╗ ███╗   ███╗███████╗     ██████╗ ██╗   ██╗███████╗██████╗\s
-             ██╔════╝ ██╔══██╗████╗ ████║██╔════╝    ██╔═══██╗██║   ██║██╔════╝██╔══██╗
-             ██║  ███╗███████║██╔████╔██║█████╗      ██║   ██║██║   ██║█████╗  ██████╔╝
-             ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝      ██║   ██║██║   ██║██╔══╝  ██╔══██╗
-             ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗    ╚██████╔╝╚██████╔╝███████╗██║  ██║
-              ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝     ╚═════╝  ╚═════╝ ╚══════╝╚═╝  ╚═╝
-           \s
-           \s""");
     }
 }
