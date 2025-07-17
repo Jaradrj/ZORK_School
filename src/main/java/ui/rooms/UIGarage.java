@@ -22,23 +22,26 @@ public class UIGarage implements UIRoom {
 
     @Override
     public String enter(Player player) {
-        String input = "";
+        StringBuilder text = new StringBuilder();
         if (!player.hasFlag("was_garage")) {
             player.setFlag("was_garage");
 
             if (!player.hasFlag("keys_taken")) {
-                input += "While watching ";
+                text.append("While watching ");
                 if (player.hasFlag("knows_teacher_name")) {
-                    input += "Mrs. Hamps ";
+                    text.append("Mrs. Hamps ");
                 } else {
-                    input += "the woman ";
+                    text.append("the woman ");
                 }
-                input += "go to her car, you're hiding behind a big pillar.\n" + "Suddenly, she stops, tries to grab something from her pocket,\n" +
-                        "turns around and is now moving towards you. You manage to keep hidden. It seems that she forgot something.\n" +
-                        "What does she have in that car?";
+                text.append("go to her car, you're hiding behind a big pillar.\n")
+                        .append("Suddenly, she stops, tries to grab something from her pocket,\n")
+                        .append("turns around and is now moving towards you. You manage to keep hidden. It seems that she forgot something.\n")
+                        .append("What does she have in that car?");
             }
+        } else {
+            text.append("What is the name of the garage?");
         }
-        return input;
+        return text.toString();
     }
 
     @Override

@@ -181,8 +181,8 @@ public class UIEndings {
 
         TypingEffect.typeWithBanner(outputArea, input, UIGameController.getGuiInstance(), null, false, false, () -> {
             Logos.printBanner(Logos.banner, outputArea);
-            controller.showEndingPrompt();
         });
+        controller.showEndingPrompt();
     }
 
     public void teacherEnding(TextBox outputArea) {
@@ -211,9 +211,9 @@ public class UIEndings {
 
         TypingEffect.typeWithBanner(outputArea, narrative + prompt, UIGameController.getGuiInstance(), null, false, false,  () -> {
             Logos.printBanner(Logos.banner, outputArea);
-            controller.showEndingPrompt();
         });
 
+        controller.showEndingPrompt();
     }
 
 }
