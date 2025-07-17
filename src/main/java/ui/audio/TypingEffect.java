@@ -32,6 +32,7 @@ public class TypingEffect {
             for (int i = 0; i < text.length(); i++) {
                 if(isSkipped){
                     gui.getGUIThread().invokeLater(() -> textBox.setText(text));
+                    SoundPlayer.stopSound();
                     break;
                 }
                 char c = text.charAt(i);
