@@ -152,6 +152,7 @@ public class UIGameController {
 
                 Button electricityButton = new Button("Electricity Room", () -> {
                     player.setFlag("corrosed_door");
+                    SoundPlayer.playSound("/sounds/Sizzling.wav", 1000,0, outputArea, guiInstance, false);
                     String msg = "You try to corrode the door.\nYou can hear the sizzling sound of the\nsulfuric acid oxidizing with the door.\n" +
                             "\nNevertheless, you still don't manage to open it.\nSad and defeated, you return to the chemistry room\nto try and cry.";
                     outputArea.setText(outputArea.getText() + "\n\n" + msg);
@@ -210,42 +211,49 @@ public class UIGameController {
         window.invalidate();
     }
 
-    public void showEndingPrompt() {
+    public void showEndingPrompt(boolean happyEnding) {
         showingEndingPrompt = true;
         actionPanel.removeAllComponents();
-        SoundPlayer.playSound("/sounds/TryAgain.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
 
-        String ending = """
-                Do you want to give up, or try again?
-                
-                You already know your answer.
-                They already recorded it.
-                """;
-        TypingEffect.typeWithSound(outputArea, ending, getGuiInstance(), null);
+        if(happyEnding) {
+            actionPanel.addComponent(new Button("Exit", () -> System.exit(0)));
+        } else {
 
-        actionPanel.addComponent(new Button("Yes", () -> {
-            player.clearFlags();
-            player.setFlag("second_try");
-            showingEndingPrompt = false;
+            SoundPlayer.playSound("/sounds/TryAgain.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
 
-            SoundPlayer.stopSound();
+            String ending = """
+                    Do you want to give up, or try again?
+                    
+                    You already know your answer.
+                    They already recorded it.
+                    """;
+            TypingEffect.typeWithSound(outputArea, ending, getGuiInstance(), null);
 
-            try {
-                guiInstance.removeWindow(window);
-                window.close();
-                screen.stopScreen();
+            actionPanel.addComponent(new Button("Yes", () -> {
+                player.clearFlags();
+                player.setFlag("second_try");
+                showingEndingPrompt = false;
 
-                UIMain.startGame();
+                SoundPlayer.stopSound();
 
-            } catch (IOException e) {
-                System.err.println("Restart error: " + e.getMessage());
-                System.exit(1);
-            }
-        }));
+                try {
+                    guiInstance.removeWindow(window);
+                    window.close();
+                    screen.stopScreen();
 
-        actionPanel.addComponent(new Button("No", () -> System.exit(0)));
+                    UIMain.startGame();
 
-        window.invalidate();
+                } catch (IOException e) {
+                    System.err.println("Restart error: " + e.getMessage());
+                    System.exit(1);
+                }
+            }));
+
+            actionPanel.addComponent(new Button("No", () -> System.exit(0)));
+
+            window.invalidate();
+
+        }
     }
 
     public void run() {

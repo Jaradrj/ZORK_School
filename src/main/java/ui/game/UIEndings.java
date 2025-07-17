@@ -27,6 +27,9 @@ public class UIEndings {
     }
 
     public static void happyEnding(Player player, TextBox outputArea) {
+
+        UIGameController.getCurrent().disableActionPanel();
+
         if (player.hasFlag("second_try")) {
             SoundPlayer.playSound("/sounds/HappyEndingSecondTry.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
         } else {
@@ -153,7 +156,7 @@ public class UIEndings {
             @Override
             public void run() {
                 UIGameController.getGuiInstance().getGUIThread().invokeLater(() -> {
-                    controller.showEndingPrompt();
+                    controller.showEndingPrompt(true);
                 });
             }
         }, delay);
@@ -228,7 +231,7 @@ public class UIEndings {
             @Override
             public void run() {
                 UIGameController.getGuiInstance().getGUIThread().invokeLater(() -> {
-                    controller.showEndingPrompt();
+                    controller.showEndingPrompt(false);
                 });
             }
         }, delay);
@@ -259,7 +262,7 @@ public class UIEndings {
             @Override
             public void run() {
                 UIGameController.getGuiInstance().getGUIThread().invokeLater(() -> {
-                    controller.showEndingPrompt();
+                    controller.showEndingPrompt(false);
                 });
             }
         }, 42000);
