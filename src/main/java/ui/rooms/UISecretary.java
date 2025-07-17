@@ -65,8 +65,8 @@ public class UISecretary implements UIRoom {
                 if (!player.hasFlag("full_map_taken")) {
                     player.setFlag("full_map_taken");
                     player.getInventory().addItem("Schools half map 2");
-                    result.append("Still not much to see, but the flashlight will do its job.");
-                    result.append("Wait what's that? The full card! You take it. New rooms unlocked!");
+                    result.append("Still not much to see, but the flashlight will do its job.\n");
+                    result.append("Wait what's that? The full card!\nYou take it. New rooms unlocked!");
                     SoundPlayer.playSound("/sounds/TakeItem.wav", 1000, 0, outputArea, UIGameController.getGuiInstance(), false);
                 } else if (player.hasFlag("entered_electricity")) {
                     player.setFlag("police_number_taken");
@@ -95,7 +95,7 @@ public class UISecretary implements UIRoom {
         if (exits.containsKey(roomKey)) {
             UIRoom targetRoom = UIRoomFactory.createRoom(roomName);
             player.setCurrentUIRoom(targetRoom);
-            return "You enter the " + roomName + ".";
+            return "";
         } else {
             return "There is no room called '" + roomName + "' here.";
         }

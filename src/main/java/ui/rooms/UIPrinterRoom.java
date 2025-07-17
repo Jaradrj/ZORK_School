@@ -144,7 +144,7 @@ public class UIPrinterRoom implements UIRoom {
         if (exits.containsKey(roomKey)) {
             UIRoom targetRoom = UIRoomFactory.createRoom(roomName);
             player.setCurrentUIRoom(targetRoom);
-            return "You enter the " + roomName + ".";
+            return "";
         } else {
             return "There is no room called '" + roomName + "' here.";
         }

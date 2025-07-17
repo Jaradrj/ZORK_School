@@ -183,6 +183,8 @@ public class UIGameController {
                     String result = currentRoom.performAction(player, action.toLowerCase().trim(), outputArea);
                     if (!result.isEmpty()) {
                         TypingEffect.typeWithSound(outputArea, result, guiInstance, "/sounds/Terminal.wav");
+                    } else {
+                        outputArea.setText("");
                     }
                     if (player.getCurrentUIRoom() != currentRoom) {
                         currentRoom = player.getCurrentUIRoom();

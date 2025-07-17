@@ -91,11 +91,10 @@ public class UIMusicRoom implements UIRoom {
                         player.setFlag("listened_to_cassette");
                         result.append("Luckily, you have your flashlight. The batteries fit the same.\nAfter inserting your flashlight's batteries into the cassette,\nthe message continues:\n\n");
                         SoundPlayer.playSound("/sounds/StartCassette.wav", 12000, 500, outputArea, UIGameController.getGuiInstance(), false);
-                        SoundPlayer.playSound("/sounds/Clara.wav", 17000, 0, outputArea, UIGameController.getGuiInstance(), false);
-                                result.append("'I'm sorry. For the last three years I've tried everything\nto become the best, to help my family and myself.\n")
+                        SoundPlayer.playSound("/sounds/Clara.wav", 18000, 0, outputArea, UIGameController.getGuiInstance(), false);
+                        result.append("'I'm sorry. For the last three years I've tried everything\nto become the best, to help my family and myself.\n")
                                 .append("I had to keep my reputation up and now...\nThey are gone. I killed them.\n")
-                                .append("And I'll be next... If they ever offer you a drink,\ndon't drink it.\n")
-                                .append("It's called Scopolamine, makes you hallucinate, lose your memory.\n I'm so sorry.'\n\n")
+                                .append("And I'll be next... \n\n")
                                 .append("This voice reminds me of somebody, but I can't figure out who.\nSomeone from the band? I have to stop this!");
                     } else {
                         result.append("You don't have any batteries. Whatever this cassette wanted to tell you,\nthe truth will remain hidden.");
@@ -123,7 +122,7 @@ public String handleRoomChange(Player player, String roomName) {
     if (exits.containsKey(roomKey)) {
         UIRoom targetRoom = UIRoomFactory.createRoom(roomName);
         player.setCurrentUIRoom(targetRoom);
-        return "You enter the " + roomName + ".";
+        return "";
     } else {
         return "There is no room called '" + roomName + "' here.";
     }

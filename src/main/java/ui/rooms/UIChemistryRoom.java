@@ -129,8 +129,12 @@ public class UIChemistryRoom implements UIRoom {
                 result.append("Input chemical formula to brew sulfuric acid:");
 
                 break;
-
-
+            case "h2o":
+            case "hcl":
+            case "hno3":
+            case "c17h21no4":
+                result.append("You expect to hear a sizzling sound, but it doesn't happen. Wrong combination?");
+            break;
             case "h2so4":
                 if (player.hasFlag("awaiting_formula_check")) {
                     player.clearFlag("awaiting_formula_check");
@@ -139,7 +143,7 @@ public class UIChemistryRoom implements UIRoom {
                 if (action.equalsIgnoreCase("h2so4")) {
                     player.setFlag("acid_taken");
                     player.getInventory().addItem("Acid");
-                    SoundPlayer.playSound("/sounds/Brewing.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
+                    SoundPlayer.playSound("/sounds/Brewing.wav", 2000, 0, outputArea, UIGameController.getGuiInstance(), false);
                     result.append("You mix the chemicals carefully. The solution bubbles violently.\n")
                             .append("You now carry Sulfuric Acid.\nMaybe it can help melt the lock on the Electricity Room door.");
                 } else {

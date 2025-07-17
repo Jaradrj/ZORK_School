@@ -43,6 +43,10 @@ public class UIElectricityRoom implements UIRoom {
         if (!player.hasFlag("was_electricity")) {
             player.setFlag("was_electricity");
             input = """
+                    You move the bench. Luckily, it's not that far away from the shaft.
+                    By using your skill, you manage to climb into the shaft.
+                    While crawling through, you notice the smell getting worse and worse, to the point you almost have to throw up.
+                    You start to hear a buzzing sound. That's the moment you realize, you made it to the Electricity Room.
                     You look inside, but all you see is darkness.
                     And so it's clear, the only way forward is to jump.
                     You pause, thinking about everything that brought you here.

@@ -135,7 +135,7 @@ public class UIMainEntranceRoom implements UIRoom {
         if (exits.containsKey(roomKey)) {
             UIRoom targetRoom = UIRoomFactory.createRoom(roomName);
             player.setCurrentUIRoom(targetRoom);
-            return "You enter the " + roomName + ".";
+            return "";
         } else {
             return "There's no room called '" + roomName + "'.";
         }
