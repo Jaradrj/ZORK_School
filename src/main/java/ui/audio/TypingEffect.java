@@ -51,16 +51,16 @@ public class TypingEffect {
 
         int delayMillis;
 
+        if (soundPath == null || soundPath.isEmpty()) {
+            soundPath = "/sounds/Terminal.wav";
+        }
+
         if (sound) {
             delayMillis = 55;
         } else if (soundPath.equalsIgnoreCase("TeacherEnding.wav")){
             delayMillis = 65;
         } else {
             delayMillis = 100;
-        }
-
-        if (soundPath == null || soundPath.isEmpty()) {
-            soundPath = "/sounds/Terminal.wav";
         }
 
         String finalSoundPath = soundPath;

@@ -21,25 +21,4 @@ public class TextPrinter {
             throw new RuntimeException(e);
         }
     }
-
-    public void logoPrinter(String input, TextBox outputArea) {
-
-        outputArea.addLine("");
-        for (String line : input.split("\n")) {
-            outputArea.addLine(line);
-        }
-    }
-
-    public void printBanner(TextBox outputArea) {
-        outputArea.addLine("""
-             \s
-              ██████╗  █████╗ ███╗   ███╗███████╗     ██████╗ ██╗   ██╗███████╗██████╗\s
-             ██╔════╝ ██╔══██╗████╗ ████║██╔════╝    ██╔═══██╗██║   ██║██╔════╝██╔══██╗
-             ██║  ███╗███████║██╔████╔██║█████╗      ██║   ██║██║   ██║█████╗  ██████╔╝
-             ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝      ██║   ██║██║   ██║██╔══╝  ██╔══██╗
-             ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗    ╚██████╔╝╚██████╔╝███████╗██║  ██║
-              ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝     ╚═════╝  ╚═════╝ ╚══════╝╚═╝  ╚═╝
-           \s
-           \s""");
-    }
 }
