@@ -38,6 +38,8 @@ public class UIGarage implements UIRoom {
                         .append("turns around and is now moving towards you. You manage to keep hidden. It seems that she forgot something.\n")
                         .append("What does she have in that car?");
             }
+        } else {
+            text.append("What is the name of the garage?");
         }
         return text.toString();
     }

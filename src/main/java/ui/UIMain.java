@@ -15,6 +15,8 @@ import java.util.Map;
 
 public class UIMain {
 
+    public boolean restart;
+
     public static void main(String[] args) {
         startGame();
     }
