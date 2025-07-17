@@ -43,7 +43,7 @@ public class UIMainEntranceRoom implements UIRoom {
     }
 
     @Override
-    public List<String> getAvailableActions(Player player   ) {
+    public List<String> getAvailableActions(Player player) {
         List<String> actions = new ArrayList<>();
         if (!player.hasFlag("turned_on_power")) {
             actions.add("Turn on the Light");
@@ -73,33 +73,55 @@ public class UIMainEntranceRoom implements UIRoom {
                 return "";
             case "sit down at a table":
                 outputArea.invalidate();
+
                 if (!player.hasFlag("hasReadNote")) {
                     player.setFlag("hasReadNote");
-                    SoundPlayer.playSound("/sounds/Leandro.wav", 2000, 0, outputArea, UIGameController.getGuiInstance(), false);
-                    String text = "You sit and notice a folded piece of paper under the table:\n\n" +
-                                  "\"It doesn't start with the light.\n" +
-                                  "It never starts with the light.\n\n" +
-                                  "They say it's just an exercise.\n" +
-                                  "A test.\n" +
-                                  "A simulation.\n\n" +
-                                  "But why doesn't anyone talk about those who are no longer there?\n" +
-                                  "Why is the room always empty, but the feeling never?\n\n" +
-                                  "I've seen the door. The real one.\n" +
-                                  "Not the wooden one. The other one – the living one.\n\n" +
-                                  "If you're reading this:\n" +
-                                  "Go. Now.\n" +
-                                  "Or stay... and become like us\"\n\n" +
-                                  "~ Leano\n\n" +
-                                  "Leano B. was known for rebelling against the system.\n" +
-                                  "He questioned the disappearances, especially after his friend vanished.\n" +
-                                  "One day, Klara—the class leader—told everyone he'd been expelled.\n" +
-                                  "No one's heard from him since.";
 
-                    printer.textPrinter(text, outputArea);
+                    SoundPlayer.playSound("/sounds/Leandro.wav", 2000, 0, outputArea, UIGameController.getGuiInstance(), false);
+
+                    String note = """
+                            You sit and notice a folded piece of paper under the table:
+                            
+                            "It doesn't start with the light.
+                            It never starts with the light.
+                            
+                            They say it's just an exercise.
+                            A test.
+                            A simulation.
+                            
+                            But why doesn't anyone talk about those who are no longer there?
+                            Why is the room always empty, but the feeling never?
+                            
+                            I've seen the door. The real one.
+                            Not the wooden one. The other one – the living one.
+                            
+                            If you're reading this:
+                            Go. Now.
+                            Or stay... and become like us"
+                            """;
+
+                    printer.textPrinter(note, outputArea);
                     SoundPlayer.playSound("/sounds/ReadNote.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
+
+                    new Timer().schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            String leandroInfo = """
+                                    
+                                    Leandro B. was known for rebelling against the system.
+                                    He questioned the disappearances, especially after his friend vanished.
+                                    One day, Klara—the class leader—told everyone he'd been expelled.
+                                    No one's heard from him since.
+                                    """;
+
+                            TypingEffect.typeWithSound(outputArea, leandroInfo, UIGameController.getGuiInstance(), null);
+                        }
+                    }, 10000);
+
                 } else {
                     TypingEffect.typeWithSound(outputArea, "You've already read the note. There's nothing else under the table.", UIGameController.getGuiInstance(), null);
                 }
+
                 return "";
             case "examine the pinboard":
                 if (!player.hasFlag("half_map_taken")) {
@@ -107,9 +129,9 @@ public class UIMainEntranceRoom implements UIRoom {
                     player.getInventory().addItem("Schools half map");
 
                     String text = "Among the generic school announcements, you find something useful:\n" +
-                                  "half of a torn school map.\n\n" +
-                                  "New rooms unlocked!\n" +
-                                  "(You can now go to: Music Room, Teacher Room, IT Room)";
+                            "half of a torn school map.\n\n" +
+                            "New rooms unlocked!\n" +
+                            "(You can now go to: Music Room, Teacher Room, IT Room)";
                     TypingEffect.typeWithSound(outputArea, text, UIGameController.getGuiInstance(), null);
                     SoundPlayer.playSound("/sounds/TakeItem.wav", 3500, 0, outputArea, UIGameController.getGuiInstance(), false);
                 } else {

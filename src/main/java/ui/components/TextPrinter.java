@@ -10,6 +10,8 @@ import java.io.IOException;
 public class TextPrinter {
 
     public void textPrinter(String input, TextBox outputArea) {
+
+        outputArea.setText("");
         outputArea.addLine("");
         for (String line : input.split("\n")) {
             outputArea.addLine(line);
