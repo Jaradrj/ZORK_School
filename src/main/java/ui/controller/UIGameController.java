@@ -4,6 +4,7 @@ import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.SimpleTheme;
 import com.googlecode.lanterna.gui2.*;
+import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.MouseCaptureMode;
@@ -17,6 +18,9 @@ import ui.audio.TypingEffect;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
+import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.input.KeyType;
 
 public class UIGameController {
 
@@ -84,6 +88,16 @@ public class UIGameController {
         this.window = new BasicWindow();
         this.window.setTitle(currentRoom.getName());
         this.window.setComponent(mainPanel);
+
+        window.addWindowListener(new WindowListenerAdapter() {
+            @Override
+            public void onUnhandledInput(Window basePane, KeyStroke keyStroke, AtomicBoolean hasBeenHandled) {
+                if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == ' ') {
+                    TypingEffect.skipTyping();
+                    hasBeenHandled.set(true);
+                }
+            }
+        });
 
         updateUI();
     }

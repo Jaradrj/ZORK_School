@@ -11,7 +11,11 @@ import java.io.InputStream;
 
 public class TypingEffect {
 
+    private static boolean isSkipped = false;
+
     public static void typeWithSound(TextBox textBox, String text, WindowBasedTextGUI gui, String soundPath) {
+
+        isSkipped = false;
 
         int delayMillis = 55;
 
@@ -26,6 +30,10 @@ public class TypingEffect {
 
             StringBuilder currentText = new StringBuilder();
             for (int i = 0; i < text.length(); i++) {
+                if(isSkipped){
+                    gui.getGUIThread().invokeLater(() -> textBox.setText(text));
+                    break;
+                }
                 char c = text.charAt(i);
                 currentText.append(c);
                 gui.getGUIThread().invokeLater(() -> textBox.setText(currentText.toString()));
@@ -159,4 +167,9 @@ public class TypingEffect {
             }
         }).start();
     }
+
+    public static void skipTyping() {
+        isSkipped = true;
+    }
+
 }

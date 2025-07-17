@@ -25,6 +25,7 @@ public class ChoiceButtonStyling implements InteractableRenderer<Button> {
 
         graphics.fill(' ');
         graphics.putString(0, 0, button.getLabel());
+
     }
 
     @Override
