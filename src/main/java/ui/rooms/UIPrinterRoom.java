@@ -123,8 +123,8 @@ public class UIPrinterRoom implements UIRoom {
                         This is not the chemistry I know. Room 302. Isn't that the Electricity Room?
                         """;
                 outputArea.invalidate();
-                printer.textPrinter(input, outputArea);
                 SoundPlayer.playSound("/sounds/ReadNote.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
+                printer.textPrinter(input, outputArea);
                 player.setFlag("test_seen");
             }
 
