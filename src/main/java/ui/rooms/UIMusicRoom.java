@@ -68,7 +68,7 @@ public class UIMusicRoom implements UIRoom {
             case "watch the notes":
                 if (!player.hasFlag("watched_song_notes")) {
                     player.setFlag("watched_song_notes");
-                    SoundPlayer.playSound("/sounds/MusicRoom.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
+                    SoundPlayer.playSound("/sounds/MusicRoom.wav", 10000, 0, outputArea, UIGameController.getGuiInstance(), false);
                     result.append("\nAmong the faded compositions lies a single, timeworn sheet of paper.\n")
                             .append("Its edges are torn, the ink faded almost to invisibility.\n")
                             .append("It appears to be a song… surprisingly enthusiastic, and all about food.\n\n")

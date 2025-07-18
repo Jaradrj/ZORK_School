@@ -141,17 +141,26 @@ public class UIEndings {
                 (or maybe just the next phase)
                 """;
 
-        TypingEffect.typeWithBanner(outputArea, input, UIGameController.getGuiInstance(), null, false, false, () -> {
-            Logos.printBanner(Logos.trophy, outputArea);
+        String finalInput = input;
+        new Thread(() -> {
+            try {
+                Thread.sleep(17_000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
 
-            TypingEffect.isWaiting = true;
+            TypingEffect.typeWithBanner(outputArea, finalInput, UIGameController.getGuiInstance(), null, false, false, () -> {
+                Logos.printBanner(Logos.trophy, outputArea);
 
-            waitingForEnter(() -> {
-                UIGameController.getGuiInstance().getGUIThread().invokeLater(() -> {
-                    controller.showEndingPrompt(true);
+                TypingEffect.isWaiting = true;
+
+                waitingForEnter(() -> {
+                    UIGameController.getGuiInstance().getGUIThread().invokeLater(() -> {
+                        controller.showEndingPrompt(true);
+                    });
                 });
             });
-        });
+        }).start();
     }
 
     public void badEnding(Player player, TextBox outputArea) {
@@ -199,29 +208,28 @@ public class UIEndings {
                         "It was to see how long you would try before giving up.\n" +
                         "How far you'd bleed before breaking.\n" +
                         "\n" +
-                        "You close your eyes, but the darkness is no different.\n" +
-                        "\n" +
-                        "\n" +
-                        "\n" +
-                        "\n" +
-                        "Do you want to give up, or try again?\n" +
-                        "\n" +
-                        "You already know your answer.\n" +
-                        "They already recorded it.\n";
+                        "You close your eyes, but the darkness is no different.\n";
 
-        TypingEffect.typeWithBanner(outputArea, input, UIGameController.getGuiInstance(), null, false, false, () -> {
-            Logos.printBanner(Logos.banner, outputArea);
+        String finalInput = input;
+        new Thread(() -> {
+            try {
+                Thread.sleep(2_000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
 
-            TypingEffect.isWaiting = true;
+            TypingEffect.typeWithBanner(outputArea, finalInput, UIGameController.getGuiInstance(), null, false, false, () -> {
+                Logos.printBanner(Logos.banner, outputArea);
 
-            waitingForEnter(() -> {
-                UIGameController.getGuiInstance().getGUIThread().invokeLater(() -> {
-                    controller.showEndingPrompt(false);
+                TypingEffect.isWaiting = true;
+
+                waitingForEnter(() -> {
+                    UIGameController.getGuiInstance().getGUIThread().invokeLater(() -> {
+                        controller.showEndingPrompt(false);
+                    });
                 });
             });
-        });
-
-
+        }).start();
     }
 
     public void teacherEnding(TextBox outputArea) {
@@ -254,8 +262,6 @@ public class UIEndings {
                 });
             });
         });
-
-
     }
 
 
