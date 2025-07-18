@@ -77,8 +77,6 @@ public class UIMainEntranceRoom implements UIRoom {
                 if (!player.hasFlag("hasReadNote")) {
                     player.setFlag("hasReadNote");
 
-                    SoundPlayer.playSound("/sounds/Leandro.wav", 2000, 0, outputArea, UIGameController.getGuiInstance(), false);
-
                     String note = """
                             You sit and notice a folded piece of paper under the table:
                             
@@ -100,23 +98,20 @@ public class UIMainEntranceRoom implements UIRoom {
                             Or stay... and become like us"
                             """;
 
-                    printer.textPrinter(note, outputArea);
-                    SoundPlayer.playSound("/sounds/ReadNote.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
+                    String leandroInfo = """
+                            
+                            Leandro B. was known for rebelling against the system.
+                            He questioned the disappearances, especially after his friend vanished.
+                            One day, Klara—the class leader—told everyone he'd been expelled.
+                            No one's heard from him since.
+                            """;
 
-                    new Timer().schedule(new TimerTask() {
-                        @Override
-                        public void run() {
-                            String leandroInfo = """
-                                    
-                                    Leandro B. was known for rebelling against the system.
-                                    He questioned the disappearances, especially after his friend vanished.
-                                    One day, Klara—the class leader—told everyone he'd been expelled.
-                                    No one's heard from him since.
-                                    """;
+                    TypingEffect.typeWithBanner(outputArea, leandroInfo, UIGameController.getGuiInstance(), null, true, true, () -> {
+                        SoundPlayer.playSound("/sounds/Leandro.wav", 2000, 0, outputArea, UIGameController.getGuiInstance(), false);
+                        printer.textPrinter(note, outputArea);
+                        SoundPlayer.playSound("/sounds/ReadNote.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
+                    });
 
-                            TypingEffect.typeWithSound(outputArea, leandroInfo, UIGameController.getGuiInstance(), null);
-                        }
-                    }, 10000);
 
                 } else {
                     TypingEffect.typeWithSound(outputArea, "You've already read the note. There's nothing else under the table.", UIGameController.getGuiInstance(), null);

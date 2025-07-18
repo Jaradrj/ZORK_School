@@ -83,16 +83,26 @@ public class TypingEffect {
         new Thread(() -> {
             try {
                 if (first && onComplete != null) {
-                    gui.getGUIThread().invokeAndWait(() -> {
-                        UIGameController.getCurrent().disableActionPanel();
-                        onComplete.run();
-                        try {
-                            gui.updateScreen();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    });
-                    Thread.sleep(2000);
+                    try {
+                        gui.getGUIThread().invokeAndWait(() -> {
+                            UIGameController.getCurrent().disableActionPanel();
+                                onComplete.run();
+                                    UIEndings.waitingForEnter(() -> {
+                                        try {
+                                            gui.updateScreen();
+                                        } catch (IOException e) {
+                                            throw new RuntimeException(e);
+                                        }
+                                    });
+                            });
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    while (TypingEffect.isWaiting) {
+                        Thread.sleep(100);
+                    }
+
                 } else {
                     gui.getGUIThread().invokeAndWait(() -> {
                         UIGameController.getCurrent().disableActionPanel();

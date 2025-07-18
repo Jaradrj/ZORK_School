@@ -229,11 +229,6 @@ public class UIElectricityRoom implements UIRoom {
                     player.setFlag("read_third_note");
                     SoundPlayer.playSound("/sounds/Toby.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
                     String input = """
-                            I was here before they introduced these... 'methods' were introduced. 
-                            Back then it was about heaters. Today it's about children. 
-                            I've seen the power box. The real one no one knows about.
-                            The one under the office, with the cables that aren't in the plan.
-                            I opened it. And then closed it again. I should have...
                             I should have said something straight away." 
                             (crossed out several times: "Power... cable... door... light...") 
                             "You've been watching me since I started asking questions.

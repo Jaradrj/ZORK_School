@@ -90,6 +90,7 @@ public class UIEndings {
         }
 
         input += """
+                
                 Toby McConnor worked at the school for 30 years.
                 He wasn’t a genius. He wasn’t on any list. He was just… observant.
                 When he heard strange noises in the electrical room, he followed them.
@@ -145,7 +146,7 @@ public class UIEndings {
 
             TypingEffect.isWaiting = true;
 
-            instance.waitingForEnter(() -> {
+            waitingForEnter(() -> {
                 UIGameController.getGuiInstance().getGUIThread().invokeLater(() -> {
                     controller.showEndingPrompt(true);
                 });
@@ -258,7 +259,7 @@ public class UIEndings {
     }
 
 
-    public void waitingForEnter(Runnable callback) {
+    public static void waitingForEnter(Runnable callback) {
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
