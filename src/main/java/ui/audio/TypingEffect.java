@@ -12,7 +12,7 @@ import java.io.InputStream;
 
 public class TypingEffect {
 
-    private static boolean isSkipped = false;
+    public static boolean isSkipped = false;
 
     public static boolean isWaiting = true;
 

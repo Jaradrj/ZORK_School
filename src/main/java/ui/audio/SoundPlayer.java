@@ -10,6 +10,7 @@ import java.io.InputStream;
 public class SoundPlayer {
 
     private static Clip currentClip;
+    private static Thread soundThread;
 
     public static void playSound(String path, int delayBefore, int delayAfter, TextBox outputArea, WindowBasedTextGUI gui, boolean block) {
         Runnable playLogic = () -> {
@@ -31,21 +32,31 @@ public class SoundPlayer {
                 currentClip.start();
 
                 if (delayAfter > 0) Thread.sleep(delayAfter);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         };
 
         if (block) {
+            soundThread = Thread.currentThread();
             playLogic.run();
         } else {
-            new Thread(playLogic).start();
+            soundThread = new Thread(playLogic);
+            soundThread.start();
         }
     }
 
     public static void stopSound() {
+        if (soundThread != null && soundThread.isAlive()) {
+            soundThread.interrupt();
+        }
+
         if (currentClip != null && currentClip.isRunning()) {
             currentClip.stop();
+            currentClip.close();
+            currentClip = null;
         }
     }
 }
