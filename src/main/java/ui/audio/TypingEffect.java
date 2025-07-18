@@ -3,6 +3,7 @@ package ui.audio;
 import com.googlecode.lanterna.gui2.TextBox;
 import com.googlecode.lanterna.gui2.WindowBasedTextGUI;
 import ui.controller.UIGameController;
+import ui.game.UIEndings;
 
 import javax.sound.sampled.*;
 import java.io.BufferedInputStream;
@@ -12,6 +13,8 @@ import java.io.InputStream;
 public class TypingEffect {
 
     private static boolean isSkipped = false;
+
+    public static boolean isWaiting = true;
 
     public static void typeWithSound(TextBox textBox, String text, WindowBasedTextGUI gui, String soundPath) {
 
@@ -30,9 +33,9 @@ public class TypingEffect {
 
             StringBuilder currentText = new StringBuilder();
             for (int i = 0; i < text.length(); i++) {
-                if(isSkipped){
-                    gui.getGUIThread().invokeLater(() -> textBox.setText(text));
+                if (isSkipped) {
                     SoundPlayer.stopSound();
+                    gui.getGUIThread().invokeLater(() -> textBox.setText(text));
                     break;
                 }
                 char c = text.charAt(i);
@@ -58,6 +61,9 @@ public class TypingEffect {
 
     public static void typeWithBanner(TextBox textBox, String text, WindowBasedTextGUI gui, String soundPath, boolean sound, boolean first, Runnable onComplete) {
 
+        isSkipped = false;
+        isWaiting = true;
+
         int delayMillis;
 
         if (soundPath == null || soundPath.isEmpty()) {
@@ -66,7 +72,7 @@ public class TypingEffect {
 
         if (sound) {
             delayMillis = 55;
-        } else if (soundPath.equalsIgnoreCase("TeacherEnding.wav")){
+        } else if (soundPath.equalsIgnoreCase("TeacherEnding.wav")) {
             delayMillis = 65;
         } else {
             delayMillis = 50;
@@ -95,25 +101,34 @@ public class TypingEffect {
 
                 StringBuilder currentText = new StringBuilder();
                 for (int i = 0; i < text.length(); i++) {
-                    char c = text.charAt(i);
-                    currentText.append(c);
-
-                    gui.getGUIThread().invokeAndWait(() -> {
-                        textBox.setText(currentText.toString());
-                        try {
-                            gui.updateScreen();
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                    if (isSkipped) {
+                        gui.getGUIThread().invokeLater(() -> textBox.setText(text));
+                        SoundPlayer.stopSound();
+                        while (isWaiting) {
+                            textBox.setText(text);
                         }
-                    });
+                    } else {
+                        char c = text.charAt(i);
+                        currentText.append(c);
 
-                    if (sound && i % 2 == 0 &&
-                            (Character.isLetterOrDigit(c) || Character.isWhitespace(c))) {
-                        playSound(finalSoundPath);
+                        gui.getGUIThread().invokeAndWait(() -> {
+                            textBox.setText(currentText.toString());
+                            try {
+                                gui.updateScreen();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        });
+
+                        if (sound && i % 2 == 0 &&
+                                (Character.isLetterOrDigit(c) || Character.isWhitespace(c))) {
+                            playSound(finalSoundPath);
+                        }
+
+                        Thread.sleep(delayMillis);
                     }
-
-                    Thread.sleep(delayMillis);
                 }
+
 
                 if (!first && onComplete != null) {
                     gui.getGUIThread().invokeAndWait(onComplete::run);
@@ -121,9 +136,11 @@ public class TypingEffect {
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             } finally {
-                gui.getGUIThread().invokeLater(() -> {
-                    UIGameController.getCurrent().enableActionPanel();
-                });
+                if (!UIEndings.enteredEndings) {
+                    gui.getGUIThread().invokeLater(() -> {
+                        UIGameController.getCurrent().enableActionPanel();
+                    });
+                }
             }
         }).start();
     }
@@ -171,6 +188,10 @@ public class TypingEffect {
 
     public static void skipTyping() {
         isSkipped = true;
+    }
+
+    public static void stopWaiting() {
+        isWaiting = false;
     }
 
 }

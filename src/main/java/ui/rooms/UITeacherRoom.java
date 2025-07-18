@@ -98,7 +98,6 @@ public class UITeacherRoom implements UIRoom {
         if (!followedTeacher && !player.hasFlag("teacher_room_loot_ready")) {
             actions.add("Follow Her");
             actions.add("Stay hidden");
-            player.setFlag("had_follow_decision");
         }
 
         actions.add("leave");
@@ -116,6 +115,7 @@ public class UITeacherRoom implements UIRoom {
             case "follow her":
                 if (player.hasFlag("saw_teacher_leave") && !player.hasFlag("has_followed_teacher")) {
                     player.setFlag("has_followed_teacher");
+                    player.setFlag("had_follow_decision");
                     String roomChangeMsg = handleRoomChange(player, "garage");
                     return player.getCurrentUIRoom().enter(player);
                 } else {
@@ -124,6 +124,7 @@ public class UITeacherRoom implements UIRoom {
                 break;
 
             case "stay hidden":
+                player.setFlag("had_follow_decision");
                 player.setFlag("teacher_room_loot_ready");
                 result.append("You decide to stay hidden in hope to find something in the teacher room.\n");
                 result.append("You wait a couple of minutes and slowly start to look around the room. ");

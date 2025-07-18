@@ -1,5 +1,6 @@
 package ui.components;
 
+import com.googlecode.lanterna.gui2.MultiWindowTextGUI;
 import com.googlecode.lanterna.gui2.TextBox;
 import com.googlecode.lanterna.gui2.WindowBasedTextGUI;
 import ui.controller.UIGameController;
@@ -23,4 +24,5 @@ public class TextPrinter {
             throw new RuntimeException(e);
         }
     }
+
 }

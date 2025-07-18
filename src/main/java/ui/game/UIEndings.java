@@ -3,6 +3,7 @@ package ui.game;
 
 import com.googlecode.lanterna.gui2.*;
 import console.game.Player;
+import lombok.Getter;
 import ui.audio.SoundPlayer;
 import ui.audio.TypingEffect;
 import ui.components.Logos;
@@ -19,16 +20,23 @@ public class UIEndings {
     private static TextPrinter printer;
     private static Logos logos;
 
+    private static UIEndings instance;
+
+    public static boolean enteredEndings = false;
+
     public UIEndings(UIGameController controller, MultiWindowTextGUI gui, TextPrinter printer, Logos logos) {
         this.logos = logos;
         this.controller = controller;
         this.printer = printer;
         this.gui = gui;
+        instance = this;
     }
 
     public static void happyEnding(Player player, TextBox outputArea) {
 
-        UIGameController.getCurrent().disableActionPanel();
+        enteredEndings = true;
+
+        UIGameController controller = UIGameController.getCurrent();
 
         if (player.hasFlag("second_try")) {
             SoundPlayer.playSound("/sounds/HappyEndingSecondTry.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
@@ -36,9 +44,6 @@ public class UIEndings {
             SoundPlayer.playSound("/sounds/HappyEnding.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
         }
         String input = """
-                You don't hesitate and grab the note with the
-                police's number out of your backpack. Calling now...
-                
                 Congratulations. You made it out. Alive.
                 You called the police. You exposed the hidden doors. You told them everything.
                 And for a while, it felt like justice would follow.
@@ -134,35 +139,22 @@ public class UIEndings {
                 THE END.
                 (or maybe just the next phase)
                 """;
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+
         TypingEffect.typeWithBanner(outputArea, input, UIGameController.getGuiInstance(), null, false, false, () -> {
             Logos.printBanner(Logos.trophy, outputArea);
-        });
 
-        Timer timer = new Timer();
-        int delay = 0;
-        if (player.hasFlag("second_try")) {
-            delay = 300000;
-        } else {
-            delay = 282000;
-        }
-        timer.schedule(new TimerTask() {
-            public UIGameController controller;
+            TypingEffect.isWaiting = true;
 
-            @Override
-            public void run() {
+            instance.waitingForEnter(() -> {
                 UIGameController.getGuiInstance().getGUIThread().invokeLater(() -> {
                     controller.showEndingPrompt(true);
                 });
-            }
-        }, delay);
+            });
+        });
     }
 
     public void badEnding(Player player, TextBox outputArea) {
+        enteredEndings = true;
         if (!player.hasFlag("body_inspected")) {
             SoundPlayer.playSound("/sounds/BadEnding.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
         } else {
@@ -218,26 +210,23 @@ public class UIEndings {
 
         TypingEffect.typeWithBanner(outputArea, input, UIGameController.getGuiInstance(), null, false, false, () -> {
             Logos.printBanner(Logos.banner, outputArea);
-        });
 
-        Timer timer = new Timer();
-        int delay = 0;
-        if (player.hasFlag("body_inspected")) {
-            delay = 98000;
-        } else {
-            delay = 90000;
-        }
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
+            TypingEffect.isWaiting = true;
+
+            waitingForEnter(() -> {
                 UIGameController.getGuiInstance().getGUIThread().invokeLater(() -> {
                     controller.showEndingPrompt(false);
                 });
-            }
-        }, delay);
+            });
+        });
+
+
     }
 
     public void teacherEnding(TextBox outputArea) {
+
+        enteredEndings = true;
+
         SoundPlayer.playSound("/sounds/TeacherEnding.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
 
         String narrative = """
@@ -255,15 +244,32 @@ public class UIEndings {
 
         TypingEffect.typeWithBanner(outputArea, narrative, UIGameController.getGuiInstance(), "TeacherEnding.wav", false, false, () -> {
             Logos.printBanner(Logos.banner, outputArea);
-        });
 
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
+            TypingEffect.isWaiting = true;
+
+            waitingForEnter(() -> {
                 UIGameController.getGuiInstance().getGUIThread().invokeLater(() -> {
                     controller.showEndingPrompt(false);
                 });
+            });
+        });
+
+
+    }
+
+
+    public void waitingForEnter(Runnable callback) {
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                if (!TypingEffect.isWaiting) {
+                    timer.cancel();
+                    UIGameController.getGuiInstance().getGUIThread().invokeLater(callback);
+                }
             }
-        }, 42000);
-    }}
+        }, 0, 100);
+    }
+}
+
+

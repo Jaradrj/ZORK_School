@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.input.KeyType;
 
 public class UIGameController {
 
@@ -70,7 +69,7 @@ public class UIGameController {
                 TextColor.ANSI.BLACK_BRIGHT
         );
 
-        this.guiInstance.setTheme(customTheme);
+        guiInstance.setTheme(customTheme);
 
         UIRoom room = UIRoomFactory.createRoom("main entrance hall");
 
@@ -94,6 +93,16 @@ public class UIGameController {
             public void onUnhandledInput(Window basePane, KeyStroke keyStroke, AtomicBoolean hasBeenHandled) {
                 if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == ' ') {
                     TypingEffect.skipTyping();
+                    hasBeenHandled.set(true);
+                }
+            }
+        });
+
+        window.addWindowListener(new WindowListenerAdapter() {
+            @Override
+            public  void onUnhandledInput(Window basePane, KeyStroke keyStroke, AtomicBoolean hasBeenHandled) {
+                if (keyStroke.getKeyType() == KeyType.Enter){
+                    TypingEffect.stopWaiting();
                     hasBeenHandled.set(true);
                 }
             }
@@ -228,8 +237,20 @@ public class UIGameController {
     public void showEndingPrompt(boolean happyEnding) {
         showingEndingPrompt = true;
         actionPanel.removeAllComponents();
+        enableActionPanel();
 
         if(happyEnding) {
+
+            String ending =
+                    "████████╗██╗  ██╗███████╗    ███████╗███╗   ██╗██████╗ \n" +
+                    "╚══██╔══╝██║  ██║██╔════╝    ██╔════╝████╗  ██║██╔══██╗\n" +
+                    "   ██║   ███████║█████╗      █████╗  ██╔██╗ ██║██║  ██║\n" +
+                    "   ██║   ██╔══██║██╔══╝      ██╔══╝  ██║╚██╗██║██║  ██║\n" +
+                    "   ██║   ██║  ██║███████╗    ███████╗██║ ╚████║██████╔╝\n" +
+                    "   ╚═╝   ╚═╝  ╚═╝╚══════╝    ╚══════╝╚═╝  ╚═══╝╚═════╝ \n";
+
+            outputArea.setText(ending);
+
             actionPanel.addComponent(new Button("Exit", () -> System.exit(0)));
         } else {
 
