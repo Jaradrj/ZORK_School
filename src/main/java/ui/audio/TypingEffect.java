@@ -88,15 +88,15 @@ public class TypingEffect {
                     try {
                         gui.getGUIThread().invokeAndWait(() -> {
                             UIGameController.getCurrent().disableActionPanel();
-                                onComplete.run();
-                                    UIEndings.waitingForEnter(() -> {
-                                        try {
-                                            gui.updateScreen();
-                                        } catch (IOException e) {
-                                            throw new RuntimeException(e);
-                                        }
-                                    });
+                            onComplete.run();
+                            UIEndings.waitingForEnter(() -> {
+                                try {
+                                    gui.updateScreen();
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                }
                             });
+                        });
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }

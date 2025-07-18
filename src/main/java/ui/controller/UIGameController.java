@@ -4,10 +4,12 @@ import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.SimpleTheme;
 import com.googlecode.lanterna.gui2.*;
+import com.googlecode.lanterna.gui2.Button;
+import com.googlecode.lanterna.gui2.Panel;
+import com.googlecode.lanterna.gui2.Window;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
-import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
-import com.googlecode.lanterna.terminal.MouseCaptureMode;
+
 import lombok.Getter;
 import lombok.Setter;
 import ui.UIMain;
@@ -15,6 +17,7 @@ import ui.audio.SoundPlayer;
 import ui.game.*;
 import console.game.*;
 import ui.audio.TypingEffect;
+
 
 import java.io.IOException;
 import java.util.Map;
@@ -45,15 +48,12 @@ public class UIGameController {
     private static MultiWindowTextGUI guiInstance;
 
     public UIGameController(UICommands commands, Player player) throws IOException {
+        this.screen = GameScreen.getScreen();
         this.command = commands;
         this.player = player;
         current = this;
         UIRoomFactory.setController(this);
 
-        DefaultTerminalFactory factory = new DefaultTerminalFactory()
-                .setMouseCaptureMode(MouseCaptureMode.CLICK_RELEASE_DRAG_MOVE);
-        screen = factory.createScreen();
-        this.screen.startScreen();
         guiInstance = new MultiWindowTextGUI(screen, new DefaultWindowManager(), new EmptySpace(TextColor.ANSI.BLACK_BRIGHT));
         UIGameController.setGuiInstance(guiInstance);
 
@@ -155,6 +155,7 @@ public class UIGameController {
             Map<String, Exit> exits = currentRoom.getAvailableExits(player);
             for (String roomName : exits.keySet()) {
                 Button b = new Button(roomName, () -> {
+                    SoundPlayer.stopSound();
                     String result = currentRoom.handleRoomChange(player, roomName);
                     outputArea.setText(outputArea.getText() + result);
                     currentRoom = player.getCurrentUIRoom();
@@ -164,7 +165,6 @@ public class UIGameController {
                     isChoosingRoom = false;
                     refreshActionButtons();
                 });
-                b.setTheme(customButtonTheme);
                 actionPanel.addComponent(b);
             }
 
@@ -198,12 +198,12 @@ public class UIGameController {
                 outputArea.setText(outputArea.getText() + "\n\nCanceled room selection.");
                 refreshActionButtons();
             });
-            returnButton.setTheme(customButtonTheme);
             actionPanel.addComponent(returnButton);
         } else {
 
             for (String action : currentRoom.getAvailableActions(player)) {
                 Button b = new Button(action, () -> {
+                    SoundPlayer.stopSound();
                     String result = currentRoom.performAction(player, action.toLowerCase().trim(), outputArea);
                     if (!result.isEmpty()) {
                         TypingEffect.typeWithSound(outputArea, result, guiInstance, "/sounds/Terminal.wav");
@@ -220,7 +220,6 @@ public class UIGameController {
 
                     refreshActionButtons();
                 });
-                b.setTheme(customButtonTheme);
                 actionPanel.addComponent(b);
             }
         }

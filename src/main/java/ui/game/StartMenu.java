@@ -3,15 +3,24 @@ package ui.game;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.graphics.SimpleTheme;
 import com.googlecode.lanterna.gui2.*;
+import com.googlecode.lanterna.gui2.Button;
+import com.googlecode.lanterna.gui2.Label;
+import com.googlecode.lanterna.gui2.Panel;
+import com.googlecode.lanterna.gui2.Window;
 import com.googlecode.lanterna.screen.Screen;
+import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.terminal.Terminal;
+import com.googlecode.lanterna.terminal.swing.SwingTerminalFrame;
 import console.game.Player;
 import lombok.Getter;
 import ui.audio.SoundPlayer;
 import ui.components.ButtonStyling;
 import ui.controller.UIGameController;
 
+import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.concurrent.atomic.AtomicReference;
@@ -24,8 +33,14 @@ public class StartMenu {
     private final Player player;
 
     public StartMenu(Player player) throws IOException {
-        this.screen = new DefaultTerminalFactory().createScreen();
-        this.screen.startScreen();
+
+        Terminal terminal = new DefaultTerminalFactory().createTerminal();
+        screen = new TerminalScreen(terminal);
+        screen.startScreen();
+        if (terminal instanceof SwingTerminalFrame swingFrame) {
+            swingFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            swingFrame.setExtendedState(Frame.MAXIMIZED_BOTH);
+        }
         this.gui = new MultiWindowTextGUI(screen, new DefaultWindowManager(), new EmptySpace(TextColor.ANSI.BLACK_BRIGHT));
         this.player = player;
     }
