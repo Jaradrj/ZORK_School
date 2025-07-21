@@ -51,7 +51,7 @@ public class UIMain {
             UIRoomFactory.setPrinter(printer);
             UIRoomFactory.setLogos(logos);
 
-            UIGameController controller = new UIGameController(commands, player);
+            UIGameController controller = new UIGameController(player);
             UIRoomFactory.setController(controller);
 
             controller.run();

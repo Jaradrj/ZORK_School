@@ -3,11 +3,9 @@ package ui.game;
 
 import com.googlecode.lanterna.gui2.*;
 import console.game.Player;
-import lombok.Getter;
 import ui.audio.SoundPlayer;
 import ui.audio.TypingEffect;
 import ui.components.Logos;
-import ui.components.TextPrinter;
 import ui.controller.UIGameController;
 
 import java.util.Timer;
@@ -16,20 +14,11 @@ import java.util.TimerTask;
 public class UIEndings {
 
     private UIGameController controller;
-    private MultiWindowTextGUI gui;
-    private static TextPrinter printer;
-    private static Logos logos;
-
-    private static UIEndings instance;
 
     public static boolean enteredEndings = false;
 
-    public UIEndings(UIGameController controller, MultiWindowTextGUI gui, TextPrinter printer, Logos logos) {
-        this.logos = logos;
+    public UIEndings(UIGameController controller) {
         this.controller = controller;
-        this.printer = printer;
-        this.gui = gui;
-        instance = this;
     }
 
     public static void happyEnding(Player player, TextBox outputArea) {
@@ -154,11 +143,7 @@ public class UIEndings {
 
                 TypingEffect.isWaiting = true;
 
-                waitingForEnter(() -> {
-                    UIGameController.getGuiInstance().getGUIThread().invokeLater(() -> {
-                        controller.showEndingPrompt(true);
-                    });
-                });
+                waitingForEnter(() -> UIGameController.getGuiInstance().getGUIThread().invokeLater(() -> controller.showEndingPrompt(true)));
             });
         }).start();
     }
@@ -223,11 +208,7 @@ public class UIEndings {
 
                 TypingEffect.isWaiting = true;
 
-                waitingForEnter(() -> {
-                    UIGameController.getGuiInstance().getGUIThread().invokeLater(() -> {
-                        controller.showEndingPrompt(false);
-                    });
-                });
+                waitingForEnter(() -> UIGameController.getGuiInstance().getGUIThread().invokeLater(() -> controller.showEndingPrompt(false)));
             });
         }).start();
     }
@@ -256,13 +237,13 @@ public class UIEndings {
 
             TypingEffect.isWaiting = true;
 
-            waitingForEnter(() -> {
-                UIGameController.getGuiInstance().getGUIThread().invokeLater(() -> {
-                    controller.showEndingPrompt(false);
-                });
-            });
+            waitingForEnter(() -> UIGameController.getGuiInstance().getGUIThread().invokeLater(() -> controller.showEndingPrompt(false)));
         });
     }
+
+    public void lightSwitchEnding(Player player, TextBox outputArea) {}
+
+    public void brewingEnding(Player player, TextBox outputArea) {}
 
 
     public static void waitingForEnter(Runnable callback) {

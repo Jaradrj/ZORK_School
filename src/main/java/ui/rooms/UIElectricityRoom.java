@@ -18,14 +18,10 @@ import java.util.*;
 public class UIElectricityRoom implements UIRoom {
 
     private UIEndings ending;
-    private MultiWindowTextGUI gui;
     private TextPrinter printer;
-    private Logos logos;
 
-    public UIElectricityRoom(UIGameController controller, MultiWindowTextGUI gui, TextPrinter printer, Logos logos) {
-        this.gui = gui;
-        this.logos = logos;
-        this.ending = new UIEndings(controller, gui, printer, logos);
+    public UIElectricityRoom(UIGameController controller, TextPrinter printer) {
+        this.ending = new UIEndings(controller);
         this.printer = printer;
     }
 

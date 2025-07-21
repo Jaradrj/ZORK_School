@@ -10,6 +10,10 @@ import com.googlecode.lanterna.gui2.Window;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
 
+import com.googlecode.lanterna.screen.TerminalScreen;
+import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
+import com.googlecode.lanterna.terminal.Terminal;
+import com.googlecode.lanterna.terminal.swing.SwingTerminalFrame;
 import lombok.Getter;
 import lombok.Setter;
 import ui.UIMain;
@@ -19,17 +23,19 @@ import console.game.*;
 import ui.audio.TypingEffect;
 
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 import com.googlecode.lanterna.input.KeyStroke;
+
+import javax.swing.*;
 
 public class UIGameController {
 
     @Getter
     private Player player;
     private UIRoom currentRoom;
-    private UICommands command;
     private boolean isChoosingRoom = false;
 
     private Screen screen;
@@ -47,9 +53,14 @@ public class UIGameController {
     @Getter
     private static MultiWindowTextGUI guiInstance;
 
-    public UIGameController(UICommands commands, Player player) throws IOException {
-        this.screen = GameScreen.getScreen();
-        this.command = commands;
+    public UIGameController(Player player) throws IOException {
+        Terminal terminal = new DefaultTerminalFactory().createTerminal();
+        this.screen = new TerminalScreen(terminal);
+        screen.startScreen();
+        if (terminal instanceof SwingTerminalFrame swingFrame) {
+            swingFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            swingFrame.setExtendedState(Frame.MAXIMIZED_BOTH);
+        }
         this.player = player;
         current = this;
         UIRoomFactory.setController(this);

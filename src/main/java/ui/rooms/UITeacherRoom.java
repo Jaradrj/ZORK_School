@@ -18,15 +18,9 @@ import java.util.*;
 public class UITeacherRoom implements UIRoom {
 
     private UIEndings ending;
-    private MultiWindowTextGUI gui;
-    private TextPrinter printer;
-    private Logos logos;
 
-    public UITeacherRoom(UIGameController controller, MultiWindowTextGUI gui, TextPrinter printer, Logos logos) {
-        this.gui = gui;
-        this.logos = logos;
-        this.printer = printer;
-        this.ending = new UIEndings(controller, gui, printer, logos);
+    public UITeacherRoom(UIGameController controller) {
+        this.ending = new UIEndings(controller);
     }
 
     @Override
