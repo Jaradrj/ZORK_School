@@ -106,7 +106,7 @@ public class UITeacherRoom implements UIRoom {
                 if (player.hasFlag("saw_teacher_leave") && !player.hasFlag("has_followed_teacher")) {
                     player.setFlag("has_followed_teacher");
                     player.setFlag("had_follow_decision");
-                    return player.getCurrentUIRoom().enter(player);
+                    return handleRoomChange(player, "garage");
                 } else {
                     result.append("There's no one to follow.");
                 }

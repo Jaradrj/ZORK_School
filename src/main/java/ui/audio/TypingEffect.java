@@ -2,8 +2,10 @@ package ui.audio;
 
 import com.googlecode.lanterna.gui2.TextBox;
 import com.googlecode.lanterna.gui2.WindowBasedTextGUI;
+import console.game.Player;
 import ui.controller.UIGameController;
 import ui.game.UIEndings;
+import ui.game.UIRoomFactory;
 
 import javax.sound.sampled.*;
 import java.io.BufferedInputStream;
@@ -16,7 +18,11 @@ public class TypingEffect {
 
     public static boolean isWaiting = true;
 
+    public static final Object waitLock = new Object();
+
     public static void typeWithSound(TextBox textBox, String text, WindowBasedTextGUI gui, String soundPath) {
+
+        UIGameController.setShowSkipHint(true);
 
         isSkipped = false;
 
@@ -34,7 +40,6 @@ public class TypingEffect {
             StringBuilder currentText = new StringBuilder();
             for (int i = 0; i < text.length(); i++) {
                 if (isSkipped) {
-                    SoundPlayer.stopSound();
                     gui.getGUIThread().invokeLater(() -> textBox.setText(text));
                     break;
                 }
@@ -54,6 +59,7 @@ public class TypingEffect {
 
             gui.getGUIThread().invokeLater(() -> {
                 UIGameController.getCurrent().enableActionPanel();
+                UIGameController.setShowSkipHint(false);
             });
 
         }).start();
@@ -85,6 +91,7 @@ public class TypingEffect {
         new Thread(() -> {
             try {
                 if (first && onComplete != null) {
+                    UIGameController.setShowEnterHint(true);
                     try {
                         gui.getGUIThread().invokeAndWait(() -> {
                             UIGameController.getCurrent().disableActionPanel();
@@ -101,8 +108,10 @@ public class TypingEffect {
                         throw new RuntimeException(e);
                     }
 
-                    while (TypingEffect.isWaiting) {
-                        Thread.sleep(100);
+                    synchronized (TypingEffect.waitLock) {
+                        while (TypingEffect.isWaiting) {
+                            TypingEffect.waitLock.wait();
+                        }
                     }
 
                     TypingEffect.isWaiting = true;
@@ -114,12 +123,13 @@ public class TypingEffect {
                     });
                 }
 
+                UIGameController.setShowSkipHint(true);
                 StringBuilder currentText = new StringBuilder();
                 for (int i = 0; i < text.length(); i++) {
                     if (isSkipped) {
                         gui.getGUIThread().invokeLater(() -> textBox.setText(text));
-                        SoundPlayer.stopSound();
                         while (isWaiting) {
+                            UIGameController.setShowEnterHint(true);
                             textBox.setText(text);
                         }
                     } else {
@@ -140,7 +150,9 @@ public class TypingEffect {
                             playSound(finalSoundPath);
                         }
 
-                        Thread.sleep(delayMillis);
+                        synchronized (TypingEffect.waitLock) {
+                            TypingEffect.waitLock.wait(delayMillis);
+                        }
                     }
                 }
 
@@ -154,22 +166,11 @@ public class TypingEffect {
                 if (!UIEndings.enteredEndings) {
                     gui.getGUIThread().invokeLater(() -> {
                         UIGameController.getCurrent().enableActionPanel();
+                        UIGameController.setShowEnterHint(false);
                     });
                 }
             }
         }).start();
-    }
-
-    public static void typeText(TextBox output, String text, WindowBasedTextGUI gui, int delay) {
-        for (char c : text.toCharArray()) {
-            output.setText(output.getText() + c);
-            try {
-                Thread.sleep(delay);
-                gui.updateScreen();
-            } catch (InterruptedException | IOException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     private static void playSound(String resourcePath) {
@@ -202,11 +203,24 @@ public class TypingEffect {
     }
 
     public static void skipTyping() {
+        UIGameController.setShowSkipHint(true);
+        UIGameController.setShowSkipHint(false);
         isSkipped = true;
+        isWaiting = false;
+        SoundPlayer.stopSound();
+        synchronized (waitLock) {
+            waitLock.notifyAll();
+        }
     }
 
     public static void stopWaiting() {
-        isWaiting = false;
+        UIGameController.setShowEnterHint(true);
+        UIGameController.setShowEnterHint(false);
+        synchronized (TypingEffect.waitLock) {
+            SoundPlayer.stopSound();
+            TypingEffect.isWaiting = false;
+            TypingEffect.waitLock.notifyAll();
+        }
     }
 
 }

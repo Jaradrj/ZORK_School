@@ -1,10 +1,6 @@
 package ui.components;
 
-import com.googlecode.lanterna.gui2.MultiWindowTextGUI;
 import com.googlecode.lanterna.gui2.TextBox;
-import com.googlecode.lanterna.gui2.WindowBasedTextGUI;
-import ui.audio.SoundPlayer;
-import ui.audio.TypingEffect;
 import ui.controller.UIGameController;
 
 import java.io.IOException;
@@ -25,6 +21,7 @@ public class TextPrinter {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
     }
 
 }

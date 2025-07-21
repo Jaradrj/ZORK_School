@@ -9,6 +9,7 @@ import com.googlecode.lanterna.gui2.Panel;
 import com.googlecode.lanterna.gui2.Window;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
+import com.googlecode.lanterna.gui2.Label;
 
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
@@ -25,8 +26,10 @@ import ui.audio.TypingEffect;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
+
 import com.googlecode.lanterna.input.KeyStroke;
 
 import javax.swing.*;
@@ -44,6 +47,14 @@ public class UIGameController {
     private TextBox outputArea;
     private Panel actionPanel;
     private boolean showingEndingPrompt = false;
+
+    private static Label enterHint;
+    private static Label skipHint;
+
+    private static volatile boolean enterHintCanceled = false;
+    private static volatile boolean skipHintCanceled = false;
+
+    private static final Map<Label, Boolean> canceledHints = new HashMap<>();
 
     @Getter
     @Setter
@@ -111,17 +122,70 @@ public class UIGameController {
 
         window.addWindowListener(new WindowListenerAdapter() {
             @Override
-            public  void onUnhandledInput(Window basePane, KeyStroke keyStroke, AtomicBoolean hasBeenHandled) {
-                if (keyStroke.getKeyType() == KeyType.Enter){
+            public void onUnhandledInput(Window basePane, KeyStroke keyStroke, AtomicBoolean hasBeenHandled) {
+                if (keyStroke.getKeyType() == KeyType.Enter) {
                     TypingEffect.stopWaiting();
                     hasBeenHandled.set(true);
                 }
             }
         });
 
+        enterHint = new Label("Press ENTER to continue");
+        enterHint.setVisible(false);
+
+        mainPanel.addComponent(enterHint, LinearLayout.createLayoutData(LinearLayout.Alignment.Center));
+
+
+        skipHint = new Label("Press SPACE to skip");
+        skipHint.setVisible(false);
+
+        mainPanel.addComponent(skipHint, LinearLayout.createLayoutData(LinearLayout.Alignment.Center));
+
         updateUI();
     }
 
+    private static void setHintVisibilityWithDelay(Label hintLabel, boolean show) {
+        if (hintLabel == null) return;
+
+        canceledHints.put(hintLabel, !show);
+
+        if (show) {
+            new Thread(() -> {
+                try {
+                    Thread.sleep(2000);
+                    if (!canceledHints.getOrDefault(hintLabel, false)) {
+                        guiInstance.getGUIThread().invokeLater(() -> {
+                            hintLabel.setVisible(true);
+                            try {
+                                guiInstance.updateScreen();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        });
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }).start();
+        } else {
+            hintLabel.setVisible(false);
+            try {
+                guiInstance.updateScreen();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void setShowEnterHint(boolean show) {
+        enterHintCanceled = !show;
+        setHintVisibilityWithDelay(enterHint, show && !enterHintCanceled);
+    }
+
+    public static void setShowSkipHint(boolean show) {
+        skipHintCanceled = !show;
+        setHintVisibilityWithDelay(skipHint, show && !skipHintCanceled);
+    }
 
     public void disableActionPanel() {
         actionPanel.setVisible(false);
@@ -166,11 +230,6 @@ public class UIGameController {
             Map<String, Exit> exits = currentRoom.getAvailableExits(player);
             for (String roomName : exits.keySet()) {
                 Button b = new Button(roomName, () -> {
-                    try {
-                        guiInstance.updateScreen();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
                     SoundPlayer.stopSound();
                     String result = currentRoom.handleRoomChange(player, roomName);
                     outputArea.setText(outputArea.getText() + result);
@@ -192,7 +251,7 @@ public class UIGameController {
                 Button electricityButton = new Button("Electricity Room", () -> {
                     SoundPlayer.stopSound();
                     player.setFlag("corrosed_door");
-                    SoundPlayer.playSound("/sounds/Sizzling.wav", 1000,0, outputArea, guiInstance, false);
+                    SoundPlayer.playSound("/sounds/Sizzling.wav", 1000, 0, outputArea, guiInstance, false);
                     String msg = "You try to corrode the door.\nYou can hear the sizzling sound of the\nsulfuric acid oxidizing with the door.\n" +
                             "\nNevertheless, you still don't manage to open it.\nSad and defeated, you return to the chemistry room\nto try and cry.";
                     outputArea.setText(outputArea.getText() + "\n\n" + msg);
@@ -255,15 +314,15 @@ public class UIGameController {
         actionPanel.removeAllComponents();
         enableActionPanel();
 
-        if(happyEnding) {
+        if (happyEnding) {
 
             String ending =
                     "████████╗██╗  ██╗███████╗    ███████╗███╗   ██╗██████╗ \n" +
-                    "╚══██╔══╝██║  ██║██╔════╝    ██╔════╝████╗  ██║██╔══██╗\n" +
-                    "   ██║   ███████║█████╗      █████╗  ██╔██╗ ██║██║  ██║\n" +
-                    "   ██║   ██╔══██║██╔══╝      ██╔══╝  ██║╚██╗██║██║  ██║\n" +
-                    "   ██║   ██║  ██║███████╗    ███████╗██║ ╚████║██████╔╝\n" +
-                    "   ╚═╝   ╚═╝  ╚═╝╚══════╝    ╚══════╝╚═╝  ╚═══╝╚═════╝ \n";
+                            "╚══██╔══╝██║  ██║██╔════╝    ██╔════╝████╗  ██║██╔══██╗\n" +
+                            "   ██║   ███████║█████╗      █████╗  ██╔██╗ ██║██║  ██║\n" +
+                            "   ██║   ██╔══██║██╔══╝      ██╔══╝  ██║╚██╗██║██║  ██║\n" +
+                            "   ██║   ██║  ██║███████╗    ███████╗██║ ╚████║██████╔╝\n" +
+                            "   ╚═╝   ╚═╝  ╚═╝╚══════╝    ╚══════╝╚═╝  ╚═══╝╚═════╝ \n";
 
             outputArea.setText(ending);
 
@@ -310,4 +369,5 @@ public class UIGameController {
     public void run() {
         guiInstance.addWindowAndWait(window);
     }
+
 }

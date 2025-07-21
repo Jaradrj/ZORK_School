@@ -92,7 +92,10 @@ public class UIMusicRoom implements UIRoom {
                                 .append("I had to keep my reputation up and now...\nThey are gone. I killed them.\n")
                                 .append("And I'll be next... \n\n")
                                 .append("This voice reminds me of somebody, but I can't figure out who.\nSomeone from the band? I have to stop this!");
-                    } else {
+                    } else if(player.hasFlag("entered_electricity")){
+                        result.append("Sadly your flashlight died. You cannot use the batteries anymore.\n");
+                    }
+                    else {
                         result.append("You don't have any batteries. Whatever this cassette wanted to tell you,\nthe truth will remain hidden.");
                     }
                 } else {
