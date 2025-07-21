@@ -109,8 +109,13 @@ public class TypingEffect {
                     }
 
                     synchronized (TypingEffect.waitLock) {
-                        while (TypingEffect.isWaiting) {
-                            TypingEffect.waitLock.wait();
+                        while (isWaiting) {
+                            try {
+                                TypingEffect.waitLock.wait();
+                            } catch (InterruptedException e) {
+                                Thread.currentThread().interrupt();
+                                break;
+                            }
                         }
                     }
 
@@ -127,11 +132,22 @@ public class TypingEffect {
                 StringBuilder currentText = new StringBuilder();
                 for (int i = 0; i < text.length(); i++) {
                     if (isSkipped) {
+                        isWaiting = true;
+
                         gui.getGUIThread().invokeLater(() -> textBox.setText(text));
-                        while (isWaiting) {
-                            UIGameController.setShowEnterHint(true);
-                            textBox.setText(text);
+
+                        synchronized (TypingEffect.waitLock) {
+                            while (isWaiting) {
+                                try {
+                                    TypingEffect.waitLock.wait();
+                                } catch (InterruptedException e) {
+                                    Thread.currentThread().interrupt();
+                                    break;
+                                }
+                            }
                         }
+
+                        break;
                     } else {
                         char c = text.charAt(i);
                         currentText.append(c);
@@ -214,13 +230,12 @@ public class TypingEffect {
     }
 
     public static void stopWaiting() {
-        UIGameController.setShowEnterHint(true);
-        UIGameController.setShowEnterHint(false);
-        synchronized (TypingEffect.waitLock) {
-            SoundPlayer.stopSound();
-            TypingEffect.isWaiting = false;
-            TypingEffect.waitLock.notifyAll();
+        isWaiting = false;
+        SoundPlayer.stopSound();
+        synchronized (waitLock) {
+            waitLock.notifyAll();
         }
+        UIGameController.setShowEnterHint(false);
     }
 
 }
