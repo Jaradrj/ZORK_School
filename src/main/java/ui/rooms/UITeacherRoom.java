@@ -1,14 +1,9 @@
 package ui.rooms;
 
-
-import com.googlecode.lanterna.gui2.MultiWindowTextGUI;
 import com.googlecode.lanterna.gui2.TextBox;
 import ui.audio.SoundPlayer;
-import ui.components.Logos;
-import ui.components.TextPrinter;
 import ui.controller.UIGameController;
 import console.game.*;
-import ui.game.UICommands;
 import ui.game.UIEndings;
 import ui.game.UIRoom;
 import ui.game.UIRoomFactory;
@@ -41,6 +36,8 @@ public class UITeacherRoom implements UIRoom {
         if (!player.hasFlag("was_teacher_room")) {
             text.append(lightsOn ? "Some candles are lit, illuminating the room.\n" : "The room is dark.\n");
             player.setFlag("was_teacher_room");
+        } else {
+            text.append("You enter the Teacher Room.\n ");
         }
 
 
@@ -90,6 +87,7 @@ public class UITeacherRoom implements UIRoom {
         if (!followedTeacher && !player.hasFlag("teacher_room_loot_ready")) {
             actions.add("Follow Her");
             actions.add("Stay hidden");
+            return actions;
         }
 
         actions.add("leave");
@@ -108,7 +106,6 @@ public class UITeacherRoom implements UIRoom {
                 if (player.hasFlag("saw_teacher_leave") && !player.hasFlag("has_followed_teacher")) {
                     player.setFlag("has_followed_teacher");
                     player.setFlag("had_follow_decision");
-                    String roomChangeMsg = handleRoomChange(player, "garage");
                     return player.getCurrentUIRoom().enter(player);
                 } else {
                     result.append("There's no one to follow.");

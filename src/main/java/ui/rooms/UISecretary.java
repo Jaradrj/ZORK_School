@@ -2,11 +2,9 @@ package ui.rooms;
 
 import com.googlecode.lanterna.gui2.TextBox;
 import console.game.*;
-import org.w3c.dom.Text;
 import ui.audio.SoundPlayer;
 import ui.audio.TypingEffect;
 import ui.controller.UIGameController;
-import ui.game.UICommands;
 import ui.game.UIRoom;
 import ui.game.UIRoomFactory;
 
@@ -31,6 +29,8 @@ public class UISecretary implements UIRoom {
             player.setFlag("was_secretary");
             text.append("This is probably the most boring room.\nThere's just one big desk that belongs to the Head Teacher. ")
                     .append("\nThe desk is unusually clean. Just some sticky notes. Wait!\nThere's a big pinboard.\nWe could use some light here to check it out.");
+        } else {
+            text.append("You enter the Secretary.\n");
         }
         if (player.hasFlag("entered_electricity")) {
             text.append("Maybe we'll find something interesting here...");

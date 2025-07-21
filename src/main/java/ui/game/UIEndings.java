@@ -193,7 +193,8 @@ public class UIEndings {
                         "It was to see how long you would try before giving up.\n" +
                         "How far you'd bleed before breaking.\n" +
                         "\n" +
-                        "You close your eyes, but the darkness is no different.\n";
+                        "You close your eyes, but the darkness is no different.\n" +
+                        "\n\n Press ENTER to continue";
 
         String finalInput = input;
         new Thread(() -> {
@@ -220,17 +221,20 @@ public class UIEndings {
         SoundPlayer.playSound("/sounds/TeacherEnding.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
 
         String narrative = """
-            She turns slowly, her eyes glinting in the dim light.
-            'You found me... I didn’t think anyone would get this far.'
-            A pause. The room feels colder now.
-            'This place — it was never meant for you. Or anyone. We tried to bury it, erase it.'
-            She looks past you, as if seeing something distant. Or remembering.
-            'I stayed to make sure no one would open the door again. But now it's too late.'
-            Her voice drops to a whisper. 'They’re already after us.'
-            The ground trembles. Lights flicker.
-            'I’m sorry.'
-            Everything fades.
-            """;
+                She turns slowly, her eyes glinting in the dim light.
+                'You found me... I didn’t think anyone would get this far.'
+                A pause. The room feels colder now.
+                'This place — it was never meant for you. Or anyone. We tried to bury it, erase it.'
+                She looks past you, as if seeing something distant. Or remembering.
+                'I stayed to make sure no one would open the door again. But now it's too late.'
+                Her voice drops to a whisper. 'They’re already after us.'
+                The ground trembles. Lights flicker.
+                'I’m sorry.'
+                Everything fades.
+                
+                
+                Press ENTER to continue
+                """;
 
         TypingEffect.typeWithBanner(outputArea, narrative, UIGameController.getGuiInstance(), "TeacherEnding.wav", false, false, () -> {
             Logos.printBanner(Logos.banner, outputArea);
@@ -241,9 +245,11 @@ public class UIEndings {
         });
     }
 
-    public void lightSwitchEnding(Player player, TextBox outputArea) {}
+    public void lightSwitchEnding(Player player, TextBox outputArea) {
+    }
 
-    public void brewingEnding(Player player, TextBox outputArea) {}
+    public void brewingEnding(Player player, TextBox outputArea) {
+    }
 
 
     public static void waitingForEnter(Runnable callback) {

@@ -28,6 +28,9 @@ public class UICafeteria implements UIRoom {
             text.append("Apart from dirty tables, chairs and leftovers on the food distribution counter, there's not much no find here.\n" +
                     "Behind the iron door is the kitchen.\nNo wonder we are constantly in the media for our hygiene regulations.\n" +
                     "About 50% of students have at least had one food poisoning.\nThe only thing shining is a safe. We need a key.");
+        } else {
+            text.append("You enter the Cafeteria\n");
+            text.append("There's nothing new to find here.");
         }
         return text.toString();
     }

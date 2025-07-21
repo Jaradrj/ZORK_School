@@ -40,6 +40,8 @@ public class UIChemistryRoom implements UIRoom {
             if (!player.hasFlag("entered_electricity")) {
                 text.append("Maybe you should try to find a way into the Electricity Room?");
             }
+        } else {
+            text.append("You enter the Chemistry Room");
         }
         return text.toString();
     }

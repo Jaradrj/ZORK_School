@@ -166,6 +166,11 @@ public class UIGameController {
             Map<String, Exit> exits = currentRoom.getAvailableExits(player);
             for (String roomName : exits.keySet()) {
                 Button b = new Button(roomName, () -> {
+                    try {
+                        guiInstance.updateScreen();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     SoundPlayer.stopSound();
                     String result = currentRoom.handleRoomChange(player, roomName);
                     outputArea.setText(outputArea.getText() + result);
@@ -185,6 +190,7 @@ public class UIGameController {
                     !player.hasFlag("corrosed_door")) {
 
                 Button electricityButton = new Button("Electricity Room", () -> {
+                    SoundPlayer.stopSound();
                     player.setFlag("corrosed_door");
                     SoundPlayer.playSound("/sounds/Sizzling.wav", 1000,0, outputArea, guiInstance, false);
                     String msg = "You try to corrode the door.\nYou can hear the sizzling sound of the\nsulfuric acid oxidizing with the door.\n" +

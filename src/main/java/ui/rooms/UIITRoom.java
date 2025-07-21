@@ -32,6 +32,8 @@ public class UIITRoom implements UIRoom {
                     .append(" Only one seems to be running, strangely enough.\n")
                     .append("It shows a weird message, but I can't decipher it, not from here.\n")
                     .append("Somehow I have the feeling that I'm about to be attacked\nfrom behind when I inspect it...\n\n");
+        } else {
+            text.append("You enter the IT Room. ");
         }
         return text.toString();
     }

@@ -33,6 +33,8 @@ public class UIPrinterRoom implements UIRoom {
         if (!player.hasFlag("was_printer")) {
             player.setFlag("was_printer");
             text.append("The printer seems to have been used very recently. The exams were already printed.");
+        } else {
+            text.append("You enter the Printer Room");
         }
         return text.toString();
     }

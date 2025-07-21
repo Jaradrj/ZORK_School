@@ -71,6 +71,8 @@ public class UIElectricityRoom implements UIRoom {
                     It smells like mold and blood or just like death.
                     Then you remember the weird thing you stumbled over earlier.
                     """;
+        } else {
+            input = "You enter the Electricity Room.";
         }
         return input;
     }

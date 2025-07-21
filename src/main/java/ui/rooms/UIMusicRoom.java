@@ -28,6 +28,8 @@ public class UIMusicRoom implements UIRoom {
             text.append("The music stands are all in one row, creepy.\n")
                     .append("Some notes were left behind. Suddenly, you notice a cracked sound,\nalmost impossible to notice.\n")
                     .append("You try to identity the source and see a cassette next to the violin,\nwhich is part of the instrument collection.");
+        } else {
+            text.append("You enter the Music Room\n");
         }
         return text.toString();
     }
