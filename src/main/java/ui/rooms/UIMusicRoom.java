@@ -15,15 +15,9 @@ import java.util.Map;
 
 public class UIMusicRoom implements UIRoom {
 
-    private UICommands commands;
-
     @Override
     public String getName() {
         return "music room";
-    }
-
-    public UIMusicRoom(UICommands commands) {
-        this.commands = commands;
     }
 
     @Override
@@ -116,17 +110,11 @@ public class UIMusicRoom implements UIRoom {
         return result.toString();
     }
 
-public String handleRoomChange(Player player, String roomName) {
-    Map<String, Exit> exits = getAvailableExits(player);
-    String roomKey = roomName.toLowerCase();
-    if (exits.containsKey(roomKey)) {
+    public String handleRoomChange(Player player, String roomName) {
         UIRoom targetRoom = UIRoomFactory.createRoom(roomName);
         player.setCurrentUIRoom(targetRoom);
         return "";
-    } else {
-        return "There is no room called '" + roomName + "' here.";
     }
-}
 
 @Override
 public Map<String, Exit> getAvailableExits(Player player) {

@@ -105,6 +105,9 @@ public class TypingEffect {
                         Thread.sleep(100);
                     }
 
+                    TypingEffect.isWaiting = true;
+                    TypingEffect.isSkipped = false;
+
                 } else {
                     gui.getGUIThread().invokeAndWait(() -> {
                         UIGameController.getCurrent().disableActionPanel();

@@ -16,8 +16,6 @@ import java.util.List;
 import java.util.Map;
 
 public class UIPrinterRoom implements UIRoom {
-
-    private UICommands commands;
     private TextPrinter printer;
 
     @Override
@@ -25,8 +23,7 @@ public class UIPrinterRoom implements UIRoom {
         return "printer room";
     }
 
-    public UIPrinterRoom(UICommands commands, TextPrinter printer) {
-        this.commands = commands;
+    public UIPrinterRoom(TextPrinter printer) {
         this.printer = printer;
     }
 
@@ -139,15 +136,9 @@ public class UIPrinterRoom implements UIRoom {
     }
 
     public String handleRoomChange(Player player, String roomName) {
-        Map<String, Exit> exits = getAvailableExits(player);
-        String roomKey = roomName.toLowerCase();
-        if (exits.containsKey(roomKey)) {
-            UIRoom targetRoom = UIRoomFactory.createRoom(roomName);
-            player.setCurrentUIRoom(targetRoom);
-            return "";
-        } else {
-            return "There is no room called '" + roomName + "' here.";
-        }
+        UIRoom targetRoom = UIRoomFactory.createRoom(roomName);
+        player.setCurrentUIRoom(targetRoom);
+        return "";
     }
 
     @Override

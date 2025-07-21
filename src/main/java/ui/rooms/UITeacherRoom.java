@@ -18,17 +18,15 @@ import java.util.*;
 public class UITeacherRoom implements UIRoom {
 
     private UIEndings ending;
-    private UICommands commands;
     private MultiWindowTextGUI gui;
     private TextPrinter printer;
     private Logos logos;
 
-    public UITeacherRoom(UIGameController controller, UICommands commands, MultiWindowTextGUI gui, TextPrinter printer, Logos logos) {
+    public UITeacherRoom(UIGameController controller, MultiWindowTextGUI gui, TextPrinter printer, Logos logos) {
         this.gui = gui;
         this.logos = logos;
         this.printer = printer;
         this.ending = new UIEndings(controller, gui, printer, logos);
-        this.commands = commands;
     }
 
     @Override
@@ -218,15 +216,9 @@ public class UITeacherRoom implements UIRoom {
     }
 
     public String handleRoomChange(Player player, String roomName) {
-        Map<String, Exit> exits = getAvailableExits(player);
-        String roomKey = roomName.toLowerCase();
-        if (exits.containsKey(roomKey)) {
-            UIRoom targetRoom = UIRoomFactory.createRoom(roomName);
-            player.setCurrentUIRoom(targetRoom);
-            return "";
-        } else {
-            return "There is no room called '" + roomName + "' here.";
-        }
+        UIRoom targetRoom = UIRoomFactory.createRoom(roomName);
+        player.setCurrentUIRoom(targetRoom);
+        return "";
     }
 
     @Override

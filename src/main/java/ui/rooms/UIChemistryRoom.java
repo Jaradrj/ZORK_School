@@ -15,8 +15,6 @@ import java.util.*;
 
 public class UIChemistryRoom implements UIRoom {
 
-    private UICommands commands;
-
     private TextPrinter printer;
 
     @Override
@@ -24,8 +22,7 @@ public class UIChemistryRoom implements UIRoom {
         return "chemistry room";
     }
 
-    public UIChemistryRoom(UICommands commands, TextPrinter printer) {
-        this.commands = commands;
+    public UIChemistryRoom(TextPrinter printer) {
         this.printer = printer;
     }
 
@@ -39,8 +36,10 @@ public class UIChemistryRoom implements UIRoom {
 
             text.append("Science has never been your favorite subject.\nBut it most definitely is Klara's.\n")
                     .append("The brewing station in the back of the\nroom still has some chemicals opened.\nWhat is Scopolamine? I heard of that before...\n")
-                    .append("While trying to remember, your flashlight suddenly starts flickering.\n")
-                    .append("Maybe you should try to find a way into the Electricity Room?");
+                    .append("While trying to remember, your flashlight suddenly starts flickering.\n");
+            if (!player.hasFlag("entered_electricity")) {
+                text.append("Maybe you should try to find a way into the Electricity Room?");
+            }
         }
         return text.toString();
     }
@@ -134,7 +133,7 @@ public class UIChemistryRoom implements UIRoom {
             case "hno3":
             case "c17h21no4":
                 result.append("You expect to hear a sizzling sound, but it doesn't happen. Wrong combination?");
-            break;
+                break;
             case "h2so4":
                 if (player.hasFlag("awaiting_formula_check")) {
                     player.clearFlag("awaiting_formula_check");
@@ -145,7 +144,10 @@ public class UIChemistryRoom implements UIRoom {
                     player.getInventory().addItem("Acid");
                     SoundPlayer.playSound("/sounds/Brewing.wav", 2000, 0, outputArea, UIGameController.getGuiInstance(), false);
                     result.append("You mix the chemicals carefully. The solution bubbles violently.\n")
-                            .append("You now carry Sulfuric Acid.\nMaybe it can help melt the lock on the Electricity Room door.");
+                            .append("You now carry Sulfuric Acid.\n");
+                    if (!player.hasFlag("entered_electricity")) {
+                        result.append("Maybe it can help melt the lock on the Electricity Room door");
+                    }
                 } else {
                     result.append("You mix the chemicals, but nothing happens. Wrong combination?");
                 }
@@ -161,15 +163,9 @@ public class UIChemistryRoom implements UIRoom {
     }
 
     public String handleRoomChange(Player player, String roomName) {
-        Map<String, Exit> exits = getAvailableExits(player);
-        String roomKey = roomName.toLowerCase();
-        if (exits.containsKey(roomKey)) {
-            UIRoom targetRoom = UIRoomFactory.createRoom(roomName);
-            player.setCurrentUIRoom(targetRoom);
-            return "You enter the " + roomName + ".";
-        } else {
-            return "There is no room called '" + roomName + "' here.";
-        }
+        UIRoom targetRoom = UIRoomFactory.createRoom(roomName);
+        player.setCurrentUIRoom(targetRoom);
+        return "";
     }
 
     @Override

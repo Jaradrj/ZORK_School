@@ -48,7 +48,6 @@ public class UIMain {
             UICommands commands = new UICommands(roomMap);
             TextPrinter printer = new TextPrinter();
             Logos logos = new Logos(printer);
-            UIRoomFactory.setCommands(commands);
             UIRoomFactory.setPrinter(printer);
             UIRoomFactory.setLogos(logos);
 

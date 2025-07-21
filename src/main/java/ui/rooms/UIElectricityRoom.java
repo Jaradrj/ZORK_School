@@ -19,15 +19,13 @@ public class UIElectricityRoom implements UIRoom {
 
     private UIEndings ending;
     private MultiWindowTextGUI gui;
-    private UICommands commands;
     private TextPrinter printer;
     private Logos logos;
 
-    public UIElectricityRoom(UIGameController controller, UICommands commands, MultiWindowTextGUI gui, TextPrinter printer, Logos logos) {
+    public UIElectricityRoom(UIGameController controller, MultiWindowTextGUI gui, TextPrinter printer, Logos logos) {
         this.gui = gui;
         this.logos = logos;
         this.ending = new UIEndings(controller, gui, printer, logos);
-        this.commands = commands;
         this.printer = printer;
     }
 
@@ -48,6 +46,8 @@ public class UIElectricityRoom implements UIRoom {
                     While crawling through, you notice the smell getting worse and worse, to the point you almost have to throw up.
                     You start to hear a buzzing sound. That's the moment you realize, you made it to the Electricity Room.
                     You look inside, but all you see is darkness.
+                    You take out the flashlight ad turn it on, or at least try to.
+                    It suddenly dies. No light.
                     And so it's clear, the only way forward is to jump.
                     You pause, thinking about everything that brought you here.
                     The risks, the choices, the distance you've come. And all
@@ -276,16 +276,9 @@ public class UIElectricityRoom implements UIRoom {
         return exits;
     }
 
-    @Override
     public String handleRoomChange(Player player, String roomName) {
-        Map<String, Exit> exits = getAvailableExits(player);
-        String roomKey = roomName.toLowerCase();
-        if (exits.containsKey(roomKey)) {
-            UIRoom targetRoom = UIRoomFactory.createRoom(roomName);
-            player.setCurrentUIRoom(targetRoom);
-            return targetRoom.enter(player);
-        } else {
-            return "There is no room called '" + roomName + "' here.";
-        }
+        UIRoom targetRoom = UIRoomFactory.createRoom(roomName);
+        player.setCurrentUIRoom(targetRoom);
+        return "";
     }
 }

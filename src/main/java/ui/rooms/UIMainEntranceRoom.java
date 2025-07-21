@@ -15,11 +15,9 @@ import java.util.*;
 
 public class UIMainEntranceRoom implements UIRoom {
 
-    private final UICommands commands;
     private TextPrinter printer;
 
-    public UIMainEntranceRoom(UICommands commands, TextPrinter printer) {
-        this.commands = commands;
+    public UIMainEntranceRoom(TextPrinter printer) {
         this.printer = printer;
     }
 
@@ -144,18 +142,9 @@ public class UIMainEntranceRoom implements UIRoom {
 
 
     public String handleRoomChange(Player player, String roomName) {
-        if (!player.hasFlag("half_map_taken")) {
-            return "You don't know where to go yet. Find a map first.";
-        }
-        Map<String, Exit> exits = getAvailableExits(player);
-        String roomKey = roomName.toLowerCase();
-        if (exits.containsKey(roomKey)) {
-            UIRoom targetRoom = UIRoomFactory.createRoom(roomName);
-            player.setCurrentUIRoom(targetRoom);
-            return "";
-        } else {
-            return "There's no room called '" + roomName + "'.";
-        }
+        UIRoom targetRoom = UIRoomFactory.createRoom(roomName);
+        player.setCurrentUIRoom(targetRoom);
+        return "";
     }
 
     @Override

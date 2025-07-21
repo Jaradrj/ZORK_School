@@ -16,17 +16,10 @@ import java.util.*;
 
 public class UIITRoom implements UIRoom {
 
-    private UICommands commands;
-
     @Override
     public String getName() {
         return "it room";
     }
-
-    public UIITRoom(UICommands commands) {
-        this.commands = commands;
-    }
-
 
     @Override
     public String enter(Player player) {
@@ -78,27 +71,30 @@ public class UIITRoom implements UIRoom {
                     player.setFlag("confirmed_memory_leak");
 
                     String camFeeds = """
-            [PROCESSING...]
+                            [PROCESSING...]
+                            
+                            Accessing archived camera feeds...
+                            
+                            [CAM_01 - Music Room]
+                            * A shadow in the corner, not there before.
+                            * It moves when you're not watching. It leaves the room.
+                            
+                            [CAM_02 - Hallway]
+                            * Lights flicker. The hallway stretches too far.
+                            * You can hear footsteps through the camera, but no person was seen.
+                            
+                            [CAM_03 - Teacher Room]
+                            * Two people arguing. Then, they both walk out.\nAfter some minutes, only one returns.
+                            
+                            >> Feed lost. Signal corrupted.
+                            
+                            [RETURNING TO PROMPT...]
+                            
+                            """;
+                    if (!player.hasFlag("entered_electricity")) {
+                        camFeeds += "I should check the Teacher's Room...";
+                    }
 
-            Accessing archived camera feeds...
-
-            [CAM_01 - Music Room]
-            * A shadow in the corner, not there before.
-            * It moves when you're not watching. It leaves the room.
-
-            [CAM_02 - Hallway]
-            * Lights flicker. The hallway stretches too far.
-            * You can hear footsteps through the camera, but no person was seen.
-
-            [CAM_03 - Teacher Room]
-            * Two people arguing. Then, they both walk out.\nAfter some minutes, only one returns.
-
-            >> Feed lost. Signal corrupted.
-
-            [RETURNING TO PROMPT...]
-
-            I should check the Teacher's Room...
-            """;
                     result.append(camFeeds);
                     outputArea.setText(outputArea.getText() + "\n\n" + camFeeds);
                     result.append("Camera feeds displayed.");
@@ -124,23 +120,23 @@ public class UIITRoom implements UIRoom {
                     player.setFlag("inspected_message");
                     player.setFlag("ran_memory_leak");
                     String terminalText = """
-                    [WARNING: USER PRESENCE DETECTED]
-                    
-                    > YOU SHOULDN’T BE HERE.
-                    > THEY’RE LISTENING THROUGH THE WIRES.
-                    
-                    > █ █ █  ▄▄▄▄▄▄▄▄▄  █ █ █
-                
-                    [SYSTEM ERROR: MEMORY LEAK - RUNNING AUTOMATICALLY...]
-                    Would you like to execute [RUN]? (Y/N)
-                    """;
+                            [WARNING: USER PRESENCE DETECTED]
+                            
+                            > YOU SHOULDN’T BE HERE.
+                            > THEY’RE LISTENING THROUGH THE WIRES.
+                            
+                            > █ █ █  ▄▄▄▄▄▄▄▄▄  █ █ █
+                            
+                            [SYSTEM ERROR: MEMORY LEAK - RUNNING AUTOMATICALLY...]
+                            Would you like to execute [RUN]? (Y/N)
+                            """;
 
                     SoundPlayer.playSound("/sounds/Computer.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
                     SoundPlayer.playSound("/sounds/Computer.wav", 9500, 0, outputArea, UIGameController.getGuiInstance(), false);
                     SoundPlayer.playSound("/sounds/Computer.wav", 19000, 0, outputArea, UIGameController.getGuiInstance(), false);
                     SoundPlayer.playSound("/sounds/Computer.wav", 28500, 0, outputArea, UIGameController.getGuiInstance(), false);
 
-                    TypingEffect.typeWithBanner(outputArea, terminalText, UIGameController.getGuiInstance(), null, true,true, () -> {
+                    TypingEffect.typeWithBanner(outputArea, terminalText, UIGameController.getGuiInstance(), null, true, true, () -> {
                         Logos.printBanner(Logos.itLogo, outputArea);
                     });
 
@@ -175,15 +171,9 @@ public class UIITRoom implements UIRoom {
     }
 
     public String handleRoomChange(Player player, String roomName) {
-        Map<String, Exit> exits = getAvailableExits(player);
-        String roomKey = roomName.toLowerCase();
-        if (exits.containsKey(roomKey)) {
-            UIRoom targetRoom = UIRoomFactory.createRoom(roomName);
-            player.setCurrentUIRoom(targetRoom);
-            return "";
-        } else {
-            return "There is no room called '" + roomName + "' here.";
-        }
+        UIRoom targetRoom = UIRoomFactory.createRoom(roomName);
+        player.setCurrentUIRoom(targetRoom);
+        return "";
     }
 
     @Override

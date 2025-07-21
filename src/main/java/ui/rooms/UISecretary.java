@@ -17,15 +17,10 @@ import java.util.Map;
 
 public class UISecretary implements UIRoom {
 
-    private UICommands commands;
 
     @Override
     public String getName() {
         return "secretary";
-    }
-
-    public UISecretary(UICommands commands) {
-        this.commands = commands;
     }
 
     @Override
@@ -90,15 +85,9 @@ public class UISecretary implements UIRoom {
     }
 
     public String handleRoomChange(Player player, String roomName) {
-        Map<String, Exit> exits = getAvailableExits(player);
-        String roomKey = roomName.toLowerCase();
-        if (exits.containsKey(roomKey)) {
-            UIRoom targetRoom = UIRoomFactory.createRoom(roomName);
-            player.setCurrentUIRoom(targetRoom);
-            return "";
-        } else {
-            return "There is no room called '" + roomName + "' here.";
-        }
+        UIRoom targetRoom = UIRoomFactory.createRoom(roomName);
+        player.setCurrentUIRoom(targetRoom);
+        return "";
     }
 
     @Override

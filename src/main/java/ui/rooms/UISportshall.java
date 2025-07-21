@@ -16,15 +16,9 @@ import java.util.Map;
 
 public class UISportshall implements UIRoom {
 
-    private UICommands commands;
-
     @Override
     public String getName() {
         return "sportshall";
-    }
-
-    public UISportshall(UICommands commands) {
-        this.commands = commands;
     }
 
     @Override
@@ -57,9 +51,6 @@ public class UISportshall implements UIRoom {
         String lowerAction = action.toLowerCase().trim();
         StringBuilder result = new StringBuilder();
         switch (lowerAction) {
-            case "1":
-            case "move":
-            case "use":
             case "move bench":
             case "use bench":
                 player.setFlag("entered_electricity");
@@ -68,8 +59,6 @@ public class UISportshall implements UIRoom {
                 }
                 return handleRoomChange(player, "electricity room");
             case "leave":
-            case "2":
-                commands.checkInputCommands("-r", player, outputArea);
                 return "";
 
             default:
@@ -81,15 +70,9 @@ public class UISportshall implements UIRoom {
     }
 
     public String handleRoomChange(Player player, String roomName) {
-        Map<String, Exit> exits = getAvailableExits(player);
-        String roomKey = roomName.toLowerCase();
-        if (exits.containsKey(roomKey)) {
-            UIRoom targetRoom = UIRoomFactory.createRoom(roomName);
-            player.setCurrentUIRoom(targetRoom);
-            return "";
-        } else {
-            return "There is no room called '" + roomName + "' here.";
-        }
+        UIRoom targetRoom = UIRoomFactory.createRoom(roomName);
+        player.setCurrentUIRoom(targetRoom);
+        return "";
     }
 
     @Override
