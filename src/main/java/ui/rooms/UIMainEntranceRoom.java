@@ -6,6 +6,7 @@ import ui.audio.TypingEffect;
 import ui.components.TextPrinter;
 import ui.controller.UIGameController;
 import ui.game.UICommands;
+import ui.game.UIEndings;
 import ui.game.UIRoom;
 import console.game.*;
 import ui.game.UIRoomFactory;
@@ -16,9 +17,13 @@ import java.util.*;
 public class UIMainEntranceRoom implements UIRoom {
 
     private TextPrinter printer;
+    private UIEndings endings;
+    private UIGameController controller;
 
-    public UIMainEntranceRoom(TextPrinter printer) {
+    public UIMainEntranceRoom(TextPrinter printer, UIGameController controller) {
         this.printer = printer;
+        this.controller = controller;
+        this.endings = new UIEndings(controller);
     }
 
     @Override
@@ -61,7 +66,11 @@ public class UIMainEntranceRoom implements UIRoom {
         switch (action) {
             case "turn on the light":
                 SoundPlayer.playSound("/sounds/Lightswitch.wav", 0, 500, outputArea, UIGameController.getGuiInstance(), true);
-                if (!player.hasFlag("lights_tried")) {
+                if(!player.hasFlag("hasReadNote") && !player.hasFlag("half_map_taken")){
+                    endings.lightSwitchEnding(outputArea);
+                }
+
+                 else if (!player.hasFlag("lights_tried")) {
                     player.setFlag("lights_tried");
                     String text = "You flip the switch. Nothing happens. The power must be out.\nMaybe you need to restore it elsewhere.";
                     TypingEffect.typeWithSound(outputArea, text, UIGameController.getGuiInstance(), null);

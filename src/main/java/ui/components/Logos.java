@@ -20,13 +20,6 @@ public class Logos {
              ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗    ╚██████╔╝╚██████╔╝███████╗██║  ██║
               ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝     ╚═════╝  ╚═════╝ ╚══════╝╚═╝  ╚═╝
             
-            
-            
-            
-            
-            
-            
-            Press enter to continue
             """;
 
     public static String trophy = """
@@ -56,6 +49,7 @@ public class Logos {
 
 
     public static void printBanner(String logo, TextBox outputArea) {
+        UIGameController.setShowEnterHint(true);
         UIGameController.getGuiInstance().getGUIThread().invokeLater(() -> printer.textPrinter(logo, outputArea));
     }
 

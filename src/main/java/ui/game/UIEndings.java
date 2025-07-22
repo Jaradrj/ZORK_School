@@ -73,9 +73,9 @@ public class UIEndings {
 
         if (player.hasFlag("second_try")) {
             input += "\n" + player.oldName + ", a tragedy. I don't know what exactly led them here in the first place, " +
-                    "but something tells me... they've done this before. The shadows feel familiar, " +
-                    "the silence more oppressive. This time, maybe they'll get it right. " +
-                    "Maybe they'll uncover what the others could not.\n";
+                     "but something tells me... they've done this before. The shadows feel familiar, " +
+                     "the silence more oppressive. This time, maybe they'll get it right. " +
+                     "Maybe they'll uncover what the others could not.\n";
         }
 
         input += """
@@ -132,6 +132,7 @@ public class UIEndings {
 
         String finalInput = input;
         new Thread(() -> {
+            controller.disableActionPanel();
             try {
                 Thread.sleep(17_000);
             } catch (InterruptedException e) {
@@ -139,11 +140,14 @@ public class UIEndings {
             }
 
             TypingEffect.typeWithBanner(outputArea, finalInput, UIGameController.getGuiInstance(), null, false, false, () -> {
-                Logos.printBanner(Logos.trophy, outputArea);
 
-                TypingEffect.isWaiting = true;
+                waitingForEnter(() -> {
+                    Logos.printBanner(Logos.trophy, outputArea);
 
-                waitingForEnter(() -> UIGameController.getGuiInstance().getGUIThread().invokeLater(() -> controller.showEndingPrompt(true)));
+                    TypingEffect.isWaiting.set(true);
+
+                    waitingForEnter(() -> UIGameController.getGuiInstance().getGUIThread().invokeLater(() -> controller.showEndingPrompt(true)));
+                });
             });
         }).start();
     }
@@ -157,44 +161,44 @@ public class UIEndings {
         }
         String input =
                 "There you are. You pull on the door, harder and harder, hoping it will move.\n" +
-                        "Not a jolt.\n" +
-                        "\n" +
-                        "Hope always dies last, because you will die before it does.\n" +
-                        "\n" +
-                        "The air turns cold around you, not from the room, but from something inside.\n" +
-                        "Your fingers tremble, still grasping the handle like it owes you something. Like someone will answer.\n" +
-                        "But nothing answers here.\n" +
-                        "\n" +
-                        "You scream, but your voice is swallowed by the concrete.\n" +
-                        "You pound on the metal until your fists are raw, then bloody.\n" +
-                        "The handle is slick with your own skin.\n" +
-                        "\n" +
-                        "No echo.\n" +
-                        "No rescue.\n" +
-                        "Just the sound of your breath hitching between sobs, and the quiet drip of blood on tile.\n" +
-                        "\n";
+                "Not a jolt.\n" +
+                "\n" +
+                "Hope always dies last, because you will die before it does.\n" +
+                "\n" +
+                "The air turns cold around you, not from the room, but from something inside.\n" +
+                "Your fingers tremble, still grasping the handle like it owes you something. Like someone will answer.\n" +
+                "But nothing answers here.\n" +
+                "\n" +
+                "You scream, but your voice is swallowed by the concrete.\n" +
+                "You pound on the metal until your fists are raw, then bloody.\n" +
+                "The handle is slick with your own skin.\n" +
+                "\n" +
+                "No echo.\n" +
+                "No rescue.\n" +
+                "Just the sound of your breath hitching between sobs, and the quiet drip of blood on tile.\n" +
+                "\n";
 
         if (!player.hasFlag("body_inspected")) {
             input += "You sink to the floor, shaking, and finally notice what you’d been avoiding in the dark.\n" +
-                    "            Shapes.\n" +
-                    "            Bodies.\n" +
-                    "            Others, crumpled in corners. Some collapsed in prayer.\n" +
-                    "            Some still clutching notes. One face half-rotted, eyes wide open, as if still waiting for help.\n";
+                     "            Shapes.\n" +
+                     "            Bodies.\n" +
+                     "            Others, crumpled in corners. Some collapsed in prayer.\n" +
+                     "            Some still clutching notes. One face half-rotted, eyes wide open, as if still waiting for help.\n";
         }
 
         input +=
                 "The students, they didn’t pass the test.\n" +
-                        "Neither will you.\n" +
-                        "\n" +
-                        "On the wall behind you, flickering in the dying emergency light, the words “MindScale Phase IV – Human Factor Adjustment” appear on an old clipboard.\n" +
-                        "Your name is handwritten on the list. Next to a date. Today.\n" +
-                        "\n" +
-                        "The test wasn’t to see if you could escape.\n" +
-                        "It was to see how long you would try before giving up.\n" +
-                        "How far you'd bleed before breaking.\n" +
-                        "\n" +
-                        "You close your eyes, but the darkness is no different.\n" +
-                        "\n\n Press ENTER to continue";
+                "Neither will you.\n" +
+                "\n" +
+                "On the wall behind you, flickering in the dying emergency light, the words “MindScale Phase IV – Human Factor Adjustment” appear on an old clipboard.\n" +
+                "Your name is handwritten on the list. Next to a date. Today.\n" +
+                "\n" +
+                "The test wasn’t to see if you could escape.\n" +
+                "It was to see how long you would try before giving up.\n" +
+                "How far you'd bleed before breaking.\n" +
+                "\n" +
+                "You close your eyes, but the darkness is no different.\n" +
+                "\n\n Press ENTER to continue";
 
         String finalInput = input;
         new Thread(() -> {
@@ -205,11 +209,15 @@ public class UIEndings {
             }
 
             TypingEffect.typeWithBanner(outputArea, finalInput, UIGameController.getGuiInstance(), null, false, false, () -> {
-                Logos.printBanner(Logos.banner, outputArea);
 
-                TypingEffect.isWaiting = true;
+                waitingForEnter(() -> {
 
-                waitingForEnter(() -> UIGameController.getGuiInstance().getGUIThread().invokeLater(() -> controller.showEndingPrompt(false)));
+                    Logos.printBanner(Logos.banner, outputArea);
+
+                    TypingEffect.isWaiting.set(true);
+
+                    waitingForEnter(() -> UIGameController.getGuiInstance().getGUIThread().invokeLater(() -> controller.showEndingPrompt(false)));
+                });
             });
         }).start();
     }
@@ -237,18 +245,115 @@ public class UIEndings {
                 """;
 
         TypingEffect.typeWithBanner(outputArea, narrative, UIGameController.getGuiInstance(), "TeacherEnding.wav", false, false, () -> {
-            Logos.printBanner(Logos.banner, outputArea);
 
-            TypingEffect.isWaiting = true;
+            waitingForEnter(() -> {
+                Logos.printBanner(Logos.banner, outputArea);
 
-            waitingForEnter(() -> UIGameController.getGuiInstance().getGUIThread().invokeLater(() -> controller.showEndingPrompt(false)));
+                TypingEffect.isWaiting.set(true);
+
+                waitingForEnter(() -> UIGameController.getGuiInstance().getGUIThread().invokeLater(() -> controller.showEndingPrompt(false)));
+            });
         });
     }
 
-    public void lightSwitchEnding(Player player, TextBox outputArea) {
+    public void lightSwitchEnding(TextBox outputArea) {
+
+        enteredEndings = true;
+
+        String story = """
+                You walk over to the light switch and flip it.
+                At first nothing happens. But then...
+                Your hand freezes in place.
+                Your body trembles, heart pounding faster.
+                You smell the smoke and see the flickering lights.
+                And then ... nothing.
+                """;
+
+        TypingEffect.typeWithBanner(outputArea, story, UIGameController.getGuiInstance(), null, true, false, () -> {
+
+            waitingForEnter(() -> {
+                Logos.printBanner(Logos.banner, outputArea);
+
+                TypingEffect.isWaiting.set(true);
+
+                waitingForEnter(() -> UIGameController.getGuiInstance().getGUIThread().invokeLater(() -> controller.showEndingPrompt(false)));
+            });
+        });
     }
 
     public void brewingEnding(Player player, TextBox outputArea) {
+
+        enteredEndings = true;
+
+        SoundPlayer.playSound("/sounds/Brewing.wav", 10000, 0, outputArea, UIGameController.getGuiInstance(), false);
+
+        String story = """
+                You mix the chemicals together and wait for that faint, familiar sizzling sound.
+                It's not your first time brewing something, but it’s the first time you have no idea what the outcome will be.
+                Scopolamine. 
+                "What is it? What am I trying to brew?"
+                Those thoughts swirl through your mind, until they're interrupted.
+                
+                The sizzling begins. It worked.
+                You step closer to the mixture and take a look at the pale yellow liquid.
+                It smells oddly appealing.
+                A little bitter, but also earthly. Like a flower, or nature itself.
+                You lean in even closer.
+                The smell draws you in.
+                You don’t even notice how dizzy you’ve become.
+                You stumble back, but it's too late.
+                The air thickens, making it difficult to breathe.
+                Your vision is blurred, your mouth dry.
+                You start to panic, increasing your already racing heartbeat. 
+                
+                You hear steps, or do you? A shadow appears in front of you. Or was it never there?
+                Suddenly a face appears in front of you. 
+                Is that...Mrs. Hamps? 
+                No, no that can't be. 
+                It disappears again. 
+                "What is happening", you mumble.
+                You try to to lean against the wall, but your knees give in.
+                You collapse, hitting the ground hard.
+                You want to get up, but your body trembles.
+                Barely being able to keep your eyes open you stare into the distance.
+                While staring at the Scopolamine, you begin regret ever touching it. But it's too late, too late to regret anything, too late to change anything.
+                
+                """;
+
+        if (player.hasFlag("second_try")) {
+            story +=
+                    """
+                    A face appears again. Sad. Angry. But also... caring.
+                    It's  """+ player.oldName + """   
+                    
+                    That can't be. 
+                    "I must be seeing things", you think to yourself.
+                    
+                        "Why did you try and find us? 
+                        You should've never come here.
+                        I told you ... I told you not to look for me if I didn’t come back.
+                        And now, now we both share the same fate."
+                    
+                    You want to answer, but you're too weak, too tired.
+                   
+                    """;
+        }
+
+        story += """
+                Your eyes begin to close.
+                Just before you lose consciousness, a pair of hands lift you up and carry you away.
+                """;
+
+        TypingEffect.typeWithBanner(outputArea, story, UIGameController.getGuiInstance(), null, true, false, () -> {
+
+            waitingForEnter(() -> {
+                Logos.printBanner(Logos.banner, outputArea);
+
+                TypingEffect.isWaiting.set(true);
+
+                waitingForEnter(() -> UIGameController.getGuiInstance().getGUIThread().invokeLater(() -> controller.showEndingPrompt(false)));
+            });
+        });
     }
 
 
@@ -257,7 +362,7 @@ public class UIEndings {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                if (!TypingEffect.isWaiting) {
+                if (!TypingEffect.isWaiting.get()) {
                     timer.cancel();
                     UIGameController.getGuiInstance().getGUIThread().invokeLater(callback);
                 }

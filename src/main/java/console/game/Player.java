@@ -15,6 +15,7 @@ public class Player {
     public HelpActions helpActions;
     @Setter
     public String name;
+    @Setter
     public String oldName;
     @Getter
     private Room currentRoom;

@@ -15,6 +15,7 @@ import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.terminal.swing.SwingTerminalFrame;
 import console.game.Player;
 import lombok.Getter;
+import ui.UIMain;
 import ui.audio.SoundPlayer;
 import ui.components.ButtonStyling;
 import ui.controller.UIGameController;
@@ -71,6 +72,9 @@ public class StartMenu {
             window.close();
             String name = enterName();
             player.setName(name);
+            if(!player.hasFlag("second_try")) {
+                UIMain.playerName = name;
+            }
         });
         startButton.setRenderer(new ButtonStyling());
 

@@ -8,6 +8,7 @@ import ui.audio.TypingEffect;
 import ui.components.TextPrinter;
 import ui.controller.UIGameController;
 import ui.game.UICommands;
+import ui.game.UIEndings;
 import ui.game.UIRoom;
 import ui.game.UIRoomFactory;
 
@@ -16,14 +17,17 @@ import java.util.*;
 public class UIChemistryRoom implements UIRoom {
 
     private TextPrinter printer;
-
+    private UIGameController controller;
+    private UIEndings endings;
     @Override
     public String getName() {
         return "chemistry room";
     }
 
-    public UIChemistryRoom(TextPrinter printer) {
+    public UIChemistryRoom(TextPrinter printer, UIGameController controller) {
         this.printer = printer;
+        this.controller = controller;
+        this.endings = new UIEndings(controller);
     }
 
     @Override
@@ -133,7 +137,6 @@ public class UIChemistryRoom implements UIRoom {
             case "h2o":
             case "hcl":
             case "hno3":
-            case "c17h21no4":
                 result.append("You expect to hear a sizzling sound, but it doesn't happen. Wrong combination?");
                 break;
             case "h2so4":
@@ -154,6 +157,9 @@ public class UIChemistryRoom implements UIRoom {
                     result.append("You mix the chemicals, but nothing happens. Wrong combination?");
                 }
                 break;
+
+            case "c17h21no4":
+                endings.brewingEnding(player, outputArea);
             case "leave":
                 return "";
             default:

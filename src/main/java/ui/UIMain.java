@@ -16,15 +16,30 @@ import java.util.Map;
 
 public class UIMain {
 
+    public static int gameCount = 0;
+    public static String playerName = "";
+
     public static void main(String[] args) {
         startGame();
     }
 
     public static void startGame() {
+
+        gameCount++;
+
         try {
             Player player = new Player();
+
+            if(gameCount >= 2){
+                player.setFlag("second_try");
+            }
+
             StartMenu startMenu = new StartMenu(player);
             startMenu.showStartMenu();
+
+            if(player.hasFlag("second_try")){
+                player.setOldName(playerName);
+            }
 
             Map<String, UIRoom> roomMap = new HashMap<>();
             String[] roomNames = {
@@ -45,7 +60,6 @@ public class UIMain {
                 roomMap.put(name, UIRoomFactory.createRoom(name));
             }
 
-            UICommands commands = new UICommands(roomMap);
             TextPrinter printer = new TextPrinter();
             Logos logos = new Logos(printer);
             UIRoomFactory.setPrinter(printer);

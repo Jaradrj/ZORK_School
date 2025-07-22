@@ -25,12 +25,11 @@ public class UIRoomFactory {
 
     public static UIRoom createRoom(String name) {
         return switch (name) {
-            case "main entrance hall" -> new UIMainEntranceRoom(printer
-            );
+            case "main entrance hall" -> new UIMainEntranceRoom(printer, controller);
             case "music room" -> new UIMusicRoom();
             case "it room" -> new UIITRoom();
             case "cafeteria" -> new UICafeteria();
-            case "chemistry room" -> new UIChemistryRoom(printer);
+            case "chemistry room" -> new UIChemistryRoom(printer, controller);
             case "printer room" -> new UIPrinterRoom(printer);
             case "sportshall" -> new UISportshall();
             case "secretary" -> new UISecretary();

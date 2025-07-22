@@ -4,7 +4,6 @@ import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.SimpleTheme;
 import com.googlecode.lanterna.gui2.*;
-import com.googlecode.lanterna.gui2.BorderLayout;
 import com.googlecode.lanterna.gui2.Button;
 import com.googlecode.lanterna.gui2.Panel;
 import com.googlecode.lanterna.gui2.Window;
@@ -152,6 +151,8 @@ public class UIGameController {
             }
         });
 
+        System.out.println(player.oldName);
+        System.out.println(player.name);
         updateUI();
     }
 
@@ -346,7 +347,6 @@ public class UIGameController {
 
             actionPanel.addComponent(new Button("Yes", () -> {
                 player.clearFlags();
-                player.setFlag("second_try");
                 showingEndingPrompt = false;
 
                 SoundPlayer.stopSound();

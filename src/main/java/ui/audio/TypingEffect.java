@@ -11,12 +11,12 @@ import javax.sound.sampled.*;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class TypingEffect {
 
-    public static boolean isSkipped = false;
-
-    public static boolean isWaiting = true;
+    public static final AtomicBoolean isSkipped = new AtomicBoolean(false);
+    public static final AtomicBoolean isWaiting = new AtomicBoolean(true);
 
     public static final Object waitLock = new Object();
 
@@ -24,7 +24,7 @@ public class TypingEffect {
 
         UIGameController.setShowSkipHint(true);
 
-        isSkipped = false;
+        isSkipped.set(false);
 
         int delayMillis = 55;
 
@@ -39,7 +39,7 @@ public class TypingEffect {
 
             StringBuilder currentText = new StringBuilder();
             for (int i = 0; i < text.length(); i++) {
-                if (isSkipped) {
+                if (isSkipped.get()) {
                     gui.getGUIThread().invokeLater(() -> textBox.setText(text));
                     break;
                 }
@@ -67,8 +67,8 @@ public class TypingEffect {
 
     public static void typeWithBanner(TextBox textBox, String text, WindowBasedTextGUI gui, String soundPath, boolean sound, boolean first, Runnable onComplete) {
 
-        isSkipped = false;
-        isWaiting = true;
+        isSkipped.set(false);
+        isWaiting.set(true);
 
         int delayMillis;
 
@@ -109,7 +109,7 @@ public class TypingEffect {
                     }
 
                     synchronized (TypingEffect.waitLock) {
-                        while (isWaiting) {
+                        while (isWaiting.get()) {
                             try {
                                 TypingEffect.waitLock.wait();
                             } catch (InterruptedException e) {
@@ -119,9 +119,8 @@ public class TypingEffect {
                         }
                     }
 
-                    TypingEffect.isWaiting = true;
-                    TypingEffect.isSkipped = false;
-
+                    isWaiting.set(true);
+                    isSkipped.set(false);
 
                 } else {
                     gui.getGUIThread().invokeAndWait(() -> {
@@ -132,14 +131,15 @@ public class TypingEffect {
                 UIGameController.setShowSkipHint(true);
                 StringBuilder currentText = new StringBuilder();
                 for (int i = 0; i < text.length(); i++) {
-                    if (isSkipped) {
-                        isWaiting = true;
+                    if (isSkipped.get()) {
+                        isWaiting.set(true);
 
                         gui.getGUIThread().invokeLater(() -> textBox.setText(text));
 
+                        UIGameController.setShowEnterHint(true);
+
                         synchronized (TypingEffect.waitLock) {
-                            while (isWaiting) {
-                                UIGameController.setShowEnterHint(true);
+                            while (isWaiting.get()) {
                                 try {
                                     TypingEffect.waitLock.wait();
                                 } catch (InterruptedException e) {
@@ -173,6 +173,8 @@ public class TypingEffect {
                         }
                     }
                 }
+
+                UIGameController.setShowSkipHint(false);
 
 
                 if (!first && onComplete != null) {
@@ -221,10 +223,9 @@ public class TypingEffect {
     }
 
     public static void skipTyping() {
-        UIGameController.setShowSkipHint(true);
         UIGameController.setShowSkipHint(false);
-        isSkipped = true;
-        isWaiting = false;
+        isSkipped.set(true);
+        isWaiting.set(true);
         SoundPlayer.stopSound();
         synchronized (waitLock) {
             waitLock.notifyAll();
@@ -232,12 +233,12 @@ public class TypingEffect {
     }
 
     public static void stopWaiting() {
-        isWaiting = false;
+        UIGameController.setShowEnterHint(false);
+        isWaiting.set(false);
         SoundPlayer.stopSound();
         synchronized (waitLock) {
             waitLock.notifyAll();
         }
-        UIGameController.setShowEnterHint(false);
     }
 
 }

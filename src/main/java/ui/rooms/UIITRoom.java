@@ -71,6 +71,7 @@ public class UIITRoom implements UIRoom {
                 if (player.hasFlag("awaiting_memory_run_confirm")) {
                     player.clearFlag("awaiting_memory_run_confirm");
                     player.setFlag("confirmed_memory_leak");
+                    player.setFlag("ran_memory_leak");
 
                     String camFeeds = """
                             [PROCESSING...]
@@ -120,7 +121,6 @@ public class UIITRoom implements UIRoom {
             case "inspect message":
                 if (!player.hasFlag("inspected_message")) {
                     player.setFlag("inspected_message");
-                    player.setFlag("ran_memory_leak");
                     String terminalText = """
                             [WARNING: USER PRESENCE DETECTED]
                             
