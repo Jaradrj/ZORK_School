@@ -5,7 +5,6 @@ import console.game.*;
 import ui.audio.SoundPlayer;
 import ui.audio.TypingEffect;
 import ui.controller.UIGameController;
-import ui.game.UICommands;
 import ui.game.UIRoom;
 import ui.game.UIRoomFactory;
 

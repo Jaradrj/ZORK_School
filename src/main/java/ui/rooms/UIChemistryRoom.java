@@ -1,13 +1,11 @@
 package ui.rooms;
 
 import com.googlecode.lanterna.gui2.*;
-import com.googlecode.lanterna.gui2.dialogs.TextInputDialogBuilder;
 import console.game.*;
 import ui.audio.SoundPlayer;
 import ui.audio.TypingEffect;
 import ui.components.TextPrinter;
 import ui.controller.UIGameController;
-import ui.game.UICommands;
 import ui.game.UIEndings;
 import ui.game.UIRoom;
 import ui.game.UIRoomFactory;
@@ -17,7 +15,6 @@ import java.util.*;
 public class UIChemistryRoom implements UIRoom {
 
     private TextPrinter printer;
-    private UIGameController controller;
     private UIEndings endings;
     @Override
     public String getName() {
@@ -26,7 +23,6 @@ public class UIChemistryRoom implements UIRoom {
 
     public UIChemistryRoom(TextPrinter printer, UIGameController controller) {
         this.printer = printer;
-        this.controller = controller;
         this.endings = new UIEndings(controller);
     }
 

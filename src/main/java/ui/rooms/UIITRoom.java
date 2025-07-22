@@ -4,14 +4,12 @@ import com.googlecode.lanterna.gui2.TextBox;
 import console.game.*;
 import ui.audio.TypingEffect;
 import ui.components.Logos;
-import ui.game.UICommands;
 import ui.game.UIEndings;
 import ui.game.UIRoom;
 import ui.controller.UIGameController;
 import ui.game.UIRoomFactory;
 import ui.audio.SoundPlayer;
 
-import java.lang.reflect.Type;
 import java.util.*;
 
 public class UIITRoom implements UIRoom {

@@ -1,13 +1,9 @@
 package ui;
 
-import console.game.Inventory;
 import console.game.Player;
-import console.game.RoomFactory;
-import console.rooms.Sportshall;
 import ui.components.Logos;
 import ui.components.TextPrinter;
 import ui.controller.UIGameController;
-import console.game.Commands;
 import ui.game.*;
 
 import java.io.IOException;

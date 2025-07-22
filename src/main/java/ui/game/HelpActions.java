@@ -1,5 +1,7 @@
 package ui.game;
 
+import lombok.Getter;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,7 +20,7 @@ public class HelpActions {
         return new HashSet<>(actions);
     }
 
-    // ✅ Inner class
+    @Getter
     public static class HelpAction {
         private final String key;
         private final String description;
@@ -28,12 +30,5 @@ public class HelpActions {
             this.description = description;
         }
 
-        public String getKey() {
-            return key;
-        }
-
-        public String getDescription() {
-            return description;
-        }
     }
 }

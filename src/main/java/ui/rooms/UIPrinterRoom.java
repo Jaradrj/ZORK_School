@@ -6,7 +6,6 @@ import console.game.*;
 import ui.audio.SoundPlayer;
 import ui.components.TextPrinter;
 import ui.controller.UIGameController;
-import ui.game.UICommands;
 import ui.game.UIRoom;
 import ui.game.UIRoomFactory;
 

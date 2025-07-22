@@ -1,14 +1,11 @@
 package ui.rooms;
 
-import com.googlecode.lanterna.gui2.MultiWindowTextGUI;
 import com.googlecode.lanterna.gui2.TextBox;
 import ui.audio.SoundPlayer;
 import ui.audio.TypingEffect;
-import ui.components.Logos;
 import ui.components.TextPrinter;
 import ui.controller.UIGameController;
 import console.game.*;
-import ui.game.UICommands;
 import ui.game.UIEndings;
 import ui.game.UIRoom;
 import ui.game.UIRoomFactory;

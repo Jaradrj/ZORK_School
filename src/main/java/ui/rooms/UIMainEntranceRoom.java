@@ -5,24 +5,20 @@ import ui.audio.SoundPlayer;
 import ui.audio.TypingEffect;
 import ui.components.TextPrinter;
 import ui.controller.UIGameController;
-import ui.game.UICommands;
 import ui.game.UIEndings;
 import ui.game.UIRoom;
 import console.game.*;
 import ui.game.UIRoomFactory;
 
-import java.io.IOException;
 import java.util.*;
 
 public class UIMainEntranceRoom implements UIRoom {
 
     private TextPrinter printer;
     private UIEndings endings;
-    private UIGameController controller;
 
     public UIMainEntranceRoom(TextPrinter printer, UIGameController controller) {
         this.printer = printer;
-        this.controller = controller;
         this.endings = new UIEndings(controller);
     }
 

@@ -18,13 +18,11 @@ import lombok.Getter;
 import ui.UIMain;
 import ui.audio.SoundPlayer;
 import ui.components.ButtonStyling;
-import ui.controller.UIGameController;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.util.Collections;
-import java.util.concurrent.atomic.AtomicReference;
 
 @Getter
 public class StartMenu {
