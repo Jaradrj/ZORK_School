@@ -3,6 +3,7 @@ package ui.game;
 
 import com.googlecode.lanterna.gui2.*;
 import console.game.Player;
+import ui.UIMain;
 import ui.audio.SoundPlayer;
 import ui.audio.TypingEffect;
 import ui.components.Logos;
@@ -327,6 +328,8 @@ public class UIEndings {
                     It's  """+ player.oldName + """   
                     
                     That can't be. 
+                    They we're here before me.
+                    I never saw them again.
                     "I must be seeing things", you think to yourself.
                     
                         "Why did you try and find us? 

@@ -55,10 +55,10 @@ public class UIChemistryRoom implements UIRoom {
         List<String> actions = new ArrayList<>();
         if (player.hasFlag("awaiting_formula_check")) {
             actions.add("H2O");
-            actions.add("H2SO4");
+            actions.add(" H2SO4 ");
             actions.add("HCl");
             actions.add("HNO3");
-            actions.add("C17H21NO4");
+            actions.add(" C17H21NO4 ");
             return actions;
         }
 

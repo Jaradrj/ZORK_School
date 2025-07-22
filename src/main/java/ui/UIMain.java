@@ -38,7 +38,11 @@ public class UIMain {
             startMenu.showStartMenu();
 
             if(player.hasFlag("second_try")){
-                player.setOldName(playerName);
+                if (player.name.equalsIgnoreCase(playerName)) {
+                    player.setOldName("your friend");
+                } else {
+                    player.setOldName(playerName);
+                }
             }
 
             Map<String, UIRoom> roomMap = new HashMap<>();
