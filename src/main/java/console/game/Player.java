@@ -2,6 +2,7 @@ package console.game;
 
 import lombok.Getter;
 import lombok.Setter;
+import ui.game.HelpActions;
 import ui.game.UIRoom;
 
 import java.util.*;
@@ -10,6 +11,8 @@ public class Player {
     private Set<String> flags = new HashSet<>();
     @Getter
     public Inventory inventory;
+    @Getter
+    public HelpActions helpActions;
     @Setter
     public String name;
     public String oldName;
@@ -27,6 +30,7 @@ public class Player {
 
     public Player() {
         this.inventory = new Inventory();
+        this.helpActions = new HelpActions();
     }
 
     public void setCurrentRoom(Room newRoom) {

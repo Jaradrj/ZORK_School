@@ -122,6 +122,7 @@ public class TypingEffect {
                     TypingEffect.isWaiting = true;
                     TypingEffect.isSkipped = false;
 
+
                 } else {
                     gui.getGUIThread().invokeAndWait(() -> {
                         UIGameController.getCurrent().disableActionPanel();
@@ -138,6 +139,7 @@ public class TypingEffect {
 
                         synchronized (TypingEffect.waitLock) {
                             while (isWaiting) {
+                                UIGameController.setShowEnterHint(true);
                                 try {
                                     TypingEffect.waitLock.wait();
                                 } catch (InterruptedException e) {
