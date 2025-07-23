@@ -90,7 +90,7 @@ public class UIGameController {
         player.setCurrentUIRoom(currentRoom);
 
         this.mainPanel = new Panel(new LinearLayout(Direction.VERTICAL));
-        this.outputArea = new TextBox(new TerminalSize(150, 30), TextBox.Style.MULTI_LINE)
+        this.outputArea = new TextBox(new TerminalSize(160, 30), TextBox.Style.MULTI_LINE)
                 .setReadOnly(true);
         this.mainPanel.addComponent(outputArea);
 

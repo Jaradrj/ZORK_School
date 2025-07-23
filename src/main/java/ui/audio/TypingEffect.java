@@ -61,10 +61,14 @@ public class TypingEffect {
                 }
             }
 
-            gui.getGUIThread().invokeLater(() -> {
-                UIGameController.getCurrent().enableActionPanel();
-                UIGameController.setShowSkipHint(false);
-            });
+            try {
+                gui.getGUIThread().invokeAndWait(() -> {
+                    UIGameController.getCurrent().enableActionPanel();
+                    UIGameController.setShowSkipHint(false);
+                });
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
 
         }).start();
     }
