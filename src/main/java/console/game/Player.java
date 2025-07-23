@@ -3,6 +3,7 @@ package console.game;
 import lombok.Getter;
 import lombok.Setter;
 import ui.game.HelpActions;
+import ui.game.StylingDecision;
 import ui.game.UIRoom;
 
 import java.util.*;
@@ -13,6 +14,8 @@ public class Player {
     public Inventory inventory;
     @Getter
     public HelpActions helpActions;
+    @Getter
+    public StylingDecision stylingDecision;
     @Setter
     public String name;
     @Setter
@@ -32,6 +35,7 @@ public class Player {
     public Player() {
         this.inventory = new Inventory();
         this.helpActions = new HelpActions();
+        this.stylingDecision = new StylingDecision();
     }
 
     public void setCurrentRoom(Room newRoom) {

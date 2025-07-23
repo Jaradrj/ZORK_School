@@ -18,6 +18,7 @@ import lombok.Getter;
 import lombok.Setter;
 import ui.UIMain;
 import ui.audio.SoundPlayer;
+import ui.components.*;
 import ui.game.*;
 import console.game.*;
 import ui.audio.TypingEffect;
@@ -26,6 +27,7 @@ import ui.audio.TypingEffect;
 import java.awt.*;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -37,7 +39,7 @@ public class UIGameController {
 
     @Getter
     private Player player;
-    private UIRoom currentRoom;
+    public UIRoom currentRoom;
     private boolean isChoosingRoom = false;
 
     private TerminalScreen screen;
@@ -54,6 +56,8 @@ public class UIGameController {
     private static volatile boolean enterHintCanceled = false;
     private static volatile boolean skipHintCanceled = false;
 
+    private ButtonStyling buttonStyling;
+
     private static final Map<Label, Boolean> canceledHints = new ConcurrentHashMap<>();
 
     @Getter
@@ -65,6 +69,7 @@ public class UIGameController {
     private static MultiWindowTextGUI guiInstance;
 
     public UIGameController(Player player) throws IOException {
+        this.buttonStyling = new ButtonStyling();
         Terminal terminal = new DefaultTerminalFactory().createTerminal();
         this.screen = new TerminalScreen(terminal);
         screen.startScreen();
@@ -76,22 +81,8 @@ public class UIGameController {
         current = this;
         UIRoomFactory.setController(this);
 
-        guiInstance = new MultiWindowTextGUI(screen, new DefaultWindowManager(), new EmptySpace(TextColor.ANSI.BLACK_BRIGHT));
+        guiInstance = new MultiWindowTextGUI(screen, new DefaultWindowManager(), new EmptySpace(TextColor.ANSI.BLACK));
         UIGameController.setGuiInstance(guiInstance);
-
-
-        SimpleTheme customTheme = SimpleTheme.makeTheme(
-                true,
-                TextColor.ANSI.WHITE,
-                TextColor.ANSI.BLACK_BRIGHT,
-                TextColor.ANSI.WHITE,
-                TextColor.ANSI.BLACK,
-                TextColor.ANSI.BLACK,
-                TextColor.ANSI.WHITE,
-                TextColor.ANSI.BLACK_BRIGHT
-        );
-
-        guiInstance.setTheme(customTheme);
 
         UIRoom room = UIRoomFactory.createRoom("main entrance hall");
 
@@ -111,6 +102,7 @@ public class UIGameController {
         this.window = new BasicWindow();
         this.window.setTitle(currentRoom.getName());
         this.window.setComponent(mainPanel);
+        window.setHints(Set.of(Window.Hint.NO_POST_RENDERING));
 
         this.hintPanel = new Panel(new LinearLayout(Direction.HORIZONTAL));
 
@@ -123,11 +115,60 @@ public class UIGameController {
 
         mainPanel.addComponent(new Label("Press [H] to show help menu"), LinearLayout.createLayoutData(LinearLayout.Alignment.Beginning));
 
+        guiInstance.setTheme(Themes.defaultTheme);
+        buttonStyling.setBgColor(Themes.TextColors.defaultBg);
+        buttonStyling.setFgColor(Themes.TextColors.defaultText);
+
         player.getHelpActions().addAction("I", "Inventory");
         player.getHelpActions().addAction("TAB", "Select text or actions");
         player.getHelpActions().addAction("MOUSE UP/DOWN", "Select switch actions or scroll");
         player.getHelpActions().addAction("SPACE", "Skip text");
         player.getHelpActions().addAction("ENTER", "Skip ending/letters");
+        player.getHelpActions().addAction("S", "Styling Options");
+
+
+        Button redStyle = new Button("Red Theme", () -> {
+            guiInstance.setTheme(Themes.redTheme);
+            this.buttonStyling.setFgColor(Themes.TextColors.redText);
+            this.buttonStyling.setBgColor(Themes.TextColors.redBg);
+        });
+
+        Button yellowStyle = new Button("Yellow Theme", () -> {
+            guiInstance.setTheme(Themes.yellowTheme);
+            this.buttonStyling.setFgColor(Themes.TextColors.yellowText);
+            this.buttonStyling.setBgColor(Themes.TextColors.yellowBg);
+        });
+
+        Button greenStyle = new Button("Green Theme", () -> {
+            guiInstance.setTheme(Themes.greenTheme);
+            this.buttonStyling.setFgColor(Themes.TextColors.greenText);
+            this.buttonStyling.setBgColor(Themes.TextColors.greenBg);
+        });
+
+        Button blueStyle = new Button("Blue Theme", () -> {
+            guiInstance.setTheme(Themes.blueTheme);
+            this.buttonStyling.setFgColor(Themes.TextColors.blueText);
+            this.buttonStyling.setBgColor(Themes.TextColors.blueBg);
+        });
+
+        Button defaultTheme = new Button("Default Theme", () -> {
+            guiInstance.setTheme(Themes.defaultTheme);
+            this.buttonStyling.setFgColor(Themes.TextColors.defaultText);
+            this.buttonStyling.setBgColor(Themes.TextColors.defaultBg);
+        });
+
+        redStyle.setRenderer(buttonStyling);
+        yellowStyle.setRenderer(buttonStyling);
+        blueStyle.setRenderer(buttonStyling);
+        greenStyle.setRenderer(buttonStyling);
+        defaultTheme.setRenderer(buttonStyling);
+
+        player.getStylingDecision().addStyle(redStyle, "Red text with dark background");
+        player.getStylingDecision().addStyle(blueStyle, "Blue text with dark background");
+        player.getStylingDecision().addStyle(greenStyle, "Green text with dark background");
+        player.getStylingDecision().addStyle(yellowStyle, "Yellow text with dark background");
+        player.getStylingDecision().addStyle(defaultTheme, "Default Style");
+
 
         window.addWindowListener(new WindowListenerAdapter() {
             @Override
@@ -136,17 +177,26 @@ public class UIGameController {
                     TypingEffect.skipTyping();
                     hasBeenHandled.set(true);
                 } else if (keyStroke.getKeyType() == KeyType.Character &&
-                        (keyStroke.getCharacter() == 'i' || keyStroke.getCharacter() == 'I')) {
+                           (keyStroke.getCharacter() == 'i' || keyStroke.getCharacter() == 'I')) {
                     showInventory();
                     hasBeenHandled.set(true);
                 } else if (keyStroke.getKeyType() == KeyType.Enter) {
                     TypingEffect.stopWaiting();
                     hasBeenHandled.set(true);
                 } else if (keyStroke.getKeyType() == KeyType.Character &&
-                        (keyStroke.getCharacter() == 'h' || keyStroke.getCharacter() == 'H')) {
+                           (keyStroke.getCharacter() == 'h' || keyStroke.getCharacter() == 'H')) {
                     showHelpActions();
                     hasBeenHandled.set(true);
-
+                }
+                else if (keyStroke.getKeyType() == KeyType.Character &&
+                         (keyStroke.getCharacter() == 's' || keyStroke.getCharacter() == 'S')) {
+                    showStylingChoices();
+                    hasBeenHandled.set(true);
+                }
+                else if (keyStroke.getKeyType() == KeyType.Character &&
+                         (keyStroke.getCharacter() == 'm' || keyStroke.getCharacter() == 'M')) {
+                    showMap();
+                    hasBeenHandled.set(true);
                 }
             }
         });
@@ -161,10 +211,19 @@ public class UIGameController {
 
         canceledHints.put(hintLabel, !show);
 
+
+        int delay;
+
+        if (UIEndings.enteredEndings) {
+            delay = 1000;
+        } else {
+            delay = 3000;
+        }
+
         if (show) {
             new Thread(() -> {
                 try {
-                    Thread.sleep(3000);
+                    Thread.sleep(delay);
                     if (!canceledHints.getOrDefault(hintLabel, false)) {
                         guiInstance.getGUIThread().invokeLater(() -> {
                             hintLabel.setText(textToShow);
@@ -218,17 +277,20 @@ public class UIGameController {
     }
 
     private void refreshActionButtons() {
-
-        SimpleTheme customButtonTheme = SimpleTheme.makeTheme(
-                false,
-                TextColor.ANSI.WHITE,
+        SimpleTheme lightsOnTheme = SimpleTheme.makeTheme(
+                true,
+                TextColor.ANSI.BLACK_BRIGHT,
+                TextColor.ANSI.WHITE_BRIGHT,
                 TextColor.ANSI.BLACK_BRIGHT,
                 TextColor.ANSI.WHITE,
-                TextColor.ANSI.BLACK,
-                TextColor.ANSI.BLACK,
                 TextColor.ANSI.WHITE,
-                TextColor.ANSI.BLACK_BRIGHT
+                TextColor.ANSI.BLACK_BRIGHT,
+                TextColor.ANSI.WHITE
         );
+        if (player.hasFlag("died_to_lights")) {
+            guiInstance.setTheme(lightsOnTheme);
+
+        }
 
         if (showingEndingPrompt) {
             window.invalidate();
@@ -242,6 +304,7 @@ public class UIGameController {
             Map<String, Exit> exits = currentRoom.getAvailableExits(player);
             for (String roomName : exits.keySet()) {
                 Button b = new Button(roomName, () -> {
+                    player.setFlag("visited_" + roomName);
                     SoundPlayer.stopSound();
                     String result = currentRoom.handleRoomChange(player, roomName);
                     outputArea.setText(outputArea.getText() + result);
@@ -252,20 +315,21 @@ public class UIGameController {
                     isChoosingRoom = false;
                     refreshActionButtons();
                 });
+                b.setRenderer(buttonStyling);
                 actionPanel.addComponent(b);
             }
 
             if (player.getLastUIRoom() != null &&
-                    player.getCurrentUIRoom().getName().equalsIgnoreCase("chemistry room") &&
-                    player.hasFlag("acid_taken") &&
-                    !player.hasFlag("corrosed_door")) {
+                player.getCurrentUIRoom().getName().equalsIgnoreCase("chemistry room") &&
+                player.hasFlag("acid_taken") &&
+                !player.hasFlag("corrosed_door")) {
 
                 Button electricityButton = new Button("Electricity Room", () -> {
                     SoundPlayer.stopSound();
                     player.setFlag("corrosed_door");
                     SoundPlayer.playSound("/sounds/Sizzling.wav", 1000, 0, outputArea, guiInstance, false);
                     String msg = "You try to corrode the door.\nYou can hear the sizzling sound of the\nsulfuric acid oxidizing with the door.\n" +
-                            "\nNevertheless, you still don't manage to open it.\nSad and defeated, you return to the chemistry room\nto try and cry.";
+                                 "\nNevertheless, you still don't manage to open it.\nSad and defeated, you return to the chemistry room\nto try and cry.";
                     outputArea.setText(outputArea.getText() + "\n\n" + msg);
                     TypingEffect.typeWithSound(outputArea, msg, guiInstance, null);
                     isChoosingRoom = false;
@@ -277,7 +341,7 @@ public class UIGameController {
                     }
                     refreshActionButtons();
                 });
-
+                electricityButton.setRenderer(buttonStyling);
                 actionPanel.addComponent(electricityButton);
             }
 
@@ -286,6 +350,7 @@ public class UIGameController {
                 outputArea.setText(outputArea.getText() + "\n\nCanceled room selection.");
                 refreshActionButtons();
             });
+            returnButton.setRenderer(buttonStyling);
             actionPanel.addComponent(returnButton);
         } else {
 
@@ -308,6 +373,7 @@ public class UIGameController {
 
                     refreshActionButtons();
                 });
+                b.setRenderer(buttonStyling);
                 actionPanel.addComponent(b);
             }
         }
@@ -324,11 +390,11 @@ public class UIGameController {
 
             String ending =
                     "████████╗██╗  ██╗███████╗    ███████╗███╗   ██╗██████╗ \n" +
-                            "╚══██╔══╝██║  ██║██╔════╝    ██╔════╝████╗  ██║██╔══██╗\n" +
-                            "   ██║   ███████║█████╗      █████╗  ██╔██╗ ██║██║  ██║\n" +
-                            "   ██║   ██╔══██║██╔══╝      ██╔══╝  ██║╚██╗██║██║  ██║\n" +
-                            "   ██║   ██║  ██║███████╗    ███████╗██║ ╚████║██████╔╝\n" +
-                            "   ╚═╝   ╚═╝  ╚═╝╚══════╝    ╚══════╝╚═╝  ╚═══╝╚═════╝ \n";
+                    "╚══██╔══╝██║  ██║██╔════╝    ██╔════╝████╗  ██║██╔══██╗\n" +
+                    "   ██║   ███████║█████╗      █████╗  ██╔██╗ ██║██║  ██║\n" +
+                    "   ██║   ██╔══██║██╔══╝      ██╔══╝  ██║╚██╗██║██║  ██║\n" +
+                    "   ██║   ██║  ██║███████╗    ███████╗██║ ╚████║██████╔╝\n" +
+                    "   ╚═╝   ╚═╝  ╚═╝╚══════╝    ╚══════╝╚═╝  ╚═══╝╚═════╝ \n";
 
             outputArea.setText(ending);
 
@@ -345,7 +411,7 @@ public class UIGameController {
                     """;
             TypingEffect.typeWithSound(outputArea, ending, getGuiInstance(), null);
 
-            actionPanel.addComponent(new Button("Yes", () -> {
+            Button yesButton = new Button("Yes", () -> {
                 player.clearFlags();
                 showingEndingPrompt = false;
 
@@ -362,9 +428,26 @@ public class UIGameController {
                     System.err.println("Restart error: " + e.getMessage());
                     System.exit(1);
                 }
-            }));
+            });
 
-            actionPanel.addComponent(new Button("No", () -> System.exit(0)));
+            actionPanel.addComponent(yesButton);
+            if (player.hasFlag("died_to_lights")) {
+                buttonStyling.setFgColor(Themes.TextColors.blackText);
+                buttonStyling.setBgColor(Themes.TextColors.lightBg);
+                yesButton.setRenderer(buttonStyling);
+            } else {
+                yesButton.setRenderer(buttonStyling);
+            }
+
+            Button noButton = new Button("No", () -> System.exit(0));
+            actionPanel.addComponent(noButton);
+            if (player.hasFlag("died_to_lights")) {
+                buttonStyling.setFgColor(Themes.TextColors.blackText);
+                buttonStyling.setBgColor(Themes.TextColors.lightBg);
+                noButton.setRenderer(buttonStyling);
+            } else {
+                noButton.setRenderer(buttonStyling);
+            }
 
             window.invalidate();
 
@@ -373,16 +456,29 @@ public class UIGameController {
 
     private void showInventory() {
 
-        ShowInventory inventoryView = new ShowInventory(guiInstance, player.getInventory());
+        ShowInventory inventoryView = new ShowInventory(guiInstance, player.getInventory(), buttonStyling);
         inventoryView.showInventory();
 
     }
 
     private void showHelpActions() {
 
-        ShowHelpActions helpView = new ShowHelpActions(guiInstance, player.getHelpActions());
+        ShowHelpActions helpView = new ShowHelpActions(guiInstance, player.getHelpActions(), buttonStyling);
         helpView.showHelpActions();
 
+    }
+
+    private void showStylingChoices() {
+
+        ShowStylingDecisions stylingView = new ShowStylingDecisions(guiInstance, player.getStylingDecision(), buttonStyling);
+        stylingView.showStyleActions();
+
+    }
+
+    public void showMap() {
+
+        MapWindow mapWindow = new MapWindow(guiInstance, getCurrent(), player, buttonStyling);
+        mapWindow.showMap();
     }
 
 

@@ -14,8 +14,8 @@ import java.util.*;
 
 public class UIMainEntranceRoom implements UIRoom {
 
-    private TextPrinter printer;
-    private UIEndings endings;
+    private final TextPrinter printer;
+    private final UIEndings endings;
 
     public UIMainEntranceRoom(TextPrinter printer, UIGameController controller) {
         this.printer = printer;
@@ -63,6 +63,7 @@ public class UIMainEntranceRoom implements UIRoom {
             case "turn on the light":
                 SoundPlayer.playSound("/sounds/Lightswitch.wav", 0, 500, outputArea, UIGameController.getGuiInstance(), true);
                 if(!player.hasFlag("hasReadNote") && !player.hasFlag("half_map_taken")){
+                    player.setFlag("died_to_lights");
                     endings.lightSwitchEnding(outputArea);
                 }
 

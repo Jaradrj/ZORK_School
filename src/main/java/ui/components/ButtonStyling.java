@@ -1,29 +1,45 @@
 package ui.components;
 
+import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.gui2.Button;
-import com.googlecode.lanterna.gui2.InteractableRenderer;
-import com.googlecode.lanterna.gui2.TextGUIGraphics;
 import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.gui2.*;
+import lombok.Setter;
+
 
 public class ButtonStyling implements InteractableRenderer<Button> {
 
+    @Setter
+    TextColor bgColor;
+    @Setter
+    TextColor fgColor;
+
     @Override
     public TerminalSize getPreferredSize(Button component) {
-        return new TerminalSize(component.getLabel().length(), 1);
+        return new TerminalSize(component.getLabel().length() + 5, 1);
     }
 
     @Override
     public void drawComponent(TextGUIGraphics graphics, Button button) {
+        boolean focused = button.isFocused();
 
-        TextColor bg = TextColor.ANSI.DEFAULT;
-        TextColor fg = button.isFocused() ? TextColor.ANSI.WHITE_BRIGHT : TextColor.ANSI.WHITE;
+        graphics.setBackgroundColor(bgColor);
+        graphics.setForegroundColor(fgColor);
 
-        graphics.setBackgroundColor(bg);
-        graphics.setForegroundColor(fg);
+        if (focused) {
+            graphics.enableModifiers(SGR.BOLD);
+        } else {
+            graphics.disableModifiers(SGR.BOLD);
+        }
 
-        graphics.putString(0, 0, button.getLabel());
+        String label = button.getLabel();
+        String actualLabel = "< " + button.getLabel() + " >";
+        if (focused) {
+            actualLabel = " > " + label;
+        }
+
+        graphics.putString(0, 0, actualLabel);
     }
 
     @Override
@@ -31,3 +47,4 @@ public class ButtonStyling implements InteractableRenderer<Button> {
         return null;
     }
 }
+

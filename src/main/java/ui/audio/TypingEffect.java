@@ -173,7 +173,7 @@ public class TypingEffect {
                         }
                     }
                 }
-
+                UIGameController.setShowEnterHint(true);
                 UIGameController.setShowSkipHint(false);
 
 

@@ -261,6 +261,8 @@ public class UIEndings {
 
         enteredEndings = true;
 
+        SoundPlayer.playSound("/sounds/SadEnding.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
+
         String story = """
                 You walk over to the light switch and flip it.
                 At first nothing happens. But then...
@@ -270,7 +272,7 @@ public class UIEndings {
                 And then ... nothing.
                 """;
 
-        TypingEffect.typeWithBanner(outputArea, story, UIGameController.getGuiInstance(), null, true, false, () -> {
+        TypingEffect.typeWithBanner(outputArea, story, UIGameController.getGuiInstance(), null, false, false, () -> {
 
             waitingForEnter(() -> {
                 Logos.printBanner(Logos.banner, outputArea);
@@ -287,6 +289,7 @@ public class UIEndings {
         enteredEndings = true;
 
         SoundPlayer.playSound("/sounds/Brewing.wav", 10000, 0, outputArea, UIGameController.getGuiInstance(), false);
+        SoundPlayer.playSound("/sounds/SadEnding.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
 
         String story = """
                 You mix the chemicals together and wait for that faint, familiar sizzling sound.
@@ -344,10 +347,10 @@ public class UIEndings {
 
         story += """
                 Your eyes begin to close.
-                Just before you lose consciousness, a pair of hands lift you up and carry you away.
+                Just before you lose consciousness, a pair of hands grip you and drag you away.
                 """;
 
-        TypingEffect.typeWithBanner(outputArea, story, UIGameController.getGuiInstance(), null, true, false, () -> {
+        TypingEffect.typeWithBanner(outputArea, story, UIGameController.getGuiInstance(), null, false, false, () -> {
 
             waitingForEnter(() -> {
                 Logos.printBanner(Logos.banner, outputArea);
