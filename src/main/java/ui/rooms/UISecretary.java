@@ -80,6 +80,7 @@ public class UISecretary implements UIRoom {
                 result.append("Invalid action.");
                 break;
         }
+
         TypingEffect.typeWithSound(outputArea, result.toString(), UIGameController.getGuiInstance(), null);
         return result.toString();
     }

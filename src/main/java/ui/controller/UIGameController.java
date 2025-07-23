@@ -90,7 +90,7 @@ public class UIGameController {
         player.setCurrentUIRoom(currentRoom);
 
         this.mainPanel = new Panel(new LinearLayout(Direction.VERTICAL));
-        this.outputArea = new TextBox(new TerminalSize(200, 30), TextBox.Style.MULTI_LINE)
+        this.outputArea = new TextBox(new TerminalSize(150, 30), TextBox.Style.MULTI_LINE)
                 .setReadOnly(true);
         this.mainPanel.addComponent(outputArea);
 
@@ -120,11 +120,12 @@ public class UIGameController {
         buttonStyling.setFgColor(Themes.TextColors.defaultText);
 
         player.getHelpActions().addAction("I", "Inventory");
+        player.getHelpActions().addAction("S", "Styling Options");
+        player.getHelpActions().addAction("M", "Map");
         player.getHelpActions().addAction("TAB", "Select text or actions");
         player.getHelpActions().addAction("MOUSE UP/DOWN", "Select switch actions or scroll");
         player.getHelpActions().addAction("SPACE", "Skip text");
         player.getHelpActions().addAction("ENTER", "Skip ending/letters");
-        player.getHelpActions().addAction("S", "Styling Options");
 
 
         Button redStyle = new Button("Red Theme", () -> {
@@ -201,8 +202,7 @@ public class UIGameController {
             }
         });
 
-        System.out.println(player.oldName);
-        System.out.println(player.name);
+        player.setFlag("visited_main");
         updateUI();
     }
 

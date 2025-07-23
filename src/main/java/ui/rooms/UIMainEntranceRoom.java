@@ -110,8 +110,8 @@ public class UIMainEntranceRoom implements UIRoom {
                             No one's heard from him since.
                             """;
 
+                    SoundPlayer.playSound("/sounds/Leandro.wav", 2000, 0, outputArea, UIGameController.getGuiInstance(), false);
                     TypingEffect.typeWithBanner(outputArea, leandroInfo, UIGameController.getGuiInstance(), null, true, true, () -> {
-                        SoundPlayer.playSound("/sounds/Leandro.wav", 2000, 0, outputArea, UIGameController.getGuiInstance(), false);
                         printer.textPrinter(note, outputArea);
                         SoundPlayer.playSound("/sounds/ReadNote.wav", 0, 0, outputArea, UIGameController.getGuiInstance(), false);
                     });

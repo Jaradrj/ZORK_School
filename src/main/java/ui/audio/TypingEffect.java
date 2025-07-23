@@ -45,7 +45,11 @@ public class TypingEffect {
                 }
                 char c = text.charAt(i);
                 currentText.append(c);
-                gui.getGUIThread().invokeLater(() -> textBox.setText(currentText.toString()));
+                try {
+                    gui.getGUIThread().invokeAndWait(() -> textBox.setText(currentText.toString()));
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
                 if (i % 2 == 0 && (Character.isLetterOrDigit(c) || Character.isWhitespace(c))) {
                     playSound(finalSoundPath);
                 }
